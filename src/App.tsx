@@ -92,9 +92,8 @@ function App() {
           </div>
 
           <FadeContent delay={1000} duration={1200}>
-            <p className="font-sans text-sm font-medium leading-relaxed text-ink-light max-w-2xl mx-auto mt-8">
+            <p className="font-sans text-sm font-medium leading-relaxed text-ink-light max-w-2xl mx-auto mt-10">
               I live at the intersection of building and selling.
-              Most teams have a handoff between engineering and GTM. I eliminate it.
               I write the code, architect the demo, run the technical sale, and
               onboard the customer. End to end. No translation layer.
             </p>
@@ -439,26 +438,46 @@ function App() {
             </AnimatedContent>
           </div>
 
-          <AnimatedContent distance={40} delay={0.3} duration={0.7}>
-            <div className="mt-16">
-              <h3 className="font-sans text-sm font-bold tracking-wider uppercase text-ink mb-4">Skills & Languages</h3>
-              <div className="flex flex-wrap gap-2">
-                {['TypeScript', 'JavaScript', 'Python', 'React', 'Expo', 'Node.js', 'PostgreSQL', 'AWS', 'HTML/CSS', 'REST APIs', 'Git'].map((skill) => (
-                  <span key={skill} className="font-sans text-sm font-medium text-ink-light bg-parchment rounded-lg px-4 py-2 border border-rule">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-              <h3 className="font-sans text-sm font-bold tracking-wider uppercase text-ink mb-4 mt-8">Sales & GTM</h3>
-              <div className="flex flex-wrap gap-2">
-                {['Technical Sales', 'Solution Engineering', 'Go-To-Market Strategy', 'Pipeline Management', 'Enterprise Demos', 'Cold Calling', 'Discovery & Qualification', 'Negotiation', 'Customer Success', 'CRM & Sales Ops'].map((skill) => (
-                  <span key={skill} className="font-sans text-sm font-medium text-ink-light bg-parchment rounded-lg px-4 py-2 border border-rule">
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </AnimatedContent>
+          <div className="mt-16 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <AnimatedContent distance={60} delay={0.15} duration={0.7}>
+              <PixelCard
+                className="p-8 md:p-10 h-full hover:border-ink-muted/30 transition-colors duration-500 flex flex-col items-center"
+                colors="#6B4C3B,#8B7355,#A0937D"
+                gap={6}
+                speed={25}
+              >
+                <h3 className="font-sans text-lg md:text-xl font-black tracking-wider uppercase mb-6 text-center">
+                  <GradientText colors={['#6B4C3B', '#8B7355', '#A0937D', '#6B4C3B']} animationSpeed={6}>Skills & Languages</GradientText>
+                </h3>
+                <ul className="w-full">
+                  {['TypeScript', 'JavaScript', 'Python', 'React', 'Expo', 'Node.js', 'PostgreSQL', 'AWS', 'HTML/CSS', 'REST APIs', 'Git'].map((skill, i, arr) => (
+                    <li key={skill} className={`py-3 text-center font-sans text-base font-medium text-ink-light ${i < arr.length - 1 ? 'border-b border-rule/50' : ''}`}>
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </PixelCard>
+            </AnimatedContent>
+            <AnimatedContent distance={60} delay={0.3} duration={0.7}>
+              <PixelCard
+                className="p-8 md:p-10 h-full hover:border-ink-muted/30 transition-colors duration-500 flex flex-col items-center"
+                colors="#3B5998,#5B79B8,#8B9DC3"
+                gap={6}
+                speed={25}
+              >
+                <h3 className="font-sans text-lg md:text-xl font-black tracking-wider uppercase mb-6 text-center">
+                  <GradientText colors={['#3B5998', '#5B79B8', '#8B9DC3', '#3B5998']} animationSpeed={6}>Sales & GTM</GradientText>
+                </h3>
+                <ul className="w-full">
+                  {['Technical Sales', 'Solution Engineering', 'Go-To-Market Strategy', 'Pipeline Management', 'Enterprise Demos', 'Cold Calling', 'Discovery & Qualification', 'Negotiation', 'Customer Success', 'CRM & Sales Ops'].map((skill, i, arr) => (
+                    <li key={skill} className={`py-3 text-center font-sans text-base font-medium text-ink-light ${i < arr.length - 1 ? 'border-b border-rule/50' : ''}`}>
+                      {skill}
+                    </li>
+                  ))}
+                </ul>
+              </PixelCard>
+            </AnimatedContent>
+          </div>
         </div>
       </section>
 
