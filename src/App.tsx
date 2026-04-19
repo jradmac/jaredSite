@@ -22,7 +22,7 @@ function App() {
           {/* ═══════════════════════════════════════════════ */}
           {/* HERO                                            */}
           {/* ═══════════════════════════════════════════════ */}
-          <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-6 pt-24 pb-16">
+          <section className="relative min-h-screen flex items-center justify-center overflow-hidden px-5 sm:px-6 pt-24 pb-16">
             <div className="absolute inset-0 -z-0">
               <Aurora
                 colorStops={['#ff6a3d', '#7c5cff', '#22d3ee']}
@@ -40,7 +40,7 @@ function App() {
                 </p>
               </AnimatedContent>
 
-              <h1 className="font-display text-5xl sm:text-7xl md:text-8xl font-semibold leading-[0.95] tracking-tight">
+              <h1 className="font-display text-[2.75rem] sm:text-7xl md:text-8xl font-semibold leading-[0.95] tracking-tight">
                 <BlurText
                   text="Hi, I'm Jared."
                   delay={120}
@@ -50,35 +50,35 @@ function App() {
                 />
               </h1>
 
-              <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-2xl sm:text-3xl md:text-4xl font-display">
+              <div className="mt-6 flex flex-wrap items-center justify-center gap-x-2 gap-y-2 sm:gap-3 text-xl sm:text-3xl md:text-4xl font-display px-2">
                 <span className="text-white/70">I</span>
                 <RotatingText
                   texts={['build', 'sell', 'ship', 'close']}
                   rotationInterval={2200}
-                  mainClassName="px-3 py-1 rounded-lg bg-accent text-ink font-semibold"
+                  mainClassName="px-2 sm:px-3 py-0.5 sm:py-1 rounded-lg bg-accent text-ink font-semibold"
                   splitLevelClassName="overflow-hidden"
                 />
                 <span className="text-white/70">what customers need.</span>
               </div>
 
               <AnimatedContent distance={30} direction="vertical" delay={0.6} duration={0.8}>
-                <p className="mt-8 max-w-xl mx-auto text-white/70 text-base sm:text-lg">
+                <p className="mt-6 sm:mt-8 max-w-xl mx-auto text-white/70 text-sm sm:text-lg leading-relaxed">
                   I live at the intersection of building and selling. I write the code, architect the demo,
                   run the technical sale, and onboard the customer — end to end, no translation layer.
                 </p>
               </AnimatedContent>
 
               <AnimatedContent distance={30} direction="vertical" delay={0.9} duration={0.8}>
-                <div className="mt-10 flex flex-wrap gap-3 justify-center">
+                <div className="mt-8 sm:mt-10 flex flex-wrap gap-3 justify-center">
                   <a
                     href="#work"
-                    className="px-6 py-3 rounded-full bg-paper text-ink font-medium hover:scale-105 transition-transform"
+                    className="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full bg-paper text-ink font-medium hover:scale-105 transition-transform"
                   >
                     View work
                   </a>
                   <a
                     href="#contact"
-                    className="px-6 py-3 rounded-full border border-white/20 hover:bg-white/5 transition-colors"
+                    className="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full border border-white/20 hover:bg-white/5 transition-colors"
                   >
                     <ShinyText text="Get in touch →" speed={4} />
                   </a>
@@ -90,9 +90,9 @@ function App() {
           {/* ═══════════════════════════════════════════════ */}
           {/* METRICS                                         */}
           {/* ═══════════════════════════════════════════════ */}
-          <section className="py-28 px-6 border-y border-white/10">
+          <section className="py-16 sm:py-24 md:py-28 px-5 sm:px-6 border-y border-white/10">
             <div className="max-w-5xl mx-auto">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8 md:gap-12">
                 {[
                   { value: 6, suffix: '+', label: 'Years in Sales' },
                   { value: 40, prefix: '$', suffix: 'M', label: 'Revenue Influenced' },
@@ -101,12 +101,12 @@ function App() {
                 ].map((stat, i) => (
                   <AnimatedContent key={i} distance={60} delay={i * 0.1} duration={0.6}>
                     <div className="text-center">
-                      <div className="font-display text-4xl md:text-5xl font-semibold tracking-tight text-paper">
+                      <div className="font-display text-3xl sm:text-4xl md:text-5xl font-semibold tracking-tight text-paper">
                         {stat.prefix}
                         <CountUp to={stat.value} duration={2.5} separator="," />
                         <span>{stat.suffix}</span>
                       </div>
-                      <p className="text-xs font-medium tracking-widest uppercase text-white/50 mt-3">
+                      <p className="text-[10px] sm:text-xs font-medium tracking-widest uppercase text-white/50 mt-2 sm:mt-3">
                         {stat.label}
                       </p>
                     </div>
@@ -119,13 +119,13 @@ function App() {
           {/* ═══════════════════════════════════════════════ */}
           {/* WORK                                            */}
           {/* ═══════════════════════════════════════════════ */}
-          <section id="work" className="relative px-6 py-32 md:py-44">
+          <section id="work" className="relative px-5 sm:px-6 py-20 sm:py-28 md:py-44">
             <div className="max-w-6xl mx-auto">
               <AnimatedContent distance={40} direction="vertical" duration={0.7}>
-                <p className="uppercase tracking-[0.3em] text-xs text-white/60 mb-4">
+                <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
                   002 · Selected work
                 </p>
-                <h2 className="font-display text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4">
+                <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4">
                   Built it.{' '}
                   <GradientText
                     colors={['#ff6a3d', '#7c5cff', '#22d3ee', '#ff6a3d']}
@@ -136,12 +136,12 @@ function App() {
                   </GradientText>{' '}
                   Sold it.
                 </h2>
-                <p className="text-white/70 text-lg max-w-2xl">
+                <p className="text-white/70 text-base sm:text-lg max-w-2xl">
                   A selection of products I've designed, built, and taken to market end-to-end.
                 </p>
               </AnimatedContent>
 
-              <div className="grid sm:grid-cols-2 gap-6 mt-14">
+              <div className="grid sm:grid-cols-2 gap-5 sm:gap-6 mt-10 sm:mt-14">
                 {[
                   {
                     icon: <img src="/voleyLogo.png" alt="Voley" className="h-7" />,
@@ -188,10 +188,10 @@ function App() {
                 ].map((project, i) => {
                   const card = (
                     <SpotlightCard
-                      className="h-full group cursor-pointer hover:border-white/20 transition-colors"
+                      className="h-full group cursor-pointer hover:border-white/20 transition-colors p-6! sm:p-8!"
                       spotlightColor={project.spotlight}
                     >
-                      <div className="flex items-start justify-between mb-6 h-10">
+                      <div className="flex items-start justify-between mb-5 sm:mb-6 h-10">
                         <div className="shrink-0">{project.icon}</div>
                         {'href' in project && project.href ? (
                           <span className="flex items-center gap-1.5 text-xs font-medium text-white/60 group-hover:text-paper transition-colors">
@@ -210,7 +210,7 @@ function App() {
                         {project.role}
                       </p>
 
-                      <h3 className="font-display text-2xl md:text-3xl font-semibold text-paper mb-3">
+                      <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-paper mb-3">
                         {project.title}
                       </h3>
 
@@ -249,13 +249,13 @@ function App() {
           {/* ═══════════════════════════════════════════════ */}
           {/* QUOTE                                           */}
           {/* ═══════════════════════════════════════════════ */}
-          <section className="py-32 md:py-40 px-6 bg-white/[0.02] border-y border-white/5">
+          <section className="py-20 sm:py-28 md:py-40 px-5 sm:px-6 bg-white/[0.02] border-y border-white/5">
             <div className="max-w-3xl mx-auto text-center">
               <ScrollReveal
                 baseRotation={2}
                 enableBlur
                 blurStrength={4}
-                textClassName="font-display text-3xl md:text-5xl font-semibold text-paper leading-snug tracking-tight"
+                textClassName="font-display text-xl sm:text-3xl md:text-5xl font-semibold text-paper leading-snug tracking-tight"
               >
                 The engineer who can sell doesn't just build features — they build revenue. The salesperson who can build doesn't just close deals — they close the right ones.
               </ScrollReveal>
@@ -265,13 +265,13 @@ function App() {
           {/* ═══════════════════════════════════════════════ */}
           {/* HOW I USE AI                                    */}
           {/* ═══════════════════════════════════════════════ */}
-          <section id="ai" className="py-32 md:py-44 px-6">
+          <section id="ai" className="py-20 sm:py-28 md:py-44 px-5 sm:px-6">
             <div className="max-w-5xl mx-auto">
               <AnimatedContent distance={40} duration={0.7}>
-                <p className="uppercase tracking-[0.3em] text-xs text-white/60 mb-4">
+                <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
                   003 · AI & Process
                 </p>
-                <h2 className="font-display text-4xl sm:text-5xl font-semibold leading-tight tracking-tight mb-14">
+                <h2 className="font-display text-3xl sm:text-5xl font-semibold leading-tight tracking-tight mb-10 sm:mb-14">
                   How I work with{' '}
                   <GradientText
                     colors={['#ff6a3d', '#7c5cff', '#22d3ee', '#ff6a3d']}
@@ -284,10 +284,10 @@ function App() {
                 </h2>
               </AnimatedContent>
 
-              <div className="grid md:grid-cols-2 gap-6">
+              <div className="grid md:grid-cols-2 gap-5 sm:gap-6">
                 <AnimatedContent distance={30} direction="vertical" delay={0.15} duration={0.7}>
-                  <SpotlightCard className="h-full" spotlightColor="rgba(255, 106, 61, 0.3)">
-                    <h3 className="font-display text-2xl font-semibold text-paper mb-4">How I use AI</h3>
+                  <SpotlightCard className="h-full p-6! sm:p-8!" spotlightColor="rgba(255, 106, 61, 0.3)">
+                    <h3 className="font-display text-xl sm:text-2xl font-semibold text-paper mb-4">How I use AI</h3>
                     <p className="text-white/70 leading-relaxed mb-3">
                       I use AI to enhance my skills, not own them.
                     </p>
@@ -303,8 +303,8 @@ function App() {
                 </AnimatedContent>
 
                 <AnimatedContent distance={30} direction="vertical" delay={0.3} duration={0.7}>
-                  <SpotlightCard className="h-full" spotlightColor="rgba(124, 92, 255, 0.3)">
-                    <h3 className="font-display text-2xl font-semibold text-paper mb-4">How I work</h3>
+                  <SpotlightCard className="h-full p-6! sm:p-8!" spotlightColor="rgba(124, 92, 255, 0.3)">
+                    <h3 className="font-display text-xl sm:text-2xl font-semibold text-paper mb-4">How I work</h3>
                     <ul className="space-y-3">
                       {[
                         'Architect the system, then sell the vision to the customer',
@@ -328,24 +328,24 @@ function App() {
           {/* ═══════════════════════════════════════════════ */}
           {/* TOOLKIT                                         */}
           {/* ═══════════════════════════════════════════════ */}
-          <section id="toolkit" className="py-32 md:py-44 px-6 bg-white/[0.02] border-y border-white/5">
+          <section id="toolkit" className="py-20 sm:py-28 md:py-44 px-5 sm:px-6 bg-white/[0.02] border-y border-white/5">
             <div className="max-w-5xl mx-auto">
               <AnimatedContent distance={40} duration={0.7}>
-                <p className="uppercase tracking-[0.3em] text-xs text-white/60 mb-4">
+                <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
                   004 · Toolkit
                 </p>
-                <h2 className="font-display text-4xl sm:text-5xl font-semibold leading-tight tracking-tight mb-6">
+                <h2 className="font-display text-3xl sm:text-5xl font-semibold leading-tight tracking-tight mb-6">
                   What I read. How I think.
                 </h2>
               </AnimatedContent>
 
               <AnimatedContent distance={40} delay={0.15} duration={0.7}>
-                <div className="mb-16 max-w-3xl">
+                <div className="mb-10 sm:mb-16 max-w-3xl">
                   <ScrollReveal
                     baseRotation={1}
                     enableBlur
                     blurStrength={2}
-                    textClassName="text-xl md:text-2xl font-medium text-white/60 leading-relaxed italic"
+                    textClassName="text-base sm:text-xl md:text-2xl font-medium text-white/60 leading-relaxed italic"
                   >
                     "The best founders are the ones who can do the technical work and sell the vision." — Marc Andreessen
                   </ScrollReveal>
@@ -386,20 +386,20 @@ function App() {
           {/* ═══════════════════════════════════════════════ */}
           {/* ABOUT                                           */}
           {/* ═══════════════════════════════════════════════ */}
-          <section id="about" className="py-32 md:py-44 px-6">
+          <section id="about" className="py-20 sm:py-28 md:py-44 px-5 sm:px-6">
             <div className="max-w-5xl mx-auto">
               <AnimatedContent distance={40} duration={0.7}>
-                <p className="uppercase tracking-[0.3em] text-xs text-white/60 mb-4">
+                <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
                   005 · About
                 </p>
-                <h2 className="font-display text-4xl sm:text-5xl font-semibold leading-tight tracking-tight mb-12">
+                <h2 className="font-display text-3xl sm:text-5xl font-semibold leading-tight tracking-tight mb-8 sm:mb-12">
                   A little more about me.
                 </h2>
               </AnimatedContent>
 
-              <div className="grid md:grid-cols-[280px_1fr] gap-10 items-start">
+              <div className="grid md:grid-cols-[280px_1fr] gap-8 md:gap-10 items-start">
                 <AnimatedContent distance={30} direction="horizontal" reverse duration={0.8}>
-                  <div className="relative">
+                  <div className="relative max-w-[260px] mx-auto md:max-w-none md:mx-0">
                     <div className="aspect-[3/4] rounded-3xl overflow-hidden border border-white/10">
                       <img src="/headshot.JPG" alt="Jared Mackay" className="w-full h-full object-cover" />
                     </div>
@@ -408,7 +408,7 @@ function App() {
                 </AnimatedContent>
 
                 <AnimatedContent distance={30} direction="horizontal" duration={0.8}>
-                  <div className="space-y-5 text-white/80 text-lg leading-relaxed">
+                  <div className="space-y-4 sm:space-y-5 text-white/80 text-base sm:text-lg leading-relaxed">
                     <p>
                       I'm <span className="text-paper font-medium">Jared</span> — originally from
                       Paradise, California, now based in Salt Lake City. I've spent my career across
@@ -437,9 +437,9 @@ function App() {
                 </AnimatedContent>
               </div>
 
-              <div className="mt-20">
-                <h3 className="font-display text-2xl font-semibold text-paper mb-6">Skills & toolkit</h3>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              <div className="mt-14 sm:mt-20">
+                <h3 className="font-display text-xl sm:text-2xl font-semibold text-paper mb-5 sm:mb-6">Skills & toolkit</h3>
+                <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
                   {[
                     'TypeScript',
                     'React',
@@ -468,7 +468,7 @@ function App() {
           {/* ═══════════════════════════════════════════════ */}
           {/* CONTACT                                         */}
           {/* ═══════════════════════════════════════════════ */}
-          <section id="contact" className="py-32 md:py-44 px-6 relative overflow-hidden">
+          <section id="contact" className="py-20 sm:py-28 md:py-44 px-5 sm:px-6 relative overflow-hidden">
             <div className="absolute inset-0 -z-0 opacity-40">
               <Aurora
                 colorStops={['#ff6a3d', '#7c5cff', '#22d3ee']}
@@ -481,10 +481,10 @@ function App() {
 
             <div className="relative z-10 max-w-3xl mx-auto text-center">
               <AnimatedContent distance={40} duration={0.7}>
-                <p className="uppercase tracking-[0.3em] text-xs text-white/60 mb-4">
+                <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
                   006 · Contact
                 </p>
-                <h2 className="font-display text-4xl sm:text-6xl font-semibold leading-tight tracking-tight mb-6">
+                <h2 className="font-display text-3xl sm:text-6xl font-semibold leading-tight tracking-tight mb-5 sm:mb-6">
                   Let's{' '}
                   <GradientText
                     colors={['#ff6a3d', '#7c5cff', '#ff6a3d']}
@@ -495,7 +495,7 @@ function App() {
                   </GradientText>
                   .
                 </h2>
-                <p className="text-white/70 text-lg max-w-xl mx-auto mb-12">
+                <p className="text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-8 sm:mb-12">
                   Whether you need someone to build the product, sell it, or both — I'm interested in
                   the conversation.
                 </p>
@@ -504,12 +504,12 @@ function App() {
               <AnimatedContent distance={30} direction="vertical" delay={0.2} duration={0.7}>
                 <a
                   href="mailto:jaredhmackay@gmail.com"
-                  className="inline-block rounded-full bg-paper text-ink font-medium px-10 py-4 hover:scale-105 transition-transform"
+                  className="inline-block rounded-full bg-paper text-ink font-medium px-5 sm:px-10 py-3 sm:py-4 text-sm sm:text-base hover:scale-105 transition-transform max-w-full break-all"
                 >
                   <ShinyText text="jaredhmackay@gmail.com" speed={4} className="text-ink font-medium" />
                 </a>
 
-                <div className="flex items-center justify-center gap-10 mt-12">
+                <div className="flex items-center justify-center gap-8 sm:gap-10 mt-10 sm:mt-12">
                   {[
                     { icon: <Linkedin size={22} strokeWidth={1.5} />, label: 'LinkedIn', href: 'https://www.linkedin.com/feed/' },
                     { icon: <Instagram size={22} strokeWidth={1.5} />, label: 'Instagram', href: 'https://www.instagram.com/jaredmkay/' },
@@ -530,8 +530,8 @@ function App() {
           </section>
         </main>
 
-        <footer className="relative z-10 border-t border-white/10 py-8 px-6">
-          <div className="max-w-6xl mx-auto flex items-center justify-between text-xs text-white/40">
+        <footer className="relative z-10 border-t border-white/10 py-6 sm:py-8 px-5 sm:px-6">
+          <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] sm:text-xs text-white/40 text-center">
             <p>Built and sold with intent.</p>
             <p>© {new Date().getFullYear()} · MMXXVI</p>
           </div>
