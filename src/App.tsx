@@ -247,6 +247,118 @@ function App() {
           </section>
 
           {/* ═══════════════════════════════════════════════ */}
+          {/* EXPERIENCE                                      */}
+          {/* ═══════════════════════════════════════════════ */}
+          <section id="experience" className="relative px-5 sm:px-6 py-20 sm:py-28 md:py-40">
+            <div className="max-w-6xl mx-auto">
+              <AnimatedContent distance={40} direction="vertical" duration={0.7}>
+                <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
+                  003 · Experience
+                </p>
+                <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4">
+                  Before the products,{' '}
+                  <GradientText
+                    colors={['#ff6a3d', '#7c5cff', '#22d3ee', '#ff6a3d']}
+                    animationSpeed={5}
+                    className="inline-block"
+                  >
+                    the reps.
+                  </GradientText>
+                </h2>
+                <p className="text-white/70 text-base sm:text-lg max-w-2xl">
+                  Years of carrying a quota taught me how to listen, how to close, and how to lead a team through both.
+                </p>
+              </AnimatedContent>
+
+              <div className="mt-10 sm:mt-14">
+                <p className="text-[10px] uppercase tracking-widest text-accent mb-4 sm:mb-5">Sales</p>
+                <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
+                  {[
+                    {
+                      title: 'Sunrun',
+                      role: 'Top Sales Rep → Sales Manager',
+                      meta: '2023 · Honolulu, HI',
+                      description:
+                        '#1 sales rep company-wide in 2023, then promoted to Sales Manager. Led multi-state teams of 18–30 year olds — built trainings, set goals, organized housing, travel, and food, analyzed territory data for market trends, and negotiated win-win customer contracts.',
+                      spotlight: 'rgba(255, 106, 61, 0.35)' as const,
+                    },
+                    {
+                      title: 'Estella Rose',
+                      role: 'Luxury Jewelry · Phone Sales',
+                      meta: 'High-Ticket',
+                      description:
+                        'Closed $10K–$25K luxury jewelry pieces entirely over the phone. No product in hand — every deal built on voice, trust, and timing.',
+                      spotlight: 'rgba(124, 92, 255, 0.35)' as const,
+                    },
+                  ].map((job, i) => (
+                    <AnimatedContent key={job.title} distance={30} direction="vertical" delay={i * 0.1} duration={0.7}>
+                      <SpotlightCard className="h-full p-6! sm:p-8!" spotlightColor={job.spotlight}>
+                        <p className="text-[10px] uppercase tracking-widest font-medium text-accent mb-3">
+                          {job.role}
+                        </p>
+                        <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-semibold text-paper mb-2">
+                          {job.title}
+                        </h3>
+                        <p className="text-[11px] text-white/50 mb-4 uppercase tracking-widest">{job.meta}</p>
+                        <p className="text-white/70 text-sm leading-relaxed">{job.description}</p>
+                      </SpotlightCard>
+                    </AnimatedContent>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-12 sm:mt-16">
+                <p className="text-[10px] uppercase tracking-widest text-accent mb-4 sm:mb-5">Other work & service</p>
+                <div className="grid sm:grid-cols-2 gap-4 sm:gap-5">
+                  {[
+                    {
+                      title: 'Active Event Technology',
+                      role: 'Technical Support',
+                      meta: 'Nov 2022 – Dec 2023 · San Francisco, CA',
+                      description:
+                        'Installed and networked devices and security software for large-scale concerts at the AT&T Center.',
+                    },
+                    {
+                      title: 'BYU',
+                      role: 'Secretary',
+                      meta: 'Oct 2022 – Apr 2023 · Provo, UT',
+                      description:
+                        'Coordinated meetings, faculty travel, and student inquiries across departments — the operations layer behind the academic day.',
+                    },
+                    {
+                      title: 'Men of Culture',
+                      role: 'President',
+                      meta: 'Jan 2023 – Present · Salt Lake City, UT',
+                      description:
+                        "Lead a men's club focused on personal growth and intellectual development. Organize events and speak on health and wellness.",
+                    },
+                    {
+                      title: 'Church of Jesus Christ of Latter-Day Saints',
+                      role: 'Volunteer Representative',
+                      meta: 'Belem, Brazil',
+                      description:
+                        'Two years of full-time volunteer service in northern Brazil. Where I picked up Portuguese and learned that trust is built in patience.',
+                    },
+                  ].map((job, i) => (
+                    <AnimatedContent key={job.title} distance={20} direction="vertical" delay={i * 0.05} duration={0.6}>
+                      <SpotlightCard className="h-full !p-5 sm:!p-6" spotlightColor="rgba(34, 211, 238, 0.25)">
+                        <p className="text-[10px] uppercase tracking-widest font-medium text-accent mb-2">
+                          {job.role}
+                        </p>
+                        <h4 className="font-display text-lg sm:text-xl font-semibold text-paper mb-1">
+                          {job.title}
+                        </h4>
+                        <p className="text-[11px] text-white/50 mb-3 uppercase tracking-widest">{job.meta}</p>
+                        <p className="text-white/65 text-sm leading-relaxed">{job.description}</p>
+                      </SpotlightCard>
+                    </AnimatedContent>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* ═══════════════════════════════════════════════ */}
           {/* QUOTE                                           */}
           {/* ═══════════════════════════════════════════════ */}
           <section className="py-20 sm:py-28 md:py-40 px-5 sm:px-6 bg-white/[0.02] border-y border-white/5">
@@ -269,7 +381,7 @@ function App() {
             <div className="max-w-5xl mx-auto">
               <AnimatedContent distance={40} duration={0.7}>
                 <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
-                  003 · AI & Process
+                  004 · AI & Process
                 </p>
                 <h2 className="font-display text-3xl sm:text-5xl font-semibold leading-tight tracking-tight mb-10 sm:mb-14">
                   How I work with{' '}
@@ -332,7 +444,7 @@ function App() {
             <div className="max-w-5xl mx-auto">
               <AnimatedContent distance={40} duration={0.7}>
                 <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
-                  004 · Toolkit
+                  005 · Toolkit
                 </p>
                 <h2 className="font-display text-3xl sm:text-5xl font-semibold leading-tight tracking-tight mb-6">
                   What I read. How I think.
@@ -390,7 +502,7 @@ function App() {
             <div className="max-w-5xl mx-auto">
               <AnimatedContent distance={40} duration={0.7}>
                 <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
-                  005 · About
+                  006 · About
                 </p>
                 <h2 className="font-display text-3xl sm:text-5xl font-semibold leading-tight tracking-tight mb-8 sm:mb-12">
                   A little more about me.
@@ -482,7 +594,7 @@ function App() {
             <div className="relative z-10 max-w-3xl mx-auto text-center">
               <AnimatedContent distance={40} duration={0.7}>
                 <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
-                  006 · Contact
+                  007 · Contact
                 </p>
                 <h2 className="font-display text-3xl sm:text-6xl font-semibold leading-tight tracking-tight mb-5 sm:mb-6">
                   Let's{' '}
@@ -533,7 +645,10 @@ function App() {
         <footer className="relative z-10 border-t border-white/10 py-6 sm:py-8 px-5 sm:px-6">
           <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] sm:text-xs text-white/40 text-center">
             <p>Built and sold with intent.</p>
-            <p>© {new Date().getFullYear()} · MMXXVI</p>
+            <div className="flex items-center gap-4">
+              <a href="/admin/login" className="hover:text-white/70 transition-colors">Admin</a>
+              <p>© {new Date().getFullYear()} · MMXXVI</p>
+            </div>
           </div>
         </footer>
       </div>

@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  username     String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+}
+
+enum ContractStatus {
+  draft
+  sent
+  signed
+  active
+  past_due
+  canceled
+}
+
+model Contract {
+  id          String @id @default(cuid())
+
+  name        String
+  description String @default("")
+  terms       String @default("")
+
+  clientName    String
+  clientEmail   String
+  clientCompany String?
+  clientPhone   String?
+
+  hasOneTime Boolean @default(false)
+  hasMonthly Boolean @default(false)
+  oneTimeFee Int? // cents
+  monthlyFee Int? // cents
+  currency   String  @default("usd")
+
+  stripeCustomerId        String?
+  stripeSubscriptionId    String?
+  stripeCheckoutUrl       String?
+  stripeCheckoutSessionId String?
+  stripeMonthlyPriceId    String?
+
+  status ContractStatus @default(draft)
+
+  agreedAt DateTime?
+  agreedIp String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}

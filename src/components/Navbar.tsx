@@ -4,6 +4,7 @@ interface NavbarProps {
 
 const links = [
   { id: 'work', label: 'Work' },
+  { id: 'experience', label: 'Experience' },
   { id: 'ai', label: 'AI' },
   { id: 'toolkit', label: 'Toolkit' },
   { id: 'about', label: 'About' },
