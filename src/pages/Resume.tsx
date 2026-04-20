@@ -10,8 +10,8 @@ export default function Resume() {
     <>
       <style>{`
         @media print {
-          @page { size: letter; margin: 0.4in 0.55in; }
-          html, body { background: #ffffff !important; }
+          @page { size: letter; margin: 0.3in 0.45in; }
+          html, body { background: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
           .no-print { display: none !important; }
           .print-page {
             background: #ffffff !important;
@@ -19,19 +19,42 @@ export default function Resume() {
             box-shadow: none !important;
             padding: 0 !important;
             max-width: 100% !important;
+            border-radius: 0 !important;
           }
           .print-page h1, .print-page h2, .print-page h3, .print-page h4, .print-page p, .print-page li, .print-page span, .print-page a {
             color: #111111 !important;
           }
           .print-page .accent-text { color: #ff6a3d !important; }
-          .print-page .muted-text { color: #444444 !important; }
+          .print-page .muted-text { color: #333333 !important; }
           .print-page .rule { border-color: #111111 !important; }
           .print-page .chip {
             background: #ffffff !important;
             border-color: #222222 !important;
             color: #111111 !important;
+            padding: 4pt 6pt !important;
           }
           .avoid-break { break-inside: avoid; page-break-inside: avoid; }
+
+          /* Tighten typography */
+          .print-page h1 { font-size: 22pt !important; line-height: 1 !important; }
+          .print-page h2 { font-size: 9pt !important; letter-spacing: 0.18em !important; padding-bottom: 2pt !important; }
+          .print-page h3 { font-size: 10.5pt !important; line-height: 1.15 !important; }
+          .print-page h4 { font-size: 10pt !important; }
+          .print-page p, .print-page li, .print-page span { font-size: 9pt !important; line-height: 1.3 !important; }
+          .print-page .meta-line { font-size: 8pt !important; }
+          .print-page .stat-value { font-size: 13pt !important; line-height: 1 !important; }
+          .print-page .stat-label { font-size: 7pt !important; }
+
+          /* Tighten spacing */
+          .print-page header { padding-bottom: 6pt !important; }
+          .print-page .summary { margin-top: 6pt !important; }
+          .print-page .summary p { font-size: 9pt !important; }
+          .print-page section { margin-top: 8pt !important; }
+          .print-page .role { margin-top: 4pt !important; }
+          .print-page .role:first-child { margin-top: 0 !important; }
+          .print-page ul { margin-top: 2pt !important; }
+          .print-page li { margin-top: 0 !important; }
+          .print-page .section-body { margin-top: 4pt !important; }
         }
       `}</style>
 
@@ -94,12 +117,12 @@ export default function Resume() {
             </header>
 
             {/* Summary */}
-            <section className="mt-5 avoid-break">
+            <section className="summary mt-5 avoid-break">
               <p className="text-sm sm:text-[15px] leading-relaxed text-ink/85 muted-text">
                 Technical founder and top-performing sales operator living at the intersection of building
                 and selling. I write the code, architect the demo, run the technical sale, and onboard
-                the customer — end to end, no translation layer. 6+ years across high-ticket consumer
-                sales, enterprise deals, and shipping my own products to market.
+                the customer — end to end. 6+ years across high-ticket consumer sales, enterprise deals,
+                and shipping my own products to market.
               </p>
             </section>
 
@@ -117,12 +140,12 @@ export default function Resume() {
                     className="chip rounded-lg border border-ink/20 bg-ink/[0.03] px-3 py-2.5 text-center"
                   >
                     <p
-                      className="text-lg sm:text-xl font-semibold leading-none tracking-tight accent-text"
+                      className="stat-value text-lg sm:text-xl font-semibold leading-none tracking-tight accent-text"
                       style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#ff6a3d' }}
                     >
                       {s.v}
                     </p>
-                    <p className="mt-1.5 text-[9px] uppercase tracking-widest text-ink/60 muted-text">
+                    <p className="stat-label mt-1.5 text-[9px] uppercase tracking-widest text-ink/60 muted-text">
                       {s.l}
                     </p>
                   </div>
@@ -139,8 +162,7 @@ export default function Resume() {
                   meta: 'Active · letsvoley.com',
                   bullets: [
                     'Built and launched a communication platform for insurance agencies with deep AMS integration and agency-wide collaboration.',
-                    'Designed the full product — from architecture and UX to onboarding and pricing.',
-                    'Sell directly into agency owners; own the technical demo and close.',
+                    'Designed architecture, UX, onboarding, and pricing; sell directly into agency owners and own the technical demo and close.',
                   ],
                 },
                 {
@@ -148,8 +170,7 @@ export default function Resume() {
                   role: 'Founder & Builder',
                   meta: 'React · TypeScript · Node.js',
                   bullets: [
-                    'Cold-calling CRM with full pipeline management, streamlined workflows, and intermission games to keep reps sharp.',
-                    'Built from the perspective of someone who has actually dialed for a living.',
+                    'Cold-calling CRM with full pipeline management, streamlined workflows, and intermission games to keep reps sharp — built from the perspective of someone who has actually dialed for a living.',
                   ],
                 },
                 {
@@ -165,8 +186,7 @@ export default function Resume() {
                   role: 'Engineering + Revenue',
                   meta: 'Flink · Kafka · ClickHouse',
                   bullets: [
-                    'Stream processing system handling 500K events/sec with exactly-once semantics.',
-                    'Owned the full loop: product spec → engineering → customer pitch → signed contract.',
+                    'Stream processing at 500K events/sec with exactly-once semantics; owned the full loop from product spec to signed contract.',
                   ],
                 },
               ].map((r) => (
@@ -183,8 +203,7 @@ export default function Resume() {
                 bullets={[
                   'Ranked #1 sales rep company-wide in 2023 before being promoted to Sales Manager.',
                   'Led multi-state teams of 18–30 year olds — built trainings, set goals, and organized housing, travel, and food for all teams.',
-                  'Analyzed territory data to identify market trends and expansion opportunities.',
-                  'Negotiated customer contracts structured around win-win outcomes.',
+                  'Analyzed territory data for market trends and expansion opportunities; negotiated win-win customer contracts.',
                 ]}
               />
               <Role
@@ -192,50 +211,39 @@ export default function Resume() {
                 role="Luxury Jewelry · Phone Sales"
                 meta="High-Ticket Remote Sales"
                 bullets={[
-                  'Closed $10K–$25K luxury jewelry pieces entirely over the phone.',
-                  'High-ticket sales with no product in hand — every deal built on voice, trust, and timing.',
+                  'Closed $10K–$25K luxury jewelry pieces entirely over the phone — high-ticket sales built on voice, trust, and timing.',
                 ]}
               />
             </Section>
 
             {/* Other Experience & Service */}
             <Section title="Other Experience & Service">
-              <Role
-                title="Active Event Technology"
-                role="Technical Support"
-                meta="Nov 2022 – Dec 2023 · San Francisco, CA"
-                bullets={[
-                  'Installed and networked devices and security software for large-scale concerts at the AT&T Center.',
-                ]}
-              />
-              <Role
-                title="Brigham Young University"
-                role="Secretary"
-                meta="Oct 2022 – Apr 2023 · Provo, UT"
-                bullets={[
-                  'Arranged meetings, reserved rooms, and coordinated lodging/meal logistics for faculty and students.',
-                  'Coordinated travel plans for professors and students.',
-                  'Responded quickly and accurately to student inquiries on policies and procedures.',
-                ]}
-              />
-              <Role
-                title="Men of Culture"
-                role="President"
-                meta="Jan 2023 – Present · Salt Lake City, UT"
-                bullets={[
-                  "Lead a men's club focused on personal growth and intellectual development.",
-                  "Organize events and speak on men's health and wellness.",
-                ]}
-              />
-              <Role
-                title="Church of Jesus Christ of Latter-Day Saints"
-                role="Volunteer Representative"
-                meta="Belém, Brazil"
-                bullets={[
-                  'Two years of full-time volunteer service in northern Brazil.',
-                  'Became fluent in Portuguese and learned the long game of building trust.',
-                ]}
-              />
+              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+                <CompactRole
+                  title="Active Event Technology"
+                  role="Technical Support"
+                  meta="Nov 2022 – Dec 2023 · San Francisco, CA"
+                  description="Installed and networked devices and security software for large-scale concerts at the AT&T Center."
+                />
+                <CompactRole
+                  title="Brigham Young University"
+                  role="Secretary"
+                  meta="Oct 2022 – Apr 2023 · Provo, UT"
+                  description="Coordinated meetings, travel, and student inquiries across departments."
+                />
+                <CompactRole
+                  title="Men of Culture"
+                  role="President"
+                  meta="Jan 2023 – Present · Salt Lake City, UT"
+                  description="Lead a men's club focused on personal growth, health, and intellectual development."
+                />
+                <CompactRole
+                  title="Church of Jesus Christ of Latter-Day Saints"
+                  role="Volunteer Representative"
+                  meta="Belém, Brazil"
+                  description="Two years of full-time volunteer service in northern Brazil — became fluent in Portuguese."
+                />
+              </div>
             </Section>
 
             {/* Education */}
@@ -245,8 +253,7 @@ export default function Resume() {
                 role="B.S. Pre-Business · Minor in Communications"
                 meta="Apr 2026 · Provo, UT"
                 bullets={[
-                  'GPA: 3.75 / 4.00',
-                  'Member, Association for Information Systems.',
+                  'GPA 3.75 / 4.00 · Member, Association for Information Systems.',
                 ]}
               />
             </Section>
@@ -254,40 +261,19 @@ export default function Resume() {
             {/* Skills */}
             <section className="mt-6 avoid-break">
               <SectionTitle>Skills & Toolkit</SectionTitle>
-              <div className="grid sm:grid-cols-2 gap-x-8 gap-y-2 mt-2 text-sm">
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-ink/60 muted-text mb-1.5">
-                    Technical
-                  </p>
-                  <p className="text-ink/85 muted-text leading-relaxed">
-                    TypeScript · React · Node.js · Python · PostgreSQL · AWS
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-ink/60 muted-text mb-1.5">
-                    Sales & GTM
-                  </p>
-                  <p className="text-ink/85 muted-text leading-relaxed">
-                    Technical Sales · Solution Engineering · Go-to-Market Strategy · Pipeline Management
-                    · Enterprise Demos · Negotiation
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-ink/60 muted-text mb-1.5 mt-2">
-                    Languages
-                  </p>
-                  <p className="text-ink/85 muted-text leading-relaxed">
-                    English (native) · Portuguese (fluent)
-                  </p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-widest text-ink/60 muted-text mb-1.5 mt-2">
-                    Based in
-                  </p>
-                  <p className="text-ink/85 muted-text leading-relaxed">
-                    Salt Lake City, UT — originally Paradise, CA
-                  </p>
-                </div>
+              <div className="section-body mt-2 text-[13px] sm:text-sm space-y-1">
+                <p className="text-ink/85 muted-text leading-snug">
+                  <span className="font-semibold text-ink">Technical:</span>{' '}
+                  TypeScript · React · Node.js · Python · PostgreSQL · AWS
+                </p>
+                <p className="text-ink/85 muted-text leading-snug">
+                  <span className="font-semibold text-ink">Sales & GTM:</span>{' '}
+                  Technical Sales · Solution Engineering · Go-to-Market · Pipeline Management · Enterprise Demos · Negotiation
+                </p>
+                <p className="text-ink/85 muted-text leading-snug">
+                  <span className="font-semibold text-ink">Languages:</span>{' '}
+                  English (native) · Portuguese (fluent)
+                </p>
               </div>
             </section>
           </div>
@@ -312,7 +298,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   return (
     <section className="mt-6">
       <SectionTitle>{title}</SectionTitle>
-      <div className="mt-3 space-y-4">{children}</div>
+      <div className="section-body mt-3 space-y-4">{children}</div>
     </section>
   );
 }
@@ -329,7 +315,7 @@ function Role({
   bullets: string[];
 }) {
   return (
-    <div className="avoid-break">
+    <div className="role avoid-break">
       <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
         <div>
           <h3
@@ -340,7 +326,7 @@ function Role({
           </h3>
           <p className="text-xs sm:text-sm text-ink/75 muted-text italic mt-0.5">{role}</p>
         </div>
-        <p className="text-[11px] sm:text-xs text-ink/60 muted-text uppercase tracking-widest shrink-0">
+        <p className="meta-line text-[11px] sm:text-xs text-ink/60 muted-text uppercase tracking-widest shrink-0">
           {meta}
         </p>
       </div>
@@ -354,6 +340,40 @@ function Role({
           </li>
         ))}
       </ul>
+    </div>
+  );
+}
+
+function CompactRole({
+  title,
+  role,
+  meta,
+  description,
+}: {
+  title: string;
+  role: string;
+  meta: string;
+  description: string;
+}) {
+  return (
+    <div className="role avoid-break">
+      <div className="flex items-baseline justify-between gap-2">
+        <h4
+          className="text-[13px] sm:text-sm font-semibold text-ink leading-tight"
+          style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+        >
+          {title}
+        </h4>
+        <p className="meta-line text-[10px] sm:text-[11px] text-ink/60 muted-text uppercase tracking-widest shrink-0">
+          {meta}
+        </p>
+      </div>
+      <p className="text-[12px] sm:text-[13px] text-ink/75 muted-text italic leading-snug">
+        {role}
+      </p>
+      <p className="mt-0.5 text-[12px] sm:text-[13px] text-ink/85 muted-text leading-snug">
+        {description}
+      </p>
     </div>
   );
 }
