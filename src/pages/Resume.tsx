@@ -237,7 +237,7 @@ export default function Resume() {
             <Section title="Education">
               <Role
                 title="Brigham Young University — Marriott School of Business"
-                role="B.S. Pre-Business · Minor in Communications"
+                role="B.S. Information Systems · Minor in Communications"
                 meta="Apr 2026 · Provo, UT"
                 bullets={[
                   'GPA 3.75 / 4.00 · Member, Association for Information Systems.',
