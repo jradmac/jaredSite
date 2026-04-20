@@ -10,7 +10,7 @@ import AnimatedContent from './components/AnimatedContent';
 import RotatingText from './components/RotatingText';
 import ClickSpark from './components/ClickSpark';
 import Navbar from './components/Navbar';
-import { ArrowUpRight, Linkedin, Instagram, Layers } from 'lucide-react';
+import { ArrowUpRight, Linkedin, Instagram, Layers, Feather } from 'lucide-react';
 
 function App() {
   return (
@@ -81,6 +81,12 @@ function App() {
                     className="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full border border-white/20 hover:bg-white/5 transition-colors"
                   >
                     <ShinyText text="Get in touch →" speed={4} />
+                  </a>
+                  <a
+                    href="/resume"
+                    className="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full border border-white/20 hover:bg-white/5 transition-colors"
+                  >
+                    Resume
                   </a>
                 </div>
               </AnimatedContent>
@@ -166,7 +172,7 @@ function App() {
                     cta: 'Try it',
                   },
                   {
-                    icon: <img src="/junzi.png" alt="Junzi" className="h-7" />,
+                    icon: <Feather size={28} strokeWidth={1.5} className="text-white/70" />,
                     title: 'Junzi',
                     role: 'Founder & Builder',
                     description:
