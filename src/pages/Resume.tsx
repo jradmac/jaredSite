@@ -1,151 +1,150 @@
-import { ArrowLeft, Download, Mail, Globe, Linkedin, MapPin } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { ArrowLeft, Download, Mail, Globe, Linkedin, MapPin, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import html2canvas from 'html2canvas-pro';
+import jsPDF from 'jspdf';
 
 export default function Resume() {
-  const handleDownload = () => {
-    window.print();
+  const sheetRef = useRef<HTMLDivElement>(null);
+  const [downloading, setDownloading] = useState(false);
+
+  const handleDownload = async () => {
+    if (!sheetRef.current || downloading) return;
+    setDownloading(true);
+    try {
+      const canvas = await html2canvas(sheetRef.current, {
+        scale: 2.5,
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false,
+      });
+
+      const pdf = new jsPDF({ unit: 'in', format: 'letter', orientation: 'portrait' });
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+      const margin = 0.35;
+      const maxW = pageW - margin * 2;
+      const maxH = pageH - margin * 2;
+
+      const ratio = canvas.width / canvas.height;
+      let imgW = maxW;
+      let imgH = imgW / ratio;
+      if (imgH > maxH) {
+        imgH = maxH;
+        imgW = imgH * ratio;
+      }
+      const offsetX = (pageW - imgW) / 2;
+      const offsetY = margin;
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgW, imgH);
+      pdf.save('Jared_Mackay_Resume.pdf');
+    } finally {
+      setDownloading(false);
+    }
   };
 
   return (
-    <>
-      <style>{`
-        @media print {
-          @page { size: letter; margin: 0.3in 0.45in; }
-          html, body { background: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-          .no-print { display: none !important; }
-          .print-page {
-            background: #ffffff !important;
-            color: #111111 !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-            max-width: 100% !important;
-            border-radius: 0 !important;
-          }
-          .print-page h1, .print-page h2, .print-page h3, .print-page h4, .print-page p, .print-page li, .print-page span, .print-page a {
-            color: #111111 !important;
-          }
-          .print-page .accent-text { color: #ff6a3d !important; }
-          .print-page .muted-text { color: #333333 !important; }
-          .print-page .rule { border-color: #111111 !important; }
-          .print-page .chip {
-            background: #ffffff !important;
-            border-color: #222222 !important;
-            color: #111111 !important;
-            padding: 4pt 6pt !important;
-          }
-          .avoid-break { break-inside: avoid; page-break-inside: avoid; }
-
-          /* Tighten typography */
-          .print-page h1 { font-size: 22pt !important; line-height: 1 !important; }
-          .print-page h2 { font-size: 9pt !important; letter-spacing: 0.18em !important; padding-bottom: 2pt !important; }
-          .print-page h3 { font-size: 10.5pt !important; line-height: 1.15 !important; }
-          .print-page h4 { font-size: 10pt !important; }
-          .print-page p, .print-page li, .print-page span { font-size: 9pt !important; line-height: 1.3 !important; }
-          .print-page .meta-line { font-size: 8pt !important; }
-          .print-page .stat-value { font-size: 13pt !important; line-height: 1 !important; }
-          .print-page .stat-label { font-size: 7pt !important; }
-
-          /* Tighten spacing */
-          .print-page header { padding-bottom: 6pt !important; }
-          .print-page .summary { margin-top: 6pt !important; }
-          .print-page .summary p { font-size: 9pt !important; }
-          .print-page section { margin-top: 8pt !important; }
-          .print-page .role { margin-top: 4pt !important; }
-          .print-page .role:first-child { margin-top: 0 !important; }
-          .print-page ul { margin-top: 2pt !important; }
-          .print-page li { margin-top: 0 !important; }
-          .print-page .section-body { margin-top: 4pt !important; }
-        }
-      `}</style>
-
-      <div className="min-h-screen bg-ink text-paper">
-        {/* Top action bar — hidden in print */}
-        <div className="no-print sticky top-0 z-50 backdrop-blur-md bg-ink/70 border-b border-white/10">
-          <div className="max-w-4xl mx-auto flex items-center justify-between px-5 py-3 sm:py-4">
-            <Link
-              to="/"
-              className="flex items-center gap-2 text-xs sm:text-sm text-white/70 hover:text-paper transition-colors"
-            >
-              <ArrowLeft size={16} strokeWidth={1.5} />
-              Back to site
-            </Link>
-            <button
-              onClick={handleDownload}
-              className="flex items-center gap-2 rounded-full bg-accent text-ink font-medium px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm hover:scale-105 transition-transform"
-            >
-              <Download size={15} strokeWidth={2} />
-              Download PDF
-            </button>
-          </div>
+    <div className="min-h-screen bg-ink text-paper">
+      {/* Top action bar */}
+      <div className="sticky top-0 z-50 backdrop-blur-md bg-ink/70 border-b border-white/10">
+        <div className="max-w-4xl mx-auto flex items-center justify-between px-5 py-3 sm:py-4">
+          <Link
+            to="/"
+            className="flex items-center gap-2 text-xs sm:text-sm text-white/70 hover:text-paper transition-colors"
+          >
+            <ArrowLeft size={16} strokeWidth={1.5} />
+            Back to site
+          </Link>
+          <button
+            onClick={handleDownload}
+            disabled={downloading}
+            className="flex items-center gap-2 rounded-full bg-accent text-ink font-medium px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm hover:scale-105 transition-transform disabled:opacity-70 disabled:hover:scale-100"
+          >
+            {downloading ? (
+              <>
+                <Loader2 size={15} strokeWidth={2} className="animate-spin" />
+                Generating…
+              </>
+            ) : (
+              <>
+                <Download size={15} strokeWidth={2} />
+                Download PDF
+              </>
+            )}
+          </button>
         </div>
+      </div>
 
-        {/* Resume sheet */}
-        <div className="py-6 sm:py-10 px-4 sm:px-6">
+      {/* Resume sheet wrapper */}
+      <div className="py-8 sm:py-12 px-4 sm:px-6">
+        <div className="max-w-[850px] mx-auto">
           <div
-            className="print-page max-w-4xl mx-auto bg-paper text-ink rounded-xl sm:rounded-2xl shadow-2xl px-6 sm:px-12 py-8 sm:py-12"
+            ref={sheetRef}
+            className="bg-[#faf8f2] text-[#111111] shadow-2xl px-8 sm:px-12 py-8 sm:py-10"
             style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
           >
             {/* Header */}
-            <header className="avoid-break pb-5 border-b-2 border-ink rule">
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3">
+            <header className="pb-4 border-b-2" style={{ borderColor: '#111111' }}>
+              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
                 <div>
                   <h1
-                    className="text-4xl sm:text-5xl font-semibold tracking-tight leading-none"
+                    className="text-[38px] sm:text-[44px] font-semibold tracking-tight leading-none text-[#111]"
                     style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
                   >
                     Jared Mackay
                   </h1>
-                  <p className="mt-2 text-sm sm:text-base text-ink/80 muted-text">
+                  <p className="mt-1.5 text-[13px] sm:text-sm" style={{ color: '#3a3a3a' }}>
                     Engineer · Operator · Sales — builds, ships, and sells end-to-end.
                   </p>
                 </div>
-                <div className="text-[11px] sm:text-xs space-y-1 text-ink/80 muted-text sm:text-right">
+                <div className="text-[10.5px] sm:text-[11px] space-y-0.5 sm:text-right" style={{ color: '#3a3a3a' }}>
                   <p className="flex items-center gap-1.5 sm:justify-end">
-                    <MapPin size={12} strokeWidth={1.8} /> Salt Lake City, UT
+                    <MapPin size={11} strokeWidth={1.8} /> Salt Lake City, UT
                   </p>
                   <p className="flex items-center gap-1.5 sm:justify-end">
-                    <Mail size={12} strokeWidth={1.8} /> jaredhmackay@gmail.com
+                    <Mail size={11} strokeWidth={1.8} /> jaredhmackay@gmail.com
                   </p>
                   <p className="flex items-center gap-1.5 sm:justify-end">
-                    <Globe size={12} strokeWidth={1.8} /> jaredmackay.com
+                    <Globe size={11} strokeWidth={1.8} /> jaredmackay.com
                   </p>
                   <p className="flex items-center gap-1.5 sm:justify-end">
-                    <Linkedin size={12} strokeWidth={1.8} /> linkedin.com/in/jaredmackay
+                    <Linkedin size={11} strokeWidth={1.8} /> linkedin.com/in/jaredmackay
                   </p>
                 </div>
               </div>
             </header>
 
             {/* Summary */}
-            <section className="summary mt-5 avoid-break">
-              <p className="text-sm sm:text-[15px] leading-relaxed text-ink/85 muted-text">
+            <section className="mt-3.5">
+              <p className="text-[12.5px] leading-relaxed" style={{ color: '#2a2a2a' }}>
                 Technical founder and top-performing sales operator living at the intersection of building
                 and selling. I write the code, architect the demo, run the technical sale, and onboard
-                the customer — end to end. 6+ years across high-ticket consumer sales, enterprise deals,
-                and shipping my own products to market.
+                the customer — end to end, no translation layer.
               </p>
             </section>
 
             {/* Highlights strip */}
-            <section className="mt-5 avoid-break">
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <section className="mt-4">
+              <div className="grid grid-cols-4 gap-2.5">
                 {[
                   { v: '6+', l: 'Years in Sales' },
                   { v: '$40M', l: 'Revenue Influenced' },
                   { v: '300%', l: 'Pipeline Growth' },
-                  { v: '#1', l: 'Sales Rep · Sunrun 2023' },
+                  { v: '#1', l: 'Rep · Sunrun 2023' },
                 ].map((s) => (
                   <div
                     key={s.l}
-                    className="chip rounded-lg border border-ink/20 bg-ink/[0.03] px-3 py-2.5 text-center"
+                    className="rounded-md px-2.5 py-2 text-center"
+                    style={{ border: '1px solid #d8d2c4', background: '#f2ede0' }}
                   >
                     <p
-                      className="stat-value text-lg sm:text-xl font-semibold leading-none tracking-tight accent-text"
+                      className="text-[17px] font-semibold leading-none tracking-tight"
                       style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#ff6a3d' }}
                     >
                       {s.v}
                     </p>
-                    <p className="stat-label mt-1.5 text-[9px] uppercase tracking-widest text-ink/60 muted-text">
+                    <p className="mt-1.5 text-[8px] uppercase tracking-widest" style={{ color: '#555' }}>
                       {s.l}
                     </p>
                   </div>
@@ -155,43 +154,31 @@ export default function Resume() {
 
             {/* Products & Ventures */}
             <Section title="Products & Ventures">
-              {[
-                {
-                  title: 'Voley',
-                  role: 'Founder & Builder',
-                  meta: 'Active · letsvoley.com',
-                  bullets: [
-                    'Built and launched a communication platform for insurance agencies with deep AMS integration and agency-wide collaboration.',
-                    'Designed architecture, UX, onboarding, and pricing; sell directly into agency owners and own the technical demo and close.',
-                  ],
-                },
-                {
-                  title: 'Index CRM',
-                  role: 'Founder & Builder',
-                  meta: 'React · TypeScript · Node.js',
-                  bullets: [
-                    'Cold-calling CRM with full pipeline management, streamlined workflows, and intermission games to keep reps sharp — built from the perspective of someone who has actually dialed for a living.',
-                  ],
-                },
-                {
-                  title: 'Junzi',
-                  role: 'Founder & Builder',
-                  meta: 'bejunzi.com',
-                  bullets: [
-                    'Social platform for long-format opinion sharing — designed to reward thinking well over thinking fast.',
-                  ],
-                },
-                {
-                  title: 'Analytics Pipeline',
-                  role: 'Engineering + Revenue',
-                  meta: 'Flink · Kafka · ClickHouse',
-                  bullets: [
-                    'Stream processing at 500K events/sec with exactly-once semantics; owned the full loop from product spec to signed contract.',
-                  ],
-                },
-              ].map((r) => (
-                <Role key={r.title} {...r} />
-              ))}
+              <Role
+                title="Voley"
+                role="Founder & Builder"
+                meta="Active · letsvoley.com"
+                bullets={[
+                  'Built and launched a communication platform for insurance agencies with deep AMS integration and agency-wide collaboration.',
+                  'Own architecture, UX, pricing, and sell directly into agency owners — running the technical demo and closing the deal.',
+                ]}
+              />
+              <Role
+                title="Index CRM"
+                role="Founder & Builder"
+                meta="React · TypeScript · Node.js"
+                bullets={[
+                  'Cold-calling CRM with full pipeline management, streamlined workflows, and intermission games to keep reps sharp — built from the perspective of someone who has actually dialed for a living.',
+                ]}
+              />
+              <Role
+                title="Junzi"
+                role="Founder & Builder"
+                meta="bejunzi.com"
+                bullets={[
+                  'Social platform for long-form opinion sharing — designed to reward thinking well over thinking fast.',
+                ]}
+              />
             </Section>
 
             {/* Sales Experience */}
@@ -201,8 +188,8 @@ export default function Resume() {
                 role="Top Sales Rep → Sales Manager"
                 meta="2023 · Honolulu, HI"
                 bullets={[
-                  'Ranked #1 sales rep company-wide in 2023 before being promoted to Sales Manager.',
-                  'Led multi-state teams of 18–30 year olds — built trainings, set goals, and organized housing, travel, and food for all teams.',
+                  'Ranked #1 sales rep company-wide in 2023; promoted to Sales Manager.',
+                  'Led multi-state teams of 18–30 year olds — built trainings, set goals, and ran housing, travel, and food logistics.',
                   'Analyzed territory data for market trends and expansion opportunities; negotiated win-win customer contracts.',
                 ]}
               />
@@ -218,7 +205,7 @@ export default function Resume() {
 
             {/* Other Experience & Service */}
             <Section title="Other Experience & Service">
-              <div className="grid sm:grid-cols-2 gap-x-6 gap-y-2">
+              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                 <CompactRole
                   title="Active Event Technology"
                   role="Technical Support"
@@ -229,7 +216,7 @@ export default function Resume() {
                   title="Brigham Young University"
                   role="Secretary"
                   meta="Oct 2022 – Apr 2023 · Provo, UT"
-                  description="Coordinated meetings, travel, and student inquiries across departments."
+                  description="Coordinated meetings, faculty travel, and student inquiries across departments."
                 />
                 <CompactRole
                   title="Men of Culture"
@@ -259,19 +246,19 @@ export default function Resume() {
             </Section>
 
             {/* Skills */}
-            <section className="mt-6 avoid-break">
+            <section className="mt-4">
               <SectionTitle>Skills & Toolkit</SectionTitle>
-              <div className="section-body mt-2 text-[13px] sm:text-sm space-y-1">
-                <p className="text-ink/85 muted-text leading-snug">
-                  <span className="font-semibold text-ink">Technical:</span>{' '}
+              <div className="mt-1.5 text-[12px] space-y-0.5" style={{ color: '#2a2a2a' }}>
+                <p>
+                  <span className="font-semibold" style={{ color: '#111' }}>Technical:</span>{' '}
                   TypeScript · React · Node.js · Python · PostgreSQL · AWS
                 </p>
-                <p className="text-ink/85 muted-text leading-snug">
-                  <span className="font-semibold text-ink">Sales & GTM:</span>{' '}
+                <p>
+                  <span className="font-semibold" style={{ color: '#111' }}>Sales & GTM:</span>{' '}
                   Technical Sales · Solution Engineering · Go-to-Market · Pipeline Management · Enterprise Demos · Negotiation
                 </p>
-                <p className="text-ink/85 muted-text leading-snug">
-                  <span className="font-semibold text-ink">Languages:</span>{' '}
+                <p>
+                  <span className="font-semibold" style={{ color: '#111' }}>Languages:</span>{' '}
                   English (native) · Portuguese (fluent)
                 </p>
               </div>
@@ -279,15 +266,20 @@ export default function Resume() {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
 function SectionTitle({ children }: { children: React.ReactNode }) {
   return (
     <h2
-      className="text-[11px] uppercase tracking-[0.25em] font-semibold text-ink border-b border-ink/30 rule pb-1.5"
-      style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+      className="text-[10px] uppercase font-semibold pb-1"
+      style={{
+        fontFamily: "'Space Grotesk', system-ui, sans-serif",
+        letterSpacing: '0.22em',
+        color: '#111',
+        borderBottom: '1px solid #444',
+      }}
     >
       {children}
     </h2>
@@ -296,9 +288,9 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-6">
+    <section className="mt-4">
       <SectionTitle>{title}</SectionTitle>
-      <div className="section-body mt-3 space-y-4">{children}</div>
+      <div className="mt-2 space-y-2.5">{children}</div>
     </section>
   );
 }
@@ -315,27 +307,30 @@ function Role({
   bullets: string[];
 }) {
   return (
-    <div className="role avoid-break">
-      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-0.5">
+    <div>
+      <div className="flex items-baseline justify-between gap-3">
         <div>
           <h3
-            className="text-[15px] sm:text-base font-semibold text-ink leading-tight"
-            style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+            className="text-[13.5px] font-semibold leading-tight"
+            style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#111' }}
           >
             {title}
           </h3>
-          <p className="text-xs sm:text-sm text-ink/75 muted-text italic mt-0.5">{role}</p>
+          <p className="text-[11.5px] italic leading-tight mt-0.5" style={{ color: '#444' }}>
+            {role}
+          </p>
         </div>
-        <p className="meta-line text-[11px] sm:text-xs text-ink/60 muted-text uppercase tracking-widest shrink-0">
+        <p
+          className="text-[9.5px] uppercase tracking-widest shrink-0"
+          style={{ color: '#555' }}
+        >
           {meta}
         </p>
       </div>
-      <ul className="mt-1.5 space-y-1 text-[13px] sm:text-sm">
+      <ul className="mt-1 space-y-0.5">
         {bullets.map((b, i) => (
-          <li key={i} className="flex gap-2 text-ink/85 muted-text leading-snug">
-            <span className="text-accent accent-text mt-1" style={{ color: '#ff6a3d' }}>
-              ▸
-            </span>
+          <li key={i} className="flex gap-2 text-[11.5px] leading-snug" style={{ color: '#2a2a2a' }}>
+            <span className="mt-0.5" style={{ color: '#ff6a3d' }}>▸</span>
             <span>{b}</span>
           </li>
         ))}
@@ -356,22 +351,22 @@ function CompactRole({
   description: string;
 }) {
   return (
-    <div className="role avoid-break">
+    <div>
       <div className="flex items-baseline justify-between gap-2">
         <h4
-          className="text-[13px] sm:text-sm font-semibold text-ink leading-tight"
-          style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+          className="text-[12px] font-semibold leading-tight"
+          style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#111' }}
         >
           {title}
         </h4>
-        <p className="meta-line text-[10px] sm:text-[11px] text-ink/60 muted-text uppercase tracking-widest shrink-0">
+        <p className="text-[9px] uppercase tracking-widest shrink-0" style={{ color: '#555' }}>
           {meta}
         </p>
       </div>
-      <p className="text-[12px] sm:text-[13px] text-ink/75 muted-text italic leading-snug">
+      <p className="text-[11px] italic leading-tight" style={{ color: '#444' }}>
         {role}
       </p>
-      <p className="mt-0.5 text-[12px] sm:text-[13px] text-ink/85 muted-text leading-snug">
+      <p className="mt-0.5 text-[11px] leading-snug" style={{ color: '#2a2a2a' }}>
         {description}
       </p>
     </div>
