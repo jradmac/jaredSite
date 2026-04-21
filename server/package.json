@@ -6,10 +6,11 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "build": "tsc -p .",
-    "start": "node dist/index.js",
+    "start": "prisma db push --accept-data-loss && node dist/seed.js && node dist/index.js",
     "postinstall": "prisma generate",
     "db:migrate": "prisma migrate deploy",
     "db:migrate:dev": "prisma migrate dev",
+    "db:push": "prisma db push",
     "db:seed": "tsx src/seed.ts"
   },
   "dependencies": {

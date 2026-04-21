@@ -11,7 +11,7 @@ cd server
 cp .env.example .env   # fill in values
 npm install
 # Create the DB schema on your local Postgres
-npm run db:migrate:dev -- --name init
+npm run db:push
 # Create the admin user from ADMIN_USERNAME/ADMIN_PASSWORD
 npm run db:seed
 npm run dev
@@ -42,8 +42,8 @@ You'll run **three** things in one Railway project:
 ### Backend service settings
 
 - **Root directory**: `server`
-- **Build command**: `npm install && npm run build && npx prisma migrate deploy && npm run db:seed`
-- **Start command**: `npm run start`
+- **Build command**: _leave blank_ (Railway's Nixpacks default of `npm install && npm run build` is fine)
+- **Start command**: `npm run start` — this runs `prisma db push` (syncs schema) and the seed (upserts admin user) before booting the server, so the DB auto-provisions on first deploy and stays in sync on every redeploy
 - **Environment variables**:
   - `DATABASE_URL` — reference the Postgres plugin's variable
   - `JWT_SECRET` — `openssl rand -hex 64`
