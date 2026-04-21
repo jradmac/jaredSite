@@ -53,6 +53,15 @@ body {
   }
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .gradient-text {
   background: linear-gradient(90deg, #ff6a3d, #7c5cff, #ff6a3d);
   background-size: 200% auto;

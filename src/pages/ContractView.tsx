@@ -1,5 +1,6 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { useParams } from 'react-router-dom';
+import { X, FileText } from 'lucide-react';
 import { api, type PublicContract } from '../lib/api';
 import Aurora from '../components/Aurora';
 import SpotlightCard from '../components/SpotlightCard';
@@ -20,6 +21,7 @@ export default function ContractView() {
   const [signerName, setSignerName] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [termsOpen, setTermsOpen] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -32,6 +34,20 @@ export default function ContractView() {
       }
     })();
   }, [id]);
+
+  useEffect(() => {
+    if (!termsOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setTermsOpen(false);
+    };
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [termsOpen]);
 
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -152,9 +168,19 @@ export default function ContractView() {
             {contract.terms && (
               <div>
                 <p className="text-[10px] uppercase tracking-widest text-accent mb-2">Terms &amp; services</p>
-                <div className="rounded-xl border border-white/10 bg-black/20 p-4 max-h-80 overflow-y-auto text-sm text-white/75 leading-relaxed whitespace-pre-wrap">
-                  {contract.terms}
-                </div>
+                <button
+                  type="button"
+                  onClick={() => setTermsOpen(true)}
+                  className="w-full flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.04] hover:border-accent/40 hover:bg-white/[0.07] transition-colors px-4 py-3.5 text-left group"
+                >
+                  <span className="flex items-center gap-3">
+                    <FileText size={18} strokeWidth={1.5} className="text-accent shrink-0" />
+                    <span className="text-paper font-medium">View full terms &amp; services</span>
+                  </span>
+                  <span className="text-xs text-white/50 group-hover:text-paper transition-colors">
+                    Open →
+                  </span>
+                </button>
               </div>
             )}
           </SpotlightCard>
@@ -238,6 +264,55 @@ export default function ContractView() {
           </AnimatedContent>
         )}
       </main>
+
+      {termsOpen && contract.terms && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="terms-modal-title"
+          className="fixed inset-0 z-50 grid place-items-center px-4 py-8 sm:p-8 bg-ink/80 backdrop-blur-md animate-[fadeIn_0.2s_ease-out]"
+          onClick={() => setTermsOpen(false)}
+        >
+          <div
+            className="relative w-full max-w-2xl max-h-full rounded-3xl border border-white/10 bg-ink shadow-2xl flex flex-col overflow-hidden"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="flex items-start justify-between gap-4 px-6 sm:px-8 pt-6 sm:pt-8 pb-4 border-b border-white/5">
+              <div>
+                <p className="text-[10px] uppercase tracking-widest text-accent mb-1">Agreement</p>
+                <h2
+                  id="terms-modal-title"
+                  className="font-display text-xl sm:text-2xl font-semibold text-paper tracking-tight"
+                >
+                  Terms &amp; services
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setTermsOpen(false)}
+                aria-label="Close terms"
+                className="shrink-0 rounded-full w-9 h-9 grid place-items-center text-white/60 hover:text-paper hover:bg-white/10 transition-colors"
+              >
+                <X size={18} strokeWidth={1.5} />
+              </button>
+            </div>
+
+            <div className="overflow-y-auto px-6 sm:px-8 py-6 text-sm sm:text-base text-white/80 leading-relaxed whitespace-pre-wrap">
+              {contract.terms}
+            </div>
+
+            <div className="px-6 sm:px-8 py-4 border-t border-white/5 flex justify-end bg-white/[0.02]">
+              <button
+                type="button"
+                onClick={() => setTermsOpen(false)}
+                className="rounded-full bg-paper text-ink font-medium px-5 py-2 text-sm hover:scale-[1.02] active:scale-[0.98] transition-transform"
+              >
+                Close
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
