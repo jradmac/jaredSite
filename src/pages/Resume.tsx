@@ -1,65 +1,45 @@
-import { useRef, useState } from 'react';
-import { ArrowLeft, Download, Mail, Globe, Linkedin, MapPin, Loader2 } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { ArrowLeft, Download, Mail, Globe, Linkedin, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import html2canvas from 'html2canvas-pro';
-import jsPDF from 'jspdf';
 
 export default function Resume() {
   const sheetRef = useRef<HTMLDivElement>(null);
-  const [downloading, setDownloading] = useState(false);
   const [pdfMode, setPdfMode] = useState(false);
 
-  const handleDownload = async () => {
-    if (!sheetRef.current || downloading) return;
-    setDownloading(true);
-    setPdfMode(true);
-    await new Promise<void>((r) =>
-      requestAnimationFrame(() => requestAnimationFrame(() => r())),
-    );
-    try {
-      if (document.fonts?.ready) await document.fonts.ready;
+  useEffect(() => {
+    const before = () => setPdfMode(true);
+    const after = () => setPdfMode(false);
+    window.addEventListener('beforeprint', before);
+    window.addEventListener('afterprint', after);
+    return () => {
+      window.removeEventListener('beforeprint', before);
+      window.removeEventListener('afterprint', after);
+    };
+  }, []);
 
-      const canvas = await html2canvas(sheetRef.current, {
-        scale: 2.5,
-        backgroundColor: '#faf8f2',
-        useCORS: true,
-        logging: false,
-        windowWidth: sheetRef.current.scrollWidth,
-        windowHeight: sheetRef.current.scrollHeight,
-      });
-
-      const pdf = new jsPDF({ unit: 'in', format: 'letter', orientation: 'portrait' });
-      const pageW = pdf.internal.pageSize.getWidth();
-      const pageH = pdf.internal.pageSize.getHeight();
-
-      const imgW = pageW;
-      const imgH = imgW * (canvas.height / canvas.width);
-
-      const imgData = canvas.toDataURL('image/jpeg', 0.95);
-
-      if (imgH <= pageH) {
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH);
-      } else {
-        let remaining = imgH;
-        let offsetY = 0;
-        while (remaining > 0) {
-          pdf.addImage(imgData, 'JPEG', 0, offsetY, imgW, imgH);
-          remaining -= pageH;
-          offsetY -= pageH;
-          if (remaining > 0) pdf.addPage();
-        }
-      }
-      pdf.save('Jared_Mackay_Resume.pdf');
-    } finally {
-      setPdfMode(false);
-      setDownloading(false);
-    }
+  const handleDownload = () => {
+    const prev = document.title;
+    document.title = 'Jared_Mackay_Resume';
+    window.print();
+    setTimeout(() => {
+      document.title = prev;
+    }, 1000);
   };
 
   return (
-    <div className="min-h-screen bg-ink text-paper">
+    <div className="min-h-screen bg-ink text-paper resume-root">
+      <style>{`
+        @media print {
+          @page { size: letter; margin: 0; }
+          html, body { background: #faf8f2 !important; margin: 0 !important; padding: 0 !important; }
+          .resume-root { background: #faf8f2 !important; min-height: 0 !important; }
+          .no-print { display: none !important; }
+          .resume-outer { padding: 0 !important; overflow: visible !important; }
+          .resume-sheet { box-shadow: none !important; margin: 0 auto !important; }
+        }
+      `}</style>
       {/* Top action bar */}
-      <div className="sticky top-0 z-50 backdrop-blur-md bg-ink/70 border-b border-white/10">
+      <div className="no-print sticky top-0 z-50 backdrop-blur-md bg-ink/70 border-b border-white/10">
         <div className="max-w-4xl mx-auto flex items-center justify-between px-5 py-3 sm:py-4">
           <Link
             to="/"
@@ -70,30 +50,20 @@ export default function Resume() {
           </Link>
           <button
             onClick={handleDownload}
-            disabled={downloading}
-            className="flex items-center gap-2 rounded-full bg-accent text-ink font-medium px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm hover:scale-105 transition-transform disabled:opacity-70 disabled:hover:scale-100"
+            className="flex items-center gap-2 rounded-full bg-accent text-ink font-medium px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm hover:scale-105 transition-transform"
           >
-            {downloading ? (
-              <>
-                <Loader2 size={15} strokeWidth={2} className="animate-spin" />
-                Generating…
-              </>
-            ) : (
-              <>
-                <Download size={15} strokeWidth={2} />
-                Download PDF
-              </>
-            )}
+            <Download size={15} strokeWidth={2} />
+            Download PDF
           </button>
         </div>
       </div>
 
       {/* Resume sheet wrapper */}
-      <div className="py-8 sm:py-12 px-4 sm:px-6 overflow-x-auto">
+      <div className="resume-outer py-8 sm:py-12 px-4 sm:px-6 overflow-x-auto">
         <div className="mx-auto" style={{ width: '816px' }}>
           <div
             ref={sheetRef}
-            className="bg-[#faf8f2] text-[#111111] shadow-2xl"
+            className="resume-sheet bg-[#faf8f2] text-[#111111] shadow-2xl"
             style={{
               width: '816px',
               minHeight: '1056px',
