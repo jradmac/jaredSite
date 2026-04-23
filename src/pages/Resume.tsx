@@ -103,29 +103,29 @@ export default function Resume() {
           >
             {/* Header */}
             <header className="pb-3 border-b-2" style={{ borderColor: '#111111' }}>
-              <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
+              <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: '8px' }}>
                 <div>
                   <h1
-                    className="text-[38px] sm:text-[44px] font-semibold tracking-tight leading-none text-[#111]"
-                    style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif" }}
+                    className="font-semibold tracking-tight leading-none text-[#111]"
+                    style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", fontSize: '44px' }}
                   >
                     Jared Mackay
                   </h1>
-                  <p className="mt-1.5 text-[13px] sm:text-sm" style={{ color: '#3a3a3a' }}>
+                  <p className="mt-1.5" style={{ color: '#3a3a3a', fontSize: '14px' }}>
                     Engineer · Operator · Sales — builds, ships, and sells end-to-end.
                   </p>
                 </div>
-                <div className="text-[10.5px] sm:text-[11px] space-y-0.5 sm:text-right" style={{ color: '#3a3a3a' }}>
-                  <p className="flex items-center gap-1.5 sm:justify-end">
+                <div style={{ color: '#3a3a3a', fontSize: '11px', textAlign: 'right' }}>
+                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'flex-end', margin: '2px 0' }}>
                     <MapPin size={11} strokeWidth={1.8} /> Salt Lake City, UT
                   </p>
-                  <p className="flex items-center gap-1.5 sm:justify-end">
+                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'flex-end', margin: '2px 0' }}>
                     <Mail size={11} strokeWidth={1.8} /> jaredhmackay@gmail.com
                   </p>
-                  <p className="flex items-center gap-1.5 sm:justify-end">
+                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'flex-end', margin: '2px 0' }}>
                     <Globe size={11} strokeWidth={1.8} /> jaredmackay.com
                   </p>
-                  <p className="flex items-center gap-1.5 sm:justify-end">
+                  <p style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'flex-end', margin: '2px 0' }}>
                     <Linkedin size={11} strokeWidth={1.8} /> linkedin.com/in/jaredmackay
                   </p>
                 </div>
@@ -409,29 +409,44 @@ function Role({
 }) {
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-3">
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '12px' }}>
         <div>
           <h3
-            className="text-[13.5px] font-semibold leading-tight"
-            style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#111' }}
+            className="font-semibold leading-tight"
+            style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#111', fontSize: '13.5px' }}
           >
             {title}
           </h3>
-          <p className="text-[11.5px] italic leading-tight mt-0.5" style={{ color: '#444' }}>
+          <p className="italic leading-tight mt-0.5" style={{ color: '#444', fontSize: '11.5px' }}>
             {role}
           </p>
         </div>
         <p
-          className="text-[9.5px] uppercase tracking-widest shrink-0"
-          style={{ color: '#555' }}
+          className="uppercase tracking-widest"
+          style={{ color: '#555', fontSize: '9.5px', flexShrink: 0 }}
         >
           {meta}
         </p>
       </div>
-      <ul className="mt-1 space-y-0.5">
+      <ul className="mt-1 space-y-0.5" style={{ listStyle: 'none', padding: 0, margin: '4px 0 0 0' }}>
         {bullets.map((b, i) => (
-          <li key={i} className="flex gap-2 text-[11.5px] leading-snug" style={{ color: '#2a2a2a' }}>
-            <span className="mt-0.5" style={{ color: '#ff6a3d' }}>▸</span>
+          <li
+            key={i}
+            className="text-[11.5px] leading-snug"
+            style={{ color: '#2a2a2a', display: 'flex', alignItems: 'flex-start', gap: '8px' }}
+          >
+            <span
+              style={{
+                display: 'inline-block',
+                width: 0,
+                height: 0,
+                marginTop: '5px',
+                borderLeft: '4px solid #ff6a3d',
+                borderTop: '3px solid transparent',
+                borderBottom: '3px solid transparent',
+                flexShrink: 0,
+              }}
+            />
             <span>{b}</span>
           </li>
         ))}
@@ -464,21 +479,21 @@ function CompactRole({
   }
   return (
     <div>
-      <div className="flex items-baseline justify-between gap-2">
+      <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: '8px' }}>
         <h4
-          className="text-[12px] font-semibold leading-tight"
-          style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#111' }}
+          className="font-semibold leading-tight"
+          style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#111', fontSize: '12px' }}
         >
           {title}
         </h4>
-        <p className="text-[9px] uppercase tracking-widest shrink-0" style={{ color: '#555' }}>
+        <p className="uppercase tracking-widest" style={{ color: '#555', fontSize: '9px', flexShrink: 0 }}>
           {meta}
         </p>
       </div>
-      <p className="text-[11px] italic leading-tight" style={{ color: '#444' }}>
+      <p className="italic leading-tight" style={{ color: '#444', fontSize: '11px' }}>
         {role}
       </p>
-      <p className="mt-0.5 text-[11px] leading-snug" style={{ color: '#2a2a2a' }}>
+      <p className="mt-0.5 leading-snug" style={{ color: '#2a2a2a', fontSize: '11px' }}>
         {description}
       </p>
     </div>
