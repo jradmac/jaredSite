@@ -254,10 +254,10 @@ export default function Resume() {
                         'Installed and networked devices and security software for large-scale concerts at the AT&T Center.',
                     },
                     {
-                      title: 'Brigham Young University',
-                      role: 'Secretary',
+                      title: 'Marriott School of Business',
+                      role: 'B.S. Information Systems · Minor in Communications',
                       description:
-                        'Coordinated meetings, faculty travel, and student inquiries across departments.',
+                        'GPA 3.75 / 4.00 · Member, Association for Information Systems.',
                     },
                     {
                       title: 'Men of Culture',
