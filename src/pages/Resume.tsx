@@ -7,10 +7,15 @@ import jsPDF from 'jspdf';
 export default function Resume() {
   const sheetRef = useRef<HTMLDivElement>(null);
   const [downloading, setDownloading] = useState(false);
+  const [pdfMode, setPdfMode] = useState(false);
 
   const handleDownload = async () => {
     if (!sheetRef.current || downloading) return;
     setDownloading(true);
+    setPdfMode(true);
+    await new Promise<void>((r) =>
+      requestAnimationFrame(() => requestAnimationFrame(() => r())),
+    );
     try {
       if (document.fonts?.ready) await document.fonts.ready;
 
@@ -46,6 +51,7 @@ export default function Resume() {
       }
       pdf.save('Jared_Mackay_Resume.pdf');
     } finally {
+      setPdfMode(false);
       setDownloading(false);
     }
   };
@@ -234,50 +240,80 @@ export default function Resume() {
 
             {/* Other Experience & Service */}
             <Section title="Other Experience & Service">
-              <div className="grid grid-cols-2 gap-x-6 gap-y-2">
+              <div
+                className={
+                  pdfMode
+                    ? 'grid grid-cols-2 gap-x-5 gap-y-0.5'
+                    : 'grid grid-cols-2 gap-x-6 gap-y-2'
+                }
+              >
                 <CompactRole
                   title="Active Event Technology"
                   role="Technical Support"
                   meta="Nov 2022 – Dec 2023 · San Francisco, CA"
                   description="Installed and networked devices and security software for large-scale concerts at the AT&T Center."
+                  compact={pdfMode}
                 />
                 <CompactRole
                   title="Brigham Young University"
                   role="Secretary"
                   meta="Oct 2022 – Apr 2023 · Provo, UT"
                   description="Coordinated meetings, faculty travel, and student inquiries across departments."
+                  compact={pdfMode}
                 />
                 <CompactRole
                   title="Men of Culture"
                   role="President"
                   meta="Jan 2023 – Present · Salt Lake City, UT"
                   description="Lead a men's club focused on personal growth, health, and intellectual development."
+                  compact={pdfMode}
                 />
                 <CompactRole
                   title="Church of Jesus Christ of Latter-Day Saints"
                   role="Volunteer Representative"
                   meta="Belém, Brazil"
                   description="Two years of full-time volunteer service in northern Brazil — became fluent in Portuguese."
+                  compact={pdfMode}
                 />
               </div>
             </Section>
 
             {/* Education */}
-            <Section title="Education">
-              <Role
-                title="Brigham Young University — Marriott School of Business"
-                role="B.S. Information Systems · Minor in Communications"
-                meta="Apr 2026 · Provo, UT"
-                bullets={[
-                  'GPA 3.75 / 4.00 · Member, Association for Information Systems.',
-                ]}
-              />
-            </Section>
+            <section className="mt-3">
+              <SectionTitle>Education</SectionTitle>
+              {pdfMode ? (
+                <p className="mt-1 text-[11.5px] leading-snug" style={{ color: '#2a2a2a' }}>
+                  <span className="font-semibold" style={{ color: '#111' }}>
+                    Brigham Young University — Marriott School of Business
+                  </span>
+                  <span style={{ color: '#444' }}> · B.S. Information Systems · Minor in Communications</span>
+                  <span> — GPA 3.75 / 4.00 · Member, Association for Information Systems.</span>
+                </p>
+              ) : (
+                <div className="mt-1.5 space-y-2">
+                  <Role
+                    title="Brigham Young University — Marriott School of Business"
+                    role="B.S. Information Systems · Minor in Communications"
+                    meta="Apr 2026 · Provo, UT"
+                    bullets={[
+                      'GPA 3.75 / 4.00 · Member, Association for Information Systems.',
+                    ]}
+                  />
+                </div>
+              )}
+            </section>
 
             {/* Skills */}
             <section className="mt-3">
               <SectionTitle>Skills & Toolkit</SectionTitle>
-              <div className="mt-1.5 text-[11.5px] space-y-0.5" style={{ color: '#2a2a2a' }}>
+              <div
+                className={
+                  pdfMode
+                    ? 'mt-1 text-[10.5px] leading-snug space-y-0'
+                    : 'mt-1.5 text-[11.5px] space-y-0.5'
+                }
+                style={{ color: '#2a2a2a' }}
+              >
                 <p>
                   <span className="font-semibold" style={{ color: '#111' }}>Technical:</span>{' '}
                   TypeScript · React · Node.js · Python · PostgreSQL · AWS
@@ -373,12 +409,23 @@ function CompactRole({
   role,
   meta,
   description,
+  compact = false,
 }: {
   title: string;
   role: string;
   meta: string;
   description: string;
+  compact?: boolean;
 }) {
+  if (compact) {
+    return (
+      <p className="text-[10.5px] leading-snug" style={{ color: '#2a2a2a' }}>
+        <span className="font-semibold" style={{ color: '#111' }}>{title}</span>
+        <span style={{ color: '#444' }}> · {role}</span>
+        <span> — {description}</span>
+      </p>
+    );
+  }
   return (
     <div>
       <div className="flex items-baseline justify-between gap-2">
