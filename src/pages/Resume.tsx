@@ -327,56 +327,43 @@ export default function Resume() {
               )}
             </Section>
 
-            {/* Education */}
-            <section className="mt-3">
-              <SectionTitle>Education</SectionTitle>
-              {pdfMode ? (
-                <p className="mt-1 text-[11.5px] leading-snug" style={{ color: '#2a2a2a' }}>
-                  <span className="font-semibold" style={{ color: '#111' }}>
-                    Brigham Young University — Marriott School of Business
-                  </span>
-                  <span style={{ color: '#444' }}> · B.S. Information Systems · Minor in Communications</span>
-                  <span> — GPA 3.75 / 4.00 · Member, Association for Information Systems.</span>
-                </p>
-              ) : (
-                <div className="mt-1.5 space-y-2">
-                  <Role
-                    title="Brigham Young University — Marriott School of Business"
-                    role="B.S. Information Systems · Minor in Communications"
-                    meta="Apr 2026 · Provo, UT"
-                    bullets={[
-                      'GPA 3.75 / 4.00 · Member, Association for Information Systems.',
-                    ]}
-                  />
-                </div>
-              )}
-            </section>
+            {!pdfMode && (
+              <>
+                {/* Education */}
+                <section className="mt-3">
+                  <SectionTitle>Education</SectionTitle>
+                  <div className="mt-1.5 space-y-2">
+                    <Role
+                      title="Brigham Young University — Marriott School of Business"
+                      role="B.S. Information Systems · Minor in Communications"
+                      meta="Apr 2026 · Provo, UT"
+                      bullets={[
+                        'GPA 3.75 / 4.00 · Member, Association for Information Systems.',
+                      ]}
+                    />
+                  </div>
+                </section>
 
-            {/* Skills */}
-            <section className="mt-3">
-              <SectionTitle>Skills & Toolkit</SectionTitle>
-              <div
-                className={
-                  pdfMode
-                    ? 'mt-1 text-[10.5px] leading-snug space-y-0'
-                    : 'mt-1.5 text-[11.5px] space-y-0.5'
-                }
-                style={{ color: '#2a2a2a' }}
-              >
-                <p>
-                  <span className="font-semibold" style={{ color: '#111' }}>Technical:</span>{' '}
-                  TypeScript · React · Node.js · Python · PostgreSQL · AWS
-                </p>
-                <p>
-                  <span className="font-semibold" style={{ color: '#111' }}>Sales & GTM:</span>{' '}
-                  Technical Sales · Solution Engineering · Go-to-Market · Pipeline Management · Enterprise Demos · Negotiation
-                </p>
-                <p>
-                  <span className="font-semibold" style={{ color: '#111' }}>Languages:</span>{' '}
-                  English (native) · Portuguese (fluent)
-                </p>
-              </div>
-            </section>
+                {/* Skills */}
+                <section className="mt-3">
+                  <SectionTitle>Skills & Toolkit</SectionTitle>
+                  <div className="mt-1.5 text-[11.5px] space-y-0.5" style={{ color: '#2a2a2a' }}>
+                    <p>
+                      <span className="font-semibold" style={{ color: '#111' }}>Technical:</span>{' '}
+                      TypeScript · React · Node.js · Python · PostgreSQL · AWS
+                    </p>
+                    <p>
+                      <span className="font-semibold" style={{ color: '#111' }}>Sales & GTM:</span>{' '}
+                      Technical Sales · Solution Engineering · Go-to-Market · Pipeline Management · Enterprise Demos · Negotiation
+                    </p>
+                    <p>
+                      <span className="font-semibold" style={{ color: '#111' }}>Languages:</span>{' '}
+                      English (native) · Portuguese (fluent)
+                    </p>
+                  </div>
+                </section>
+              </>
+            )}
           </div>
         </div>
       </div>
