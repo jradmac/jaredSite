@@ -1,45 +1,65 @@
-import { useEffect, useRef, useState } from 'react';
-import { ArrowLeft, Download, Mail, Globe, Linkedin, MapPin } from 'lucide-react';
+import { useRef, useState } from 'react';
+import { ArrowLeft, Download, Mail, Globe, Linkedin, MapPin, Loader2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import html2canvas from 'html2canvas-pro';
+import jsPDF from 'jspdf';
 
 export default function Resume() {
   const sheetRef = useRef<HTMLDivElement>(null);
   const [pdfMode, setPdfMode] = useState(false);
+  const [downloading, setDownloading] = useState(false);
 
-  useEffect(() => {
-    const before = () => setPdfMode(true);
-    const after = () => setPdfMode(false);
-    window.addEventListener('beforeprint', before);
-    window.addEventListener('afterprint', after);
-    return () => {
-      window.removeEventListener('beforeprint', before);
-      window.removeEventListener('afterprint', after);
-    };
-  }, []);
+  const handleDownload = async () => {
+    if (!sheetRef.current || downloading) return;
+    setDownloading(true);
+    setPdfMode(true);
+    // give React two frames to render the compact layout
+    await new Promise<void>((r) =>
+      requestAnimationFrame(() => requestAnimationFrame(() => r())),
+    );
+    try {
+      if (document.fonts?.ready) await document.fonts.ready;
 
-  const handleDownload = () => {
-    const prev = document.title;
-    document.title = 'Jared_Mackay_Resume';
-    window.print();
-    setTimeout(() => {
-      document.title = prev;
-    }, 1000);
+      const canvas = await html2canvas(sheetRef.current, {
+        scale: 2.5,
+        backgroundColor: '#faf8f2',
+        useCORS: true,
+        logging: false,
+        windowWidth: 816,
+      });
+
+      const pdf = new jsPDF({ unit: 'in', format: 'letter', orientation: 'portrait' });
+      const pageW = pdf.internal.pageSize.getWidth();
+      const pageH = pdf.internal.pageSize.getHeight();
+
+      const imgW = pageW;
+      const imgH = imgW * (canvas.height / canvas.width);
+
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+
+      if (imgH <= pageH) {
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH);
+      } else {
+        let remaining = imgH;
+        let offsetY = 0;
+        while (remaining > 0) {
+          pdf.addImage(imgData, 'JPEG', 0, offsetY, imgW, imgH);
+          remaining -= pageH;
+          offsetY -= pageH;
+          if (remaining > 0) pdf.addPage();
+        }
+      }
+      pdf.save('Jared_Mackay_Resume.pdf');
+    } finally {
+      setPdfMode(false);
+      setDownloading(false);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-ink text-paper resume-root">
-      <style>{`
-        @media print {
-          @page { size: letter; margin: 0; }
-          html, body { background: #faf8f2 !important; margin: 0 !important; padding: 0 !important; }
-          .resume-root { background: #faf8f2 !important; min-height: 0 !important; }
-          .no-print { display: none !important; }
-          .resume-outer { padding: 0 !important; overflow: visible !important; }
-          .resume-sheet { box-shadow: none !important; margin: 0 auto !important; }
-        }
-      `}</style>
+    <div className="min-h-screen bg-ink text-paper">
       {/* Top action bar */}
-      <div className="no-print sticky top-0 z-50 backdrop-blur-md bg-ink/70 border-b border-white/10">
+      <div className="sticky top-0 z-50 backdrop-blur-md bg-ink/70 border-b border-white/10">
         <div className="max-w-4xl mx-auto flex items-center justify-between px-5 py-3 sm:py-4">
           <Link
             to="/"
@@ -50,20 +70,30 @@ export default function Resume() {
           </Link>
           <button
             onClick={handleDownload}
-            className="flex items-center gap-2 rounded-full bg-accent text-ink font-medium px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm hover:scale-105 transition-transform"
+            disabled={downloading}
+            className="flex items-center gap-2 rounded-full bg-accent text-ink font-medium px-4 sm:px-5 py-2 sm:py-2.5 text-xs sm:text-sm hover:scale-105 transition-transform disabled:opacity-70 disabled:hover:scale-100"
           >
-            <Download size={15} strokeWidth={2} />
-            Download PDF
+            {downloading ? (
+              <>
+                <Loader2 size={15} strokeWidth={2} className="animate-spin" />
+                Generating…
+              </>
+            ) : (
+              <>
+                <Download size={15} strokeWidth={2} />
+                Download PDF
+              </>
+            )}
           </button>
         </div>
       </div>
 
       {/* Resume sheet wrapper */}
-      <div className="resume-outer py-8 sm:py-12 px-4 sm:px-6 overflow-x-auto">
+      <div className="py-8 sm:py-12 px-4 sm:px-6 overflow-x-auto">
         <div className="mx-auto" style={{ width: '816px' }}>
           <div
             ref={sheetRef}
-            className="resume-sheet bg-[#faf8f2] text-[#111111] shadow-2xl"
+            className="bg-[#faf8f2] text-[#111111] shadow-2xl"
             style={{
               width: '816px',
               minHeight: '1056px',
@@ -113,7 +143,7 @@ export default function Resume() {
 
             {/* Highlights strip */}
             <section className="mt-3">
-              <div className="grid grid-cols-4 gap-2">
+              <div style={{ display: 'flex', gap: '8px' }}>
                 {[
                   { v: '6+', l: 'Years in Sales' },
                   { v: '$40M', l: 'Revenue Influenced' },
@@ -123,7 +153,11 @@ export default function Resume() {
                   <div
                     key={s.l}
                     className="rounded-md px-2 py-1.5 text-center"
-                    style={{ border: '1px solid #d8d2c4', background: '#f2ede0' }}
+                    style={{
+                      flex: '1 1 0',
+                      border: '1px solid #d8d2c4',
+                      background: '#f2ede0',
+                    }}
                   >
                     <p
                       className="text-[15px] font-semibold leading-none tracking-tight"
@@ -210,42 +244,87 @@ export default function Resume() {
 
             {/* Other Experience & Service */}
             <Section title="Other Experience & Service">
-              <div
-                className={
-                  pdfMode
-                    ? 'grid grid-cols-2 gap-x-5 gap-y-0.5'
-                    : 'grid grid-cols-2 gap-x-6 gap-y-2'
-                }
-              >
-                <CompactRole
-                  title="Active Event Technology"
-                  role="Technical Support"
-                  meta="Nov 2022 – Dec 2023 · San Francisco, CA"
-                  description="Installed and networked devices and security software for large-scale concerts at the AT&T Center."
-                  compact={pdfMode}
-                />
-                <CompactRole
-                  title="Brigham Young University"
-                  role="Secretary"
-                  meta="Oct 2022 – Apr 2023 · Provo, UT"
-                  description="Coordinated meetings, faculty travel, and student inquiries across departments."
-                  compact={pdfMode}
-                />
-                <CompactRole
-                  title="Men of Culture"
-                  role="President"
-                  meta="Jan 2023 – Present · Salt Lake City, UT"
-                  description="Lead a men's club focused on personal growth, health, and intellectual development."
-                  compact={pdfMode}
-                />
-                <CompactRole
-                  title="Church of Jesus Christ of Latter-Day Saints"
-                  role="Volunteer Representative"
-                  meta="Belém, Brazil"
-                  description="Two years of full-time volunteer service in northern Brazil — became fluent in Portuguese."
-                  compact={pdfMode}
-                />
-              </div>
+              {pdfMode ? (
+                <div style={{ display: 'block' }}>
+                  {[
+                    {
+                      title: 'Active Event Technology',
+                      role: 'Technical Support',
+                      description:
+                        'Installed and networked devices and security software for large-scale concerts at the AT&T Center.',
+                    },
+                    {
+                      title: 'Brigham Young University',
+                      role: 'Secretary',
+                      description:
+                        'Coordinated meetings, faculty travel, and student inquiries across departments.',
+                    },
+                    {
+                      title: 'Men of Culture',
+                      role: 'President',
+                      description:
+                        "Lead a men's club focused on personal growth, health, and intellectual development.",
+                    },
+                    {
+                      title: 'Church of Jesus Christ of Latter-Day Saints',
+                      role: 'Volunteer Representative',
+                      description:
+                        'Two years of full-time volunteer service in northern Brazil — became fluent in Portuguese.',
+                    },
+                  ].map((item) => (
+                    <p
+                      key={item.title}
+                      style={{ fontSize: '10.5px', lineHeight: '1.35', color: '#2a2a2a', margin: 0 }}
+                    >
+                      <span style={{ fontWeight: 600, color: '#111' }}>{item.title}</span>
+                      <span style={{ color: '#444' }}> · {item.role}</span>
+                      <span> — {item.description}</span>
+                    </p>
+                  ))}
+                </div>
+              ) : (
+                <div style={{ display: 'flex', flexWrap: 'wrap', columnGap: '24px', rowGap: '8px' }}>
+                  {[
+                    {
+                      title: 'Active Event Technology',
+                      role: 'Technical Support',
+                      meta: 'Nov 2022 – Dec 2023 · San Francisco, CA',
+                      description:
+                        'Installed and networked devices and security software for large-scale concerts at the AT&T Center.',
+                    },
+                    {
+                      title: 'Brigham Young University',
+                      role: 'Secretary',
+                      meta: 'Oct 2022 – Apr 2023 · Provo, UT',
+                      description:
+                        'Coordinated meetings, faculty travel, and student inquiries across departments.',
+                    },
+                    {
+                      title: 'Men of Culture',
+                      role: 'President',
+                      meta: 'Jan 2023 – Present · Salt Lake City, UT',
+                      description:
+                        "Lead a men's club focused on personal growth, health, and intellectual development.",
+                    },
+                    {
+                      title: 'Church of Jesus Christ of Latter-Day Saints',
+                      role: 'Volunteer Representative',
+                      meta: 'Belém, Brazil',
+                      description:
+                        'Two years of full-time volunteer service in northern Brazil — became fluent in Portuguese.',
+                    },
+                  ].map((item) => (
+                    <div key={item.title} style={{ flex: '0 0 calc(50% - 12px)' }}>
+                      <CompactRole
+                        title={item.title}
+                        role={item.role}
+                        meta={item.meta}
+                        description={item.description}
+                      />
+                    </div>
+                  ))}
+                </div>
+              )}
             </Section>
 
             {/* Education */}
