@@ -179,6 +179,16 @@ export default function Resume() {
                   'Social platform for long-form opinion sharing — designed to reward thinking well over thinking fast.',
                 ]}
               />
+              <Role
+                title="4 Tomorrow"
+                role="Founder · Nonprofit"
+                meta="4tommorrow.org"
+                bullets={[
+                  'Built an AI-powered supplemental learning tool that deploys on existing community computers — no new infrastructure required.',
+                  'Children attend 30-minute adaptive sessions covering reading, writing, English, and entrepreneurship; the system adjusts to each learner in real time.',
+                  'Equipping underserved kids with literacy, language, and business thinking — the tools to build a different future.',
+                ]}
+              />
             </Section>
 
             {/* Sales Experience */}

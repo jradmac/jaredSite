@@ -10,7 +10,7 @@ import AnimatedContent from './components/AnimatedContent';
 import RotatingText from './components/RotatingText';
 import ClickSpark from './components/ClickSpark';
 import Navbar from './components/Navbar';
-import { ArrowUpRight, Linkedin, Instagram, Layers, Feather } from 'lucide-react';
+import { ArrowUpRight, Linkedin, Instagram, Layers, Feather, GraduationCap } from 'lucide-react';
 
 function App() {
   return (
@@ -181,6 +181,17 @@ function App() {
                     spotlight: 'rgba(34, 211, 238, 0.35)' as const,
                     href: 'https://www.bejunzi.com',
                     cta: 'bejunzi.com',
+                  },
+                  {
+                    icon: <GraduationCap size={28} strokeWidth={1.5} className="text-white/70" />,
+                    title: '4 Tomorrow',
+                    role: 'Founder · Nonprofit',
+                    description:
+                      'An AI-powered supplemental learning tool for underserved communities. Deploys on existing computers and teaches reading, writing, English, and entrepreneurship — adapting to each child in real time.',
+                    tags: ['Nonprofit', 'AI'],
+                    spotlight: 'rgba(124, 92, 255, 0.35)' as const,
+                    href: 'https://www.4tommorrow.org/',
+                    cta: '4tommorrow.org',
                   },
                   {
                     icon: <Layers size={28} strokeWidth={1.5} className="text-white/70" />,
