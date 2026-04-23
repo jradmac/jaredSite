@@ -10,7 +10,7 @@ import AnimatedContent from './components/AnimatedContent';
 import RotatingText from './components/RotatingText';
 import ClickSpark from './components/ClickSpark';
 import Navbar from './components/Navbar';
-import { ArrowUpRight, Linkedin, Instagram, Feather, GraduationCap } from 'lucide-react';
+import { ArrowUpRight, Linkedin, Instagram, Layers, Feather, GraduationCap } from 'lucide-react';
 
 function App() {
   return (
@@ -183,6 +183,17 @@ function App() {
                     cta: 'bejunzi.com',
                   },
                   {
+                    icon: <img src="/forgedev.png" alt="The Forge Dev" className="h-10" />,
+                    title: 'The Forge Dev',
+                    role: 'Founder & Builder',
+                    description:
+                      'A web design and management agency that rebuilds outdated websites for professional service businesses at no upfront cost — design, SEO, hosting, and ongoing updates handled end-to-end.',
+                    tags: ['Agency', 'Web'],
+                    spotlight: 'rgba(255, 106, 61, 0.35)' as const,
+                    href: 'https://theforgedev.com/',
+                    cta: 'theforgedev.com',
+                  },
+                  {
                     icon: <GraduationCap size={28} strokeWidth={1.5} className="text-white/70" />,
                     title: '4 Tomorrow',
                     role: 'Founder · Nonprofit',
@@ -194,15 +205,13 @@ function App() {
                     cta: '4tommorrow.org',
                   },
                   {
-                    icon: <img src="/forgedev.png" alt="The Forge Dev" className="h-10" />,
-                    title: 'The Forge Dev',
-                    role: 'Founder & Builder',
+                    icon: <Layers size={28} strokeWidth={1.5} className="text-white/70" />,
+                    title: 'Analytics Pipeline',
+                    role: 'Eng + Revenue',
                     description:
-                      'A web design and management agency that rebuilds outdated websites for professional service businesses at no upfront cost — design, SEO, hosting, and ongoing updates handled end-to-end.',
-                    tags: ['Agency', 'Web'],
+                      'Stream processing handling 500K events/sec with exactly-once semantics. Owned product spec to signed contract.',
+                    tags: ['Flink', 'Kafka', 'ClickHouse'],
                     spotlight: 'rgba(255, 106, 61, 0.35)' as const,
-                    href: 'https://theforgedev.com/',
-                    cta: 'theforgedev.com',
                   },
                 ].map((project, i) => {
                   const card = (
