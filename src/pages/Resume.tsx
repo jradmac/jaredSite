@@ -189,6 +189,14 @@ export default function Resume() {
                   'Equipping underserved kids with literacy, language, and business thinking — the tools to build a different future.',
                 ]}
               />
+              <Role
+                title="The Forge Dev"
+                role="Founder & Builder"
+                meta="theforgedev.com"
+                bullets={[
+                  'Web design and management agency rebuilding outdated sites for professional service businesses at no upfront cost — design, SEO, hosting, and ongoing updates handled end-to-end.',
+                ]}
+              />
             </Section>
 
             {/* Sales Experience */}
