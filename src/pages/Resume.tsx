@@ -12,32 +12,38 @@ export default function Resume() {
     if (!sheetRef.current || downloading) return;
     setDownloading(true);
     try {
+      if (document.fonts?.ready) await document.fonts.ready;
+
       const canvas = await html2canvas(sheetRef.current, {
         scale: 2.5,
-        backgroundColor: '#ffffff',
+        backgroundColor: '#faf8f2',
         useCORS: true,
         logging: false,
+        windowWidth: sheetRef.current.scrollWidth,
+        windowHeight: sheetRef.current.scrollHeight,
       });
 
       const pdf = new jsPDF({ unit: 'in', format: 'letter', orientation: 'portrait' });
       const pageW = pdf.internal.pageSize.getWidth();
       const pageH = pdf.internal.pageSize.getHeight();
-      const margin = 0.35;
-      const maxW = pageW - margin * 2;
-      const maxH = pageH - margin * 2;
 
-      const ratio = canvas.width / canvas.height;
-      let imgW = maxW;
-      let imgH = imgW / ratio;
-      if (imgH > maxH) {
-        imgH = maxH;
-        imgW = imgH * ratio;
-      }
-      const offsetX = (pageW - imgW) / 2;
-      const offsetY = margin;
+      const imgW = pageW;
+      const imgH = imgW * (canvas.height / canvas.width);
 
       const imgData = canvas.toDataURL('image/jpeg', 0.95);
-      pdf.addImage(imgData, 'JPEG', offsetX, offsetY, imgW, imgH);
+
+      if (imgH <= pageH) {
+        pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH);
+      } else {
+        let remaining = imgH;
+        let offsetY = 0;
+        while (remaining > 0) {
+          pdf.addImage(imgData, 'JPEG', 0, offsetY, imgW, imgH);
+          remaining -= pageH;
+          offsetY -= pageH;
+          if (remaining > 0) pdf.addPage();
+        }
+      }
       pdf.save('Jared_Mackay_Resume.pdf');
     } finally {
       setDownloading(false);
@@ -77,15 +83,20 @@ export default function Resume() {
       </div>
 
       {/* Resume sheet wrapper */}
-      <div className="py-8 sm:py-12 px-4 sm:px-6">
-        <div className="max-w-[850px] mx-auto">
+      <div className="py-8 sm:py-12 px-4 sm:px-6 overflow-x-auto">
+        <div className="mx-auto" style={{ width: '816px' }}>
           <div
             ref={sheetRef}
-            className="bg-[#faf8f2] text-[#111111] shadow-2xl px-8 sm:px-12 py-8 sm:py-10"
-            style={{ fontFamily: "'Inter', system-ui, sans-serif" }}
+            className="bg-[#faf8f2] text-[#111111] shadow-2xl"
+            style={{
+              width: '816px',
+              minHeight: '1056px',
+              padding: '40px 56px',
+              fontFamily: "'Inter', system-ui, sans-serif",
+            }}
           >
             {/* Header */}
-            <header className="pb-4 border-b-2" style={{ borderColor: '#111111' }}>
+            <header className="pb-3 border-b-2" style={{ borderColor: '#111111' }}>
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2">
                 <div>
                   <h1
@@ -116,8 +127,8 @@ export default function Resume() {
             </header>
 
             {/* Summary */}
-            <section className="mt-3.5">
-              <p className="text-[12.5px] leading-relaxed" style={{ color: '#2a2a2a' }}>
+            <section className="mt-2.5">
+              <p className="text-[12px] leading-snug" style={{ color: '#2a2a2a' }}>
                 Technical founder and top-performing sales operator living at the intersection of building
                 and selling. I write the code, architect the demo, run the technical sale, and onboard
                 the customer — end to end, no translation layer.
@@ -125,8 +136,8 @@ export default function Resume() {
             </section>
 
             {/* Highlights strip */}
-            <section className="mt-4">
-              <div className="grid grid-cols-4 gap-2.5">
+            <section className="mt-3">
+              <div className="grid grid-cols-4 gap-2">
                 {[
                   { v: '6+', l: 'Years in Sales' },
                   { v: '$40M', l: 'Revenue Influenced' },
@@ -135,16 +146,16 @@ export default function Resume() {
                 ].map((s) => (
                   <div
                     key={s.l}
-                    className="rounded-md px-2.5 py-2 text-center"
+                    className="rounded-md px-2 py-1.5 text-center"
                     style={{ border: '1px solid #d8d2c4', background: '#f2ede0' }}
                   >
                     <p
-                      className="text-[17px] font-semibold leading-none tracking-tight"
+                      className="text-[15px] font-semibold leading-none tracking-tight"
                       style={{ fontFamily: "'Space Grotesk', system-ui, sans-serif", color: '#ff6a3d' }}
                     >
                       {s.v}
                     </p>
-                    <p className="mt-1.5 text-[8px] uppercase tracking-widest" style={{ color: '#555' }}>
+                    <p className="mt-1 text-[7.5px] uppercase tracking-widest" style={{ color: '#555' }}>
                       {s.l}
                     </p>
                   </div>
@@ -264,9 +275,9 @@ export default function Resume() {
             </Section>
 
             {/* Skills */}
-            <section className="mt-4">
+            <section className="mt-3">
               <SectionTitle>Skills & Toolkit</SectionTitle>
-              <div className="mt-1.5 text-[12px] space-y-0.5" style={{ color: '#2a2a2a' }}>
+              <div className="mt-1.5 text-[11.5px] space-y-0.5" style={{ color: '#2a2a2a' }}>
                 <p>
                   <span className="font-semibold" style={{ color: '#111' }}>Technical:</span>{' '}
                   TypeScript · React · Node.js · Python · PostgreSQL · AWS
@@ -306,9 +317,9 @@ function SectionTitle({ children }: { children: React.ReactNode }) {
 
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
-    <section className="mt-4">
+    <section className="mt-3">
       <SectionTitle>{title}</SectionTitle>
-      <div className="mt-2 space-y-2.5">{children}</div>
+      <div className="mt-1.5 space-y-2">{children}</div>
     </section>
   );
 }
