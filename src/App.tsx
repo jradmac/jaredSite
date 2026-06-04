@@ -11,8 +11,22 @@ import RotatingText from './components/RotatingText';
 import ClickSpark from './components/ClickSpark';
 import Navbar from './components/Navbar';
 import { ArrowUpRight, Linkedin, Instagram, Layers, Feather, GraduationCap } from 'lucide-react';
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function App() {
+  const location = useLocation();
+
+  // Support scrolling to a section after navigating home from another page
+  useEffect(() => {
+    const scrollTo = (location.state as { scrollTo?: string } | null)?.scrollTo;
+    if (scrollTo) {
+      setTimeout(() => {
+        document.getElementById(scrollTo)?.scrollIntoView({ behavior: 'smooth' });
+      }, 60);
+    }
+  }, [location]);
+
   return (
     <ClickSpark sparkColor="#ff6a3d" sparkRadius={16} sparkCount={8} duration={500}>
       <div className="noise relative min-h-screen overflow-x-hidden bg-ink text-paper">

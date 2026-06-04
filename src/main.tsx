@@ -8,6 +8,7 @@ import AdminDashboard from './pages/AdminDashboard.tsx';
 import ContractView from './pages/ContractView.tsx';
 import ContractSuccess from './pages/ContractSuccess.tsx';
 import Resume from './pages/Resume.tsx';
+import Outpilot from './pages/Outpilot.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -19,6 +20,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/contract/:id" element={<ContractView />} />
         <Route path="/contract/:id/success" element={<ContractSuccess />} />
         <Route path="/resume" element={<Resume />} />
+        <Route path="/products/outpilot" element={<Outpilot />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
