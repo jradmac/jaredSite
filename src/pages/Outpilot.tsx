@@ -54,7 +54,7 @@ const steps = [
     icon: AtSign,
     title: 'Resolve a Contact',
     description:
-      'For each business, Outpilot identifies a real, deliverable email address for the right person. It verifies the domain can actually receive mail before a single message is sent, keeping your deliverability clean from the start.',
+      'For each prospect, Outpilot identifies a real, deliverable email address for the right person — whether that is the decision-maker at a company or the individual themselves. It verifies the address can actually receive mail before a single message is sent, keeping your deliverability clean from the start.',
   },
   {
     icon: PenLine,
@@ -102,7 +102,7 @@ const comparisons = [
   {
     title: 'vs. Paid Advertising',
     description:
-      'Ad spend drives traffic and clicks that you still have to convert. Outpilot reaches named decision-makers directly and produces booked meetings — not impressions — at a fixed, predictable cost per campaign.',
+      'Ad spend drives traffic and clicks that you still have to convert. Outpilot reaches the named people you actually want — decision-makers or individuals — directly, and produces booked meetings, not impressions, at a fixed, predictable cost per campaign.',
   },
   {
     title: 'vs. Doing It Manually',
@@ -437,9 +437,10 @@ export default function Outpilot() {
                   </GradientText>
                 </h2>
                 <p className="text-white/70 text-base sm:text-lg max-w-2xl">
-                  Particularly suited to companies selling B2B services, where the right conversation
-                  with the right decision-maker is what drives new business. It works equally well on
-                  fresh prospect lists or on older, dormant lists that were never fully worked.
+                  Well suited to anyone who grows through direct, one-to-one outreach — whether you are
+                  reaching other businesses or individual consumers, and whether the right conversation
+                  is with a company decision-maker or a person directly. It works equally well on fresh
+                  prospect lists or on older, dormant lists that were never fully worked.
                 </p>
               </AnimatedContent>
 
