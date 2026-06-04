@@ -16,6 +16,7 @@ import {
   Send,
   MessagesSquare,
   CalendarCheck,
+  FileSpreadsheet,
   Workflow,
   Sparkles,
   MessageSquare,
@@ -47,7 +48,7 @@ const steps = [
     icon: Search,
     title: 'Find Prospects',
     description:
-      'Outpilot continuously sources target businesses by industry, geography, and company profile. You define the market; it finds the businesses. No manual list-building or CSV uploads required.',
+      'Outpilot continuously sources target prospects — businesses or individuals — by industry, geography, and profile. You define the market and it finds the leads on its own, or it works through a lead list you already have, including older, dormant lists that were never fully worked.',
   },
   {
     icon: AtSign,
@@ -59,7 +60,7 @@ const steps = [
     icon: PenLine,
     title: 'Write Individually',
     description:
-      'An AI model writes a unique, individual email for every single prospect — referencing their specific business, not a mail-merge template with swapped-in variables. Every message reads like it was written by a thoughtful human who did their homework.',
+      'An AI model writes a unique, individual email for every single prospect — referencing their specific business or personal context, not a mail-merge template with swapped-in variables. Whether you target companies or individuals, every message reads like it was written by a thoughtful human who did their homework.',
   },
   {
     icon: Send,
@@ -78,6 +79,12 @@ const steps = [
     title: 'Follow Up & Book',
     description:
       'Non-responders receive a short, spaced follow-up sequence before being gracefully closed out. When genuine interest is detected, Outpilot offers a meeting, handles the scheduling exchange, and places a confirmed appointment on your calendar.',
+  },
+  {
+    icon: FileSpreadsheet,
+    title: 'Report & Track',
+    description:
+      "Throughout the cycle, Outpilot maintains a live sheet your team has full access to — every lead, their complete contact and company detail, and a plain-language summary of exactly where each conversation stands. It updates continuously as each lead progresses, so you always have a real-time view of the entire pipeline.",
   },
 ];
 
@@ -324,8 +331,8 @@ export default function Outpilot() {
                   </GradientText>
                 </h2>
                 <p className="text-white/70 text-base sm:text-lg max-w-2xl">
-                  Six stages run continuously, handing each prospect from discovery all the way to a
-                  confirmed meeting.
+                  Seven stages run continuously, handing each prospect from discovery all the way to a
+                  confirmed meeting — and a live report your team can watch in real time.
                 </p>
               </AnimatedContent>
 
@@ -333,7 +340,14 @@ export default function Outpilot() {
                 {steps.map((step, i) => {
                   const Icon = step.icon;
                   return (
-                    <AnimatedContent key={step.title} distance={30} direction="vertical" delay={i * 0.1} duration={0.7}>
+                    <AnimatedContent
+                      key={step.title}
+                      distance={30}
+                      direction="vertical"
+                      delay={i * 0.1}
+                      duration={0.7}
+                      className={i === steps.length - 1 && steps.length % 2 === 1 ? 'sm:col-span-2' : ''}
+                    >
                       <SpotlightCard className="h-full p-6! sm:p-8!" spotlightColor={ACCENTS[i % 3]}>
                         <div className="flex items-start justify-between mb-5 sm:mb-6">
                           <span className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/5 border border-white/10 text-accent">
