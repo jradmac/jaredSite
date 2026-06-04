@@ -215,10 +215,12 @@ export default function Outpilot() {
 
             <div className="relative z-10 max-w-5xl w-full text-center">
               <AnimatedContent distance={40} direction="vertical" duration={0.8}>
-                <div className="inline-flex items-center gap-2.5 mb-6">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-ink font-display font-bold text-lg">
-                    O
-                  </span>
+                <div className="inline-flex items-center gap-3 mb-6">
+                  <img
+                    src="/outpilot-logo.png"
+                    alt="Outpilot logo"
+                    className="h-11 w-11 rounded-xl object-cover border border-white/10"
+                  />
                   <span className="font-display text-lg font-semibold tracking-[0.25em] uppercase">
                     Outpilot
                   </span>
