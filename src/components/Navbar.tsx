@@ -7,12 +7,12 @@ interface NavbarProps {
 }
 
 const links = [
-  { id: 'work', label: 'Work' },
-  { id: 'experience', label: 'Experience' },
-  { id: 'ai', label: 'AI' },
-  { id: 'toolkit', label: 'Toolkit' },
-  { id: 'about', label: 'About' },
-  { id: 'contact', label: 'Contact' },
+  { id: 'work', label: 'Work', show: '' },
+  { id: 'experience', label: 'Experience', show: 'hidden sm:block' },
+  { id: 'ai', label: 'AI', show: 'hidden sm:block' },
+  { id: 'toolkit', label: 'Toolkit', show: 'hidden sm:block' },
+  { id: 'about', label: 'About', show: '' },
+  { id: 'contact', label: 'Contact', show: '' },
 ];
 
 const products = [
@@ -69,7 +69,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
         </button>
         <ul className="flex items-center gap-0.5 sm:gap-2 text-xs sm:text-sm">
           {links.map((l) => (
-            <li key={l.id} className="hidden sm:block">
+            <li key={l.id} className={l.show}>
               <button
                 onClick={() => go(l.id)}
                 className="px-2 sm:px-3 py-1.5 sm:py-2 rounded-full transition-colors text-white/70 hover:text-paper hover:bg-white/5"
