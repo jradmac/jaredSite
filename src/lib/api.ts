@@ -62,3 +62,20 @@ export interface PublicContract {
   status: string;
   agreedAt: string | null;
 }
+
+export type LeadStatus = 'new' | 'contacted' | 'qualified' | 'won' | 'lost';
+
+export interface Lead {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  businessType: string;
+  companyName: string | null;
+  companySize: string | null;
+  budget: string | null;
+  message: string | null;
+  source: string | null;
+  status: LeadStatus;
+  createdAt: string;
+}

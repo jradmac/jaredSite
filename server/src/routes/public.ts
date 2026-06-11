@@ -6,6 +6,50 @@ import { stripe } from '../stripe.js';
 
 export const publicRouter = Router();
 
+// ── Lead capture (public marketing form) ────────────────────────
+const leadSchema = z.object({
+  name: z.string().trim().min(1).max(200),
+  email: z.string().trim().email().max(320),
+  phone: z.string().trim().min(3).max(50),
+  businessType: z.string().trim().min(1).max(120),
+  companyName: z.string().trim().max(200).optional().nullable(),
+  companySize: z.string().trim().max(50).optional().nullable(),
+  budget: z.string().trim().max(50).optional().nullable(),
+  message: z.string().trim().max(5000).optional().nullable(),
+  source: z.string().trim().max(120).optional().nullable(),
+  // Honeypot: real users never fill this hidden field.
+  website: z.string().max(0).optional().or(z.literal('')),
+});
+
+publicRouter.post('/leads', async (req, res) => {
+  // Silently accept (but discard) anything that trips the honeypot.
+  if (typeof req.body?.website === 'string' && req.body.website.trim() !== '') {
+    return res.status(201).json({ ok: true });
+  }
+
+  const parsed = leadSchema.safeParse(req.body);
+  if (!parsed.success) {
+    return res.status(400).json({ error: 'invalid_body', details: parsed.error.flatten() });
+  }
+
+  const { website: _ignored, ...data } = parsed.data;
+  await prisma.lead.create({
+    data: {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      businessType: data.businessType,
+      companyName: data.companyName || null,
+      companySize: data.companySize || null,
+      budget: data.budget || null,
+      message: data.message || null,
+      source: data.source || null,
+    },
+  });
+
+  res.status(201).json({ ok: true });
+});
+
 // Public view of a contract (only safe fields)
 publicRouter.get('/contract/:id', async (req, res) => {
   const c = await prisma.contract.findUnique({ where: { id: req.params.id } });

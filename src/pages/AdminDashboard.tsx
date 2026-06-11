@@ -1,10 +1,25 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { api, type Contract } from '../lib/api';
+import { api, type Contract, type Lead, type LeadStatus } from '../lib/api';
 
 function dollars(cents: number | null | undefined) {
   if (cents == null) return '';
   return (cents / 100).toLocaleString(undefined, { style: 'currency', currency: 'USD' });
+}
+
+function leadStatusColor(s: LeadStatus) {
+  switch (s) {
+    case 'won':
+      return 'bg-green-500/10 text-green-400 border-green-500/20';
+    case 'qualified':
+      return 'bg-blue-500/10 text-blue-400 border-blue-500/20';
+    case 'contacted':
+      return 'bg-amber-500/10 text-amber-400 border-amber-500/20';
+    case 'lost':
+      return 'bg-red-500/10 text-red-400 border-red-500/20';
+    default:
+      return 'bg-accent/10 text-accent border-accent/20';
+  }
 }
 
 function statusColor(s: Contract['status']) {
@@ -54,6 +69,7 @@ export default function AdminDashboard() {
   const navigate = useNavigate();
   const [authed, setAuthed] = useState<boolean | null>(null);
   const [contracts, setContracts] = useState<Contract[]>([]);
+  const [leads, setLeads] = useState<Lead[]>([]);
   const [form, setForm] = useState<FormState>(EMPTY);
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -64,18 +80,24 @@ export default function AdminDashboard() {
     setContracts(rows);
   }, []);
 
+  const loadLeads = useCallback(async () => {
+    const rows = await api.get<Lead[]>('/api/leads');
+    setLeads(rows);
+  }, []);
+
   useEffect(() => {
     (async () => {
       try {
         await api.get('/api/auth/me');
         setAuthed(true);
         await loadContracts();
+        await loadLeads();
       } catch {
         setAuthed(false);
         navigate('/admin/login');
       }
     })();
-  }, [navigate, loadContracts]);
+  }, [navigate, loadContracts, loadLeads]);
 
   const canSubmit = useMemo(() => {
     if (!form.name || !form.clientName || !form.clientEmail) return false;
@@ -118,6 +140,17 @@ export default function AdminDashboard() {
     if (!confirm('Delete this contract? If the client has an active subscription, it will be canceled in Stripe.')) return;
     await api.delete(`/api/contracts/${id}`);
     await loadContracts();
+  };
+
+  const onLeadStatus = async (id: string, status: LeadStatus) => {
+    await api.patch(`/api/leads/${id}`, { status });
+    await loadLeads();
+  };
+
+  const onLeadDelete = async (id: string) => {
+    if (!confirm('Delete this lead?')) return;
+    await api.delete(`/api/leads/${id}`);
+    await loadLeads();
   };
 
   const onLogout = async () => {
@@ -293,6 +326,74 @@ export default function AdminDashboard() {
             </div>
           </form>
         )}
+
+        <div className="space-y-3 mb-12">
+          <h2 className="font-display text-xl font-semibold mb-4">
+            Leads{leads.length > 0 && <span className="text-white/40 text-sm font-normal"> · {leads.length}</span>}
+          </h2>
+          {leads.length === 0 && (
+            <p className="text-white/50 text-sm">No leads yet. Submissions from the Custom AI form appear here.</p>
+          )}
+          {leads.map((l) => (
+            <div key={l.id} className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6">
+              <div className="flex flex-col sm:flex-row sm:items-start gap-4 sm:gap-6">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-2 mb-1 flex-wrap">
+                    <h3 className="font-display text-lg font-semibold truncate">{l.name}</h3>
+                    <span
+                      className={`text-[10px] uppercase tracking-widest px-2 py-0.5 rounded-full border ${leadStatusColor(l.status)}`}
+                    >
+                      {l.status}
+                    </span>
+                  </div>
+                  <p className="text-sm text-white/60">
+                    {l.businessType}
+                    {l.companyName ? ` · ${l.companyName}` : ''}
+                    {l.companySize ? ` · ${l.companySize}` : ''}
+                  </p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-1 mt-2 text-sm">
+                    <a href={`mailto:${l.email}`} className="text-accent hover:underline">
+                      {l.email}
+                    </a>
+                    <a href={`tel:${l.phone}`} className="text-accent hover:underline">
+                      {l.phone}
+                    </a>
+                  </div>
+                  {l.budget && <p className="text-xs text-white/40 mt-1">Budget: {l.budget}</p>}
+                  {l.message && (
+                    <p className="text-sm text-white/70 mt-3 whitespace-pre-wrap border-l-2 border-white/10 pl-3">
+                      {l.message}
+                    </p>
+                  )}
+                  <p className="text-[11px] text-white/30 mt-3">
+                    {new Date(l.createdAt).toLocaleString()}
+                    {l.source ? ` · ${l.source}` : ''}
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2 flex-wrap shrink-0">
+                  <select
+                    value={l.status}
+                    onChange={(e) => onLeadStatus(l.id, e.target.value as LeadStatus)}
+                    className="text-xs px-3 py-2 rounded-full bg-white/5 border border-white/15 text-white/70 outline-none cursor-pointer"
+                  >
+                    <option value="new" className="text-ink">New</option>
+                    <option value="contacted" className="text-ink">Contacted</option>
+                    <option value="qualified" className="text-ink">Qualified</option>
+                    <option value="won" className="text-ink">Won</option>
+                    <option value="lost" className="text-ink">Lost</option>
+                  </select>
+                  <button
+                    onClick={() => onLeadDelete(l.id)}
+                    className="text-xs px-3 py-2 rounded-full border border-red-500/30 text-red-400 hover:bg-red-500/10"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
 
         <div className="space-y-3">
           <h2 className="font-display text-xl font-semibold mb-4">Contracts</h2>

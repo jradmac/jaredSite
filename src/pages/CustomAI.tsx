@@ -8,8 +8,8 @@ import ShinyText from '../components/ShinyText';
 import ClickSpark from '../components/ClickSpark';
 import Navbar from '../components/Navbar';
 import AIOrb from '../components/AIOrb';
+import LeadForm from '../components/LeadForm';
 import {
-  ArrowUpRight,
   ArrowLeft,
   Search,
   Inbox,
@@ -182,9 +182,6 @@ const packages = [
   },
 ];
 
-const AUDIT_MAILTO =
-  'mailto:jaredhmackay@gmail.com?subject=Custom%20AI%20%E2%80%94%20Free%20Workflow%20Audit&body=I%27d%20like%20to%20book%20a%20free%20workflow%20audit.%20Here%27s%20what%20my%20team%20spends%20too%20much%20time%20on%3A';
-
 export default function CustomAI() {
   return (
     <ClickSpark sparkColor="#ff6a3d" sparkRadius={16} sparkCount={8} duration={500}>
@@ -240,10 +237,10 @@ export default function CustomAI() {
               <AnimatedContent distance={30} direction="vertical" delay={0.9} duration={0.8}>
                 <div className="mt-8 sm:mt-10 flex flex-wrap gap-3 justify-center">
                   <a
-                    href={AUDIT_MAILTO}
+                    href="#consultation"
                     className="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full bg-paper text-ink font-medium hover:scale-105 transition-transform"
                   >
-                    Book a free workflow audit →
+                    Get a free consultation →
                   </a>
                   <a
                     href="#build"
@@ -617,9 +614,9 @@ export default function CustomAI() {
           </section>
 
           {/* ═══════════════════════════════════════════════ */}
-          {/* CTA                                             */}
+          {/* CONSULTATION FORM                               */}
           {/* ═══════════════════════════════════════════════ */}
-          <section className="py-20 sm:py-28 md:py-44 px-5 sm:px-6 relative overflow-hidden">
+          <section id="consultation" className="py-20 sm:py-28 md:py-44 px-5 sm:px-6 relative overflow-hidden scroll-mt-20">
             <div className="absolute inset-0 -z-0 opacity-40">
               <Aurora
                 colorStops={['#ff6a3d', '#7c5cff', '#22d3ee']}
@@ -630,35 +627,35 @@ export default function CustomAI() {
             </div>
             <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/60 to-ink pointer-events-none" />
 
-            <div className="relative z-10 max-w-3xl mx-auto text-center">
+            <div className="relative z-10 max-w-2xl mx-auto">
               <AnimatedContent distance={40} duration={0.7}>
-                <h2 className="font-display text-3xl sm:text-6xl font-semibold leading-tight tracking-tight mb-5 sm:mb-6">
-                  Let’s find the one workflow{' '}
-                  <GradientText
-                    colors={['#ff6a3d', '#7c5cff', '#ff6a3d']}
-                    animationSpeed={5}
-                    className="inline-block"
-                  >
-                    worth automating first
-                  </GradientText>
-                  .
-                </h2>
-                <p className="text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-8 sm:mb-12">
-                  The audit is free and the recommendation is yours to keep. Worst case, you walk away
-                  knowing exactly where your team’s time is leaking.
-                </p>
+                <div className="text-center mb-10 sm:mb-12">
+                  <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
+                    Free consultation
+                  </p>
+                  <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-5 sm:mb-6">
+                    Let’s find the one workflow{' '}
+                    <GradientText
+                      colors={['#ff6a3d', '#7c5cff', '#ff6a3d']}
+                      animationSpeed={5}
+                      className="inline-block"
+                    >
+                      worth automating first
+                    </GradientText>
+                    .
+                  </h2>
+                  <p className="text-white/70 text-base sm:text-lg max-w-xl mx-auto">
+                    Tell us a little about your business and we’ll map your highest-ROI automation —
+                    free, with no obligation. Worst case, you walk away knowing exactly where your
+                    team’s time is leaking.
+                  </p>
+                </div>
               </AnimatedContent>
 
-              <AnimatedContent distance={30} direction="vertical" delay={0.2} duration={0.7}>
-                <a
-                  href={AUDIT_MAILTO}
-                  className="inline-flex items-center gap-2 rounded-full bg-paper text-ink font-medium px-6 sm:px-10 py-3 sm:py-4 text-sm sm:text-base hover:scale-105 transition-transform"
-                >
-                  Book a free workflow audit
-                  <ArrowUpRight size={18} strokeWidth={1.75} />
-                </a>
+              <AnimatedContent distance={30} direction="vertical" delay={0.15} duration={0.7}>
+                <LeadForm />
 
-                <div className="mt-10 sm:mt-12">
+                <div className="mt-10 sm:mt-12 text-center">
                   <Link
                     to="/"
                     className="inline-flex items-center gap-2 text-sm text-white/60 hover:text-paper transition-colors"
