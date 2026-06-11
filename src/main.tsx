@@ -10,6 +10,7 @@ import ContractSuccess from './pages/ContractSuccess.tsx';
 import Resume from './pages/Resume.tsx';
 import Outpilot from './pages/Outpilot.tsx';
 import CustomAI from './pages/CustomAI.tsx';
+import Consultation from './pages/Consultation.tsx';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -23,6 +24,7 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/resume" element={<Resume />} />
         <Route path="/products/outpilot" element={<Outpilot />} />
         <Route path="/products/custom-ai" element={<CustomAI />} />
+        <Route path="/free-consultation" element={<Consultation />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>,
