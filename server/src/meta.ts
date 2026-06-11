@@ -2,7 +2,7 @@ import crypto from 'node:crypto';
 
 // Meta Conversions API — server-side event sender for accurate ad tracking.
 // Disabled (no-op) unless META_CAPI_ACCESS_TOKEN is set in the environment.
-const PIXEL_ID = process.env.META_PIXEL_ID || '1539925997799431';
+const PIXEL_ID = process.env.META_PIXEL_ID || '1451500423327450';
 const ACCESS_TOKEN = process.env.META_CAPI_ACCESS_TOKEN || '';
 const API_VERSION = 'v21.0';
 
