@@ -3,6 +3,7 @@ import { z } from 'zod';
 import type Stripe from 'stripe';
 import { prisma } from '../db.js';
 import { stripe } from '../stripe.js';
+import { sendLeadEvent } from '../meta.js';
 
 export const publicRouter = Router();
 
@@ -17,6 +18,11 @@ const leadSchema = z.object({
   budget: z.string().trim().max(50).optional().nullable(),
   message: z.string().trim().max(5000).optional().nullable(),
   source: z.string().trim().max(120).optional().nullable(),
+  // Meta CAPI fields (not stored) — for accurate, deduplicated ad tracking.
+  eventId: z.string().trim().max(100).optional().nullable(),
+  fbp: z.string().trim().max(255).optional().nullable(),
+  fbc: z.string().trim().max(512).optional().nullable(),
+  eventSourceUrl: z.string().trim().max(1000).optional().nullable(),
   // Honeypot: real users never fill this hidden field.
   website: z.string().max(0).optional().or(z.literal('')),
 });
@@ -45,6 +51,23 @@ publicRouter.post('/leads', async (req, res) => {
       message: data.message || null,
       source: data.source || null,
     },
+  });
+
+  // Fire the server-side Meta Lead event (best-effort, never blocks the response).
+  const ip =
+    (req.headers['x-forwarded-for'] as string | undefined)?.split(',')[0]?.trim() ||
+    req.socket.remoteAddress ||
+    undefined;
+  void sendLeadEvent({
+    email: data.email,
+    phone: data.phone,
+    name: data.name,
+    eventId: data.eventId,
+    eventSourceUrl: data.eventSourceUrl,
+    fbp: data.fbp,
+    fbc: data.fbc,
+    ip,
+    userAgent: req.headers['user-agent'],
   });
 
   res.status(201).json({ ok: true });

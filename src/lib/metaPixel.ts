@@ -42,10 +42,31 @@ export function initMetaPixel(): void {
   fbq('init', PIXEL_ID);
 }
 
-/** Fire a Pixel event (standard or custom). No-op if the Pixel isn't loaded. */
-export function trackPixel(event: string, params?: Record<string, unknown>): void {
+/** Fire a Pixel event (standard or custom). No-op if the Pixel isn't loaded.
+ *  Pass options.eventID to deduplicate against a matching server-side CAPI event. */
+export function trackPixel(
+  event: string,
+  params?: Record<string, unknown>,
+  options?: { eventID?: string },
+): void {
   const fbq = typeof window !== 'undefined' ? window.fbq : undefined;
   if (!fbq) return;
-  if (params) fbq('track', event, params);
+  if (options) fbq('track', event, params ?? {}, options);
+  else if (params) fbq('track', event, params);
   else fbq('track', event);
+}
+
+/** Read a browser cookie (used for Meta's _fbp / _fbc attribution cookies). */
+export function getCookie(name: string): string | undefined {
+  if (typeof document === 'undefined') return undefined;
+  const match = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
+  return match ? decodeURIComponent(match[1]) : undefined;
+}
+
+/** Generate a unique event id shared by the browser Pixel and the server CAPI event. */
+export function newEventId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID();
+  }
+  return `${Date.now()}-${Math.random().toString(36).slice(2)}`;
 }

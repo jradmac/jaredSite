@@ -1,7 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { api } from '../lib/api';
-import { trackPixel } from '../lib/metaPixel';
+import { trackPixel, getCookie, newEventId } from '../lib/metaPixel';
 
 const BUSINESS_TYPES = [
   'Agency / Marketing',
@@ -80,6 +80,8 @@ export default function LeadForm() {
     e.preventDefault();
     setError(null);
     setSubmitting(true);
+    // Shared id so the browser Pixel event and the server CAPI event dedupe.
+    const eventId = newEventId();
     try {
       await api.post('/api/public/leads', {
         name: form.name.trim(),
@@ -91,13 +93,18 @@ export default function LeadForm() {
         budget: form.budget || null,
         message: form.message.trim() || null,
         source: 'custom-ai-landing',
+        eventId,
+        eventSourceUrl: typeof window !== 'undefined' ? window.location.href : null,
+        fbp: getCookie('_fbp') || null,
+        fbc: getCookie('_fbc') || null,
         website: form.website,
       });
       // Meta conversion event — optimize/report ad campaigns on this.
-      trackPixel('Lead', {
-        content_name: 'Custom AI Consultation',
-        content_category: 'custom-ai',
-      });
+      trackPixel(
+        'Lead',
+        { content_name: 'Custom AI Consultation', content_category: 'custom-ai' },
+        { eventID: eventId },
+      );
       setDone(true);
     } catch {
       setError(
