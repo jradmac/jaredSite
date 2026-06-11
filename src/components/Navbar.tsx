@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ChevronDown, Send } from 'lucide-react';
+import { ChevronDown, Send, Cpu } from 'lucide-react';
 
 interface NavbarProps {
   onNavigate?: (id: string) => void;
@@ -21,6 +21,12 @@ const products = [
     tagline: 'AI-powered outbound sales automation',
     href: '/products/outpilot',
     icon: Send,
+  },
+  {
+    name: 'Custom AI Solutions',
+    tagline: 'Custom AI builds & automation for business',
+    href: '/products/custom-ai',
+    icon: Cpu,
   },
 ];
 

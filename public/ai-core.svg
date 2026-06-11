@@ -1,0 +1,61 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="coreGlow" cx="50%" cy="48%" r="55%">
+      <stop offset="0%" stop-color="#ff6a3d" stop-opacity="0.55"/>
+      <stop offset="42%" stop-color="#7c5cff" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#0a0a0f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ring" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff6a3d"/>
+      <stop offset="50%" stop-color="#7c5cff"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <radialGradient id="node" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#f5f3ee"/>
+      <stop offset="100%" stop-color="#7c5cff"/>
+    </radialGradient>
+    <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="9"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="900" fill="#0a0a0f"/>
+  <rect width="1200" height="900" fill="url(#coreGlow)"/>
+
+  <!-- orbital rings -->
+  <g stroke="url(#ring)" fill="none" opacity="0.5">
+    <ellipse cx="600" cy="440" rx="430" ry="180" stroke-width="1.5" transform="rotate(-18 600 440)"/>
+    <ellipse cx="600" cy="440" rx="330" ry="320" stroke-width="1.5" transform="rotate(22 600 440)"/>
+    <ellipse cx="600" cy="440" rx="250" ry="250" stroke-width="2"/>
+  </g>
+
+  <!-- connection web -->
+  <g stroke="#7c5cff" stroke-width="1.2" opacity="0.35">
+    <line x1="600" y1="440" x2="230" y2="250"/>
+    <line x1="600" y1="440" x2="940" y2="240"/>
+    <line x1="600" y1="440" x2="300" y2="690"/>
+    <line x1="600" y1="440" x2="900" y2="700"/>
+    <line x1="600" y1="440" x2="160" y2="500"/>
+    <line x1="600" y1="440" x2="1040" y2="470"/>
+    <line x1="230" y1="250" x2="160" y2="500"/>
+    <line x1="940" y1="240" x2="1040" y2="470"/>
+    <line x1="300" y1="690" x2="900" y2="700"/>
+  </g>
+
+  <!-- nodes -->
+  <g>
+    <circle cx="230" cy="250" r="10" fill="url(#node)"/>
+    <circle cx="940" cy="240" r="10" fill="url(#node)"/>
+    <circle cx="300" cy="690" r="10" fill="url(#node)"/>
+    <circle cx="900" cy="700" r="10" fill="url(#node)"/>
+    <circle cx="160" cy="500" r="8" fill="#22d3ee"/>
+    <circle cx="1040" cy="470" r="8" fill="#22d3ee"/>
+  </g>
+
+  <!-- core -->
+  <circle cx="600" cy="440" r="120" fill="#7c5cff" opacity="0.25" filter="url(#soft)"/>
+  <circle cx="600" cy="440" r="74" fill="url(#ring)"/>
+  <circle cx="600" cy="440" r="74" fill="#0a0a0f" opacity="0.25"/>
+  <circle cx="600" cy="440" r="40" fill="#f5f3ee"/>
+  <circle cx="600" cy="440" r="40" fill="url(#coreGlow)"/>
+</svg>

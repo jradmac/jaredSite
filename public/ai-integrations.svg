@@ -1,0 +1,60 @@
+<svg width="1200" height="900" viewBox="0 0 1200 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="intGlow" cx="50%" cy="50%" r="60%">
+      <stop offset="0%" stop-color="#22d3ee" stop-opacity="0.40"/>
+      <stop offset="45%" stop-color="#7c5cff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#0a0a0f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="intWire" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff6a3d"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <linearGradient id="hub" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ff6a3d"/>
+      <stop offset="50%" stop-color="#7c5cff"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1200" height="900" fill="#0a0a0f"/>
+  <rect width="1200" height="900" fill="url(#intGlow)"/>
+
+  <!-- wires from hub to satellite tiles -->
+  <g stroke="url(#intWire)" stroke-width="2.5" fill="none" opacity="0.55">
+    <path d="M600 450 C 420 450, 360 230, 250 210"/>
+    <path d="M600 450 C 780 450, 840 230, 950 210"/>
+    <path d="M600 450 C 380 450, 300 470, 190 460"/>
+    <path d="M600 450 C 820 450, 900 470, 1010 460"/>
+    <path d="M600 450 C 430 450, 360 680, 250 710"/>
+    <path d="M600 450 C 770 450, 840 680, 950 710"/>
+  </g>
+
+  <!-- satellite app tiles -->
+  <g>
+    <rect x="190" y="150" width="120" height="120" rx="26" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <rect x="232" y="192" width="36" height="36" rx="10" fill="#ff6a3d"/>
+
+    <rect x="890" y="150" width="120" height="120" rx="26" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <circle cx="950" cy="210" r="22" fill="#7c5cff"/>
+
+    <rect x="130" y="400" width="120" height="120" rx="26" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <rect x="170" y="440" width="40" height="40" rx="20" fill="#22d3ee"/>
+
+    <rect x="950" y="400" width="120" height="120" rx="26" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <path d="M990 480 L1010 440 L1030 480 Z" fill="#ff6a3d"/>
+
+    <rect x="190" y="650" width="120" height="120" rx="26" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <rect x="226" y="686" width="48" height="20" rx="10" fill="#7c5cff"/>
+    <rect x="226" y="716" width="32" height="14" rx="7" fill="#ffffff" fill-opacity="0.4"/>
+
+    <rect x="890" y="650" width="120" height="120" rx="26" fill="#ffffff" fill-opacity="0.06" stroke="#ffffff" stroke-opacity="0.12"/>
+    <circle cx="950" cy="710" r="24" fill="none" stroke="#22d3ee" stroke-width="6"/>
+  </g>
+
+  <!-- central hub -->
+  <circle cx="600" cy="450" r="108" fill="#7c5cff" opacity="0.18"/>
+  <rect x="520" y="370" width="160" height="160" rx="36" fill="url(#hub)"/>
+  <rect x="520" y="370" width="160" height="160" rx="36" fill="#0a0a0f" opacity="0.18"/>
+  <circle cx="600" cy="450" r="34" fill="#f5f3ee"/>
+  <circle cx="600" cy="450" r="14" fill="#7c5cff"/>
+</svg>
