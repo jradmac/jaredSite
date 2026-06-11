@@ -4,6 +4,7 @@ import type Stripe from 'stripe';
 import { prisma } from '../db.js';
 import { stripe } from '../stripe.js';
 import { sendLeadEvent } from '../meta.js';
+import { notifyNewLead } from '../notify.js';
 
 export const publicRouter = Router();
 
@@ -68,6 +69,19 @@ publicRouter.post('/leads', async (req, res) => {
     fbc: data.fbc,
     ip,
     userAgent: req.headers['user-agent'],
+  });
+
+  // Telegram notification (best-effort, non-blocking).
+  void notifyNewLead({
+    name: data.name,
+    email: data.email,
+    phone: data.phone,
+    businessType: data.businessType,
+    companyName: data.companyName,
+    companySize: data.companySize,
+    budget: data.budget,
+    message: data.message,
+    source: data.source,
   });
 
   res.status(201).json({ ok: true });
