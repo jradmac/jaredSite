@@ -7,6 +7,7 @@ import SpotlightCard from '../components/SpotlightCard';
 import ShinyText from '../components/ShinyText';
 import ClickSpark from '../components/ClickSpark';
 import Navbar from '../components/Navbar';
+import AIOrb from '../components/AIOrb';
 import {
   ArrowUpRight,
   ArrowLeft,
@@ -22,7 +23,6 @@ import {
   ShieldCheck,
   Lock,
   CheckCircle2,
-  Cpu,
 } from 'lucide-react';
 
 const ACCENTS = [
@@ -32,9 +32,9 @@ const ACCENTS = [
 ] as const;
 
 const stats = [
-  { value: '15 hrs', label: 'Typical weekly hours handed back to a team' },
-  { value: '1 workflow', label: 'Where every engagement starts — proven before we scale' },
-  { value: 'Fixed', label: 'Scope and price agreed before a single line is built' },
+  { value: 'Cut costs', label: 'Automate the expensive manual work that quietly drains your budget' },
+  { value: 'Save time', label: 'Hand your team back the hours lost to repetitive busywork' },
+  { value: 'Increase revenue', label: 'Free your people to focus on the work that actually grows the business' },
 ];
 
 const pains = [
@@ -109,13 +109,13 @@ const steps = [
     icon: Search,
     title: 'We Audit',
     description:
-      'A free, no-pressure call where we map your actual workflows and find the one process quietly costing you the most. You leave knowing exactly what’s worth automating first — whether or not you hire me.',
+      'A free, no-pressure call where we map your actual workflows and find the one process quietly costing you the most. You leave knowing exactly what’s worth automating first — whether or not you hire us.',
   },
   {
     icon: Layers,
     title: 'We Build',
     description:
-      'I scope that one workflow to a fixed price and a fixed timeline, build it against your real data, and prove it works before anything goes live. No open-ended retainers, no surprise invoices.',
+      'We scope that one workflow to a fixed price and a fixed timeline, build it against your real data, and prove it works before anything goes live. No open-ended retainers, no surprise invoices.',
   },
   {
     icon: Repeat,
@@ -176,7 +176,7 @@ const packages = [
     name: 'Ongoing Partner',
     price: 'Monthly',
     blurb:
-      'I keep your automations running and add the next proven win on a simple monthly basis — for teams that want a long-term build partner.',
+      'We keep your automations running and add the next proven win on a simple monthly basis — for teams that want a long-term build partner.',
     points: ['Maintenance & monitoring', 'New workflows over time', 'Priority turnaround', 'Cancel anytime'],
     featured: false,
   },
@@ -208,10 +208,8 @@ export default function CustomAI() {
 
             <div className="relative z-10 max-w-5xl w-full text-center">
               <AnimatedContent distance={40} direction="vertical" duration={0.8}>
-                <div className="flex flex-col items-center gap-3 mb-6">
-                  <span className="flex h-16 w-16 items-center justify-center rounded-2xl bg-accent/15 border-2 border-white/20 text-accent shadow-lg shadow-black/30">
-                    <Cpu size={30} strokeWidth={1.75} />
-                  </span>
+                <div className="flex flex-col items-center gap-4 mb-6">
+                  <AIOrb size={76} />
                   <span className="font-display text-lg font-semibold tracking-[0.25em] uppercase">
                     Custom AI Solutions
                   </span>
@@ -233,7 +231,7 @@ export default function CustomAI() {
 
               <AnimatedContent distance={30} direction="vertical" delay={0.6} duration={0.8}>
                 <p className="mt-6 sm:mt-8 max-w-2xl mx-auto text-white/70 text-sm sm:text-lg leading-relaxed">
-                  I build custom AI that fits how your business actually works — automating the
+                  We build custom AI that fits how your business actually works — automating the
                   repetitive, expensive, copy-paste work your team hates. No generic tool to learn,
                   no buzzwords. Just one workflow, handled, with measurable ROI.
                 </p>
@@ -251,17 +249,17 @@ export default function CustomAI() {
                     href="#build"
                     className="px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base rounded-full border border-white/20 hover:bg-white/5 transition-colors"
                   >
-                    <ShinyText text="See what I build" speed={4} />
+                    <ShinyText text="See what we build" speed={4} />
                   </a>
                 </div>
               </AnimatedContent>
 
               {/* Stat trio */}
-              <div className="mt-14 sm:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-3xl mx-auto">
+              <div className="mt-14 sm:mt-20 grid grid-cols-1 sm:grid-cols-3 gap-5 sm:gap-6 max-w-3xl mx-auto items-stretch">
                 {stats.map((s, i) => (
-                  <AnimatedContent key={s.value} distance={40} delay={i * 0.1} duration={0.6}>
-                    <div className="rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-5 sm:p-6 text-center">
-                      <div className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-paper">
+                  <AnimatedContent key={s.value} className="h-full" distance={40} delay={i * 0.1} duration={0.6}>
+                    <div className="h-full flex flex-col justify-center rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-sm p-5 sm:p-6 text-center">
+                      <div className="font-display text-xl sm:text-2xl font-semibold tracking-tight text-paper">
                         {s.value}
                       </div>
                       <p className="text-[10px] sm:text-xs font-medium tracking-widest uppercase text-white/50 mt-2 sm:mt-3 leading-relaxed">
@@ -339,7 +337,7 @@ export default function CustomAI() {
                       animationSpeed={5}
                       className="inline-block"
                     >
-                      I fit you.
+                      We fit you.
                     </GradientText>
                   </h2>
                   <p className="text-white/70 text-base sm:text-lg leading-relaxed mb-6">
@@ -366,13 +364,13 @@ export default function CustomAI() {
           </section>
 
           {/* ═══════════════════════════════════════════════ */}
-          {/* WHAT I BUILD                                    */}
+          {/* WHAT WE BUILD                                   */}
           {/* ═══════════════════════════════════════════════ */}
           <section id="build" className="py-20 sm:py-28 md:py-44 px-5 sm:px-6 bg-white/[0.02] border-y border-white/5">
             <div className="max-w-6xl mx-auto">
               <AnimatedContent distance={40} duration={0.7}>
                 <p className="uppercase tracking-[0.3em] text-[10px] sm:text-xs text-white/60 mb-3 sm:mb-4">
-                  003 · What I build
+                  003 · What we build
                 </p>
                 <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4">
                   Outcomes,{' '}
