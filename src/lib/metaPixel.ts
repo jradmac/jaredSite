@@ -2,7 +2,7 @@
 // Set your Pixel ID in your host's env as VITE_META_PIXEL_ID,
 // or paste it directly into the fallback string below.
 // (A Pixel ID is public — it ships in client code either way.)
-const PIXEL_ID = (import.meta.env.VITE_META_PIXEL_ID as string | undefined) || '641569926932916';
+const PIXEL_ID = (import.meta.env.VITE_META_PIXEL_ID as string | undefined) || '1539925997799431';
 
 type FbqFn = ((...args: unknown[]) => void) & {
   callMethod?: (...args: unknown[]) => void;
