@@ -319,7 +319,11 @@ export default function CustomAI() {
               <AnimatedContent distance={30} direction="horizontal" reverse duration={0.8}>
                 <div className="relative">
                   <div className="rounded-3xl overflow-hidden border border-white/10">
-                    <img src="/ai-core.svg" alt="Custom AI system core" className="w-full h-full object-cover" />
+                    <img
+                      src="/why-custom.png"
+                      alt="A team collaborating around a laptop"
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                   <div className="absolute -inset-3 rounded-3xl bg-accent/15 blur-2xl -z-10" />
                 </div>
