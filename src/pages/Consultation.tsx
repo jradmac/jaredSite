@@ -44,8 +44,9 @@ export default function Consultation() {
                     .
                   </h1>
                   <p className="text-white/70 text-base sm:text-lg max-w-xl mx-auto leading-relaxed">
-                    Tell us a little about your business and we’ll map your highest-ROI automation —
-                    free, with no obligation. We reply within one business day.
+                    Tell us a little about your business and we’ll show you where custom AI can save
+                    you the most time and money — free, with no obligation. We reply within one
+                    business day.
                   </p>
                 </div>
               </AnimatedContent>

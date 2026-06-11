@@ -113,7 +113,7 @@ export default function LeadForm() {
         </h3>
         <p className="text-white/70 text-sm sm:text-base max-w-md mx-auto leading-relaxed">
           Thanks, {form.name.split(' ')[0] || 'there'} — your free consultation request is in. We’ll
-          reach out within one business day to find the one workflow worth automating first.
+          reach out within one business day to show you where custom AI can make the biggest impact.
         </p>
       </div>
     );
@@ -232,13 +232,13 @@ export default function LeadForm() {
           </Field>
         </div>
         <div className="sm:col-span-2">
-          <Field label="What would you like to automate or build?">
+          <Field label="What would you like to build with AI?">
             <textarea
               rows={4}
               value={form.message}
               onChange={(e) => set('message', e.target.value)}
               className={inputCls + ' resize-none'}
-              placeholder="Tell us about the repetitive process or problem that's costing your team the most time."
+              placeholder="Tell us about the process or problem that's costing your team the most time, and we'll show you where AI fits."
             />
           </Field>
         </div>
