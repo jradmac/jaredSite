@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from 'react';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { api } from '../lib/api';
+import { trackPixel } from '../lib/metaPixel';
 
 const BUSINESS_TYPES = [
   'Agency / Marketing',
@@ -91,6 +92,11 @@ export default function LeadForm() {
         message: form.message.trim() || null,
         source: 'custom-ai-landing',
         website: form.website,
+      });
+      // Meta conversion event — optimize/report ad campaigns on this.
+      trackPixel('Lead', {
+        content_name: 'Custom AI Consultation',
+        content_category: 'custom-ai',
       });
       setDone(true);
     } catch {

@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Aurora from '../components/Aurora';
 import AnimatedContent from '../components/AnimatedContent';
@@ -5,9 +6,17 @@ import GradientText from '../components/GradientText';
 import ClickSpark from '../components/ClickSpark';
 import AIOrb from '../components/AIOrb';
 import LeadForm from '../components/LeadForm';
+import { trackPixel } from '../lib/metaPixel';
 import { ArrowLeft } from 'lucide-react';
 
 export default function Consultation() {
+  useEffect(() => {
+    trackPixel('ViewContent', {
+      content_name: 'Free Consultation',
+      content_category: 'custom-ai',
+    });
+  }, []);
+
   return (
     <ClickSpark sparkColor="#ff6a3d" sparkRadius={16} sparkCount={8} duration={500}>
       <div className="noise relative min-h-screen overflow-x-hidden bg-ink text-paper">

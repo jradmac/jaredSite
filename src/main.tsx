@@ -1,7 +1,8 @@
-import { StrictMode } from 'react';
+import { StrictMode, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import './index.css';
+import { initMetaPixel, trackPixel } from './lib/metaPixel';
 import App from './App.tsx';
 import AdminLogin from './pages/AdminLogin.tsx';
 import AdminDashboard from './pages/AdminDashboard.tsx';
@@ -12,9 +13,22 @@ import Outpilot from './pages/Outpilot.tsx';
 import CustomAI from './pages/CustomAI.tsx';
 import Consultation from './pages/Consultation.tsx';
 
+// Load the Meta Pixel as early as possible (no-op without a Pixel ID).
+initMetaPixel();
+
+// Fire a PageView on first load and on every client-side route change.
+function PixelRouteTracker() {
+  const location = useLocation();
+  useEffect(() => {
+    trackPixel('PageView');
+  }, [location.pathname]);
+  return null;
+}
+
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
+      <PixelRouteTracker />
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/admin/login" element={<AdminLogin />} />
