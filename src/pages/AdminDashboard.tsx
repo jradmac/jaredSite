@@ -22,6 +22,15 @@ function leadStatusColor(s: LeadStatus) {
   }
 }
 
+// A contract is "active" once the client has checked the box and agreed to move
+// forward (signed), including anything already billing (active) or lapsed (past_due).
+// Everything else (draft, sent, canceled) is still pending / not active.
+const ACTIVE_STATUSES: Contract['status'][] = ['signed', 'active', 'past_due'];
+
+function isActive(c: Contract) {
+  return ACTIVE_STATUSES.includes(c.status);
+}
+
 function statusColor(s: Contract['status']) {
   switch (s) {
     case 'active':
@@ -74,6 +83,7 @@ export default function AdminDashboard() {
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
+  const [tab, setTab] = useState<'active' | 'pending'>('active');
 
   const loadContracts = useCallback(async () => {
     const rows = await api.get<Contract[]>('/api/contracts');
@@ -98,6 +108,10 @@ export default function AdminDashboard() {
       }
     })();
   }, [navigate, loadContracts, loadLeads]);
+
+  const activeContracts = useMemo(() => contracts.filter(isActive), [contracts]);
+  const pendingContracts = useMemo(() => contracts.filter((c) => !isActive(c)), [contracts]);
+  const visibleContracts = tab === 'active' ? activeContracts : pendingContracts;
 
   const canSubmit = useMemo(() => {
     if (!form.name || !form.clientName || !form.clientEmail) return false;
@@ -396,11 +410,27 @@ export default function AdminDashboard() {
         </div>
 
         <div className="space-y-3">
-          <h2 className="font-display text-xl font-semibold mb-4">Contracts</h2>
+          <div className="flex items-center gap-2 mb-5">
+            <TabButton active={tab === 'active'} onClick={() => setTab('active')}>
+              Active <TabCount>{activeContracts.length}</TabCount>
+            </TabButton>
+            <TabButton active={tab === 'pending'} onClick={() => setTab('pending')}>
+              Pending <TabCount>{pendingContracts.length}</TabCount>
+            </TabButton>
+          </div>
+
           {contracts.length === 0 && (
             <p className="text-white/50 text-sm">No contracts yet. Click "New contract" to create one.</p>
           )}
-          {contracts.map((c) => (
+          {contracts.length > 0 && visibleContracts.length === 0 && (
+            <p className="text-white/50 text-sm">
+              No {tab} contracts.{' '}
+              {tab === 'active'
+                ? 'Contracts show here once a client agrees and moves forward.'
+                : 'Everything has been agreed to — nice.'}
+            </p>
+          )}
+          {visibleContracts.map((c) => (
             <div
               key={c.id}
               className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:p-6 flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6"
@@ -458,6 +488,35 @@ export default function AdminDashboard() {
 
 const inputCls =
   'w-full rounded-lg bg-white/5 border border-white/10 px-4 py-3 outline-none focus:border-accent transition-colors text-paper placeholder:text-white/30';
+
+function TabButton({
+  active,
+  onClick,
+  children,
+}: {
+  active: boolean;
+  onClick: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <button
+      onClick={onClick}
+      className={`text-sm px-4 py-2 rounded-full border transition-colors flex items-center gap-2 ${
+        active
+          ? 'bg-paper text-ink border-transparent font-medium'
+          : 'border-white/15 text-white/60 hover:text-paper hover:bg-white/5'
+      }`}
+    >
+      {children}
+    </button>
+  );
+}
+
+function TabCount({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="text-xs tabular-nums opacity-60 min-w-[1rem] text-center">{children}</span>
+  );
+}
 
 function Field({ label, children }: { label: string; children: React.ReactNode }) {
   return (
