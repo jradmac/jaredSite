@@ -11,7 +11,7 @@ import {
   ArrowUpRight,
   ArrowLeft,
   Search,
-  AtSign,
+  Database,
   PenLine,
   Send,
   MessagesSquare,
@@ -21,14 +21,10 @@ import {
   Sparkles,
   MessageSquare,
   Repeat,
-  Inbox,
+  ShoppingBag,
   ShieldCheck,
-  Scale,
   BarChart3,
-  Building2,
-  Cpu,
   Users,
-  Landmark,
 } from 'lucide-react';
 
 const ACCENTS = [
@@ -38,154 +34,154 @@ const ACCENTS = [
 ] as const;
 
 const stats = [
-  { value: '24/7', label: 'Always running, never off' },
-  { value: '100%', label: 'Fully automated pipeline' },
-  { value: '1-to-1', label: 'Every email individually written' },
+  { value: '24/7', label: 'Always-on across email & SMS' },
+  { value: '1-to-1', label: 'Every message individually written' },
+  { value: '$0', label: 'New ad spend to make it work' },
 ];
 
 const steps = [
   {
-    icon: Search,
-    title: 'Find Prospects',
+    icon: Database,
+    title: 'Connect Your Leads',
     description:
-      'Outpilot continuously sources target prospects — businesses or individuals — by industry, geography, and profile. You define the market and it finds the leads on its own, or it works through a lead list you already have, including older, dormant lists that were never fully worked.',
+      'Bring in the people you already have — old lead lists, abandoned checkouts, giveaway entries, waitlists, form submissions, trade-show contacts, and past customers. Outpilot syncs alongside the tools you already run, like Klaviyo, HubSpot, and Shopify, without disrupting a thing.',
   },
   {
-    icon: AtSign,
-    title: 'Resolve a Contact',
+    icon: Search,
+    title: 'Segment by Intent',
     description:
-      'For each prospect, Outpilot identifies a real, deliverable email address for the right person — whether that is the decision-maker at a company or the individual themselves. It verifies the address can actually receive mail before a single message is sent, keeping your deliverability clean from the start.',
+      'Outpilot reads each contact and sorts them by where they left off — cart abandoners, dormant buyers, unconverted signups, people who clicked but never purchased. Every list, no matter how old or cold, is scored so the right message goes to the right person.',
   },
   {
     icon: PenLine,
     title: 'Write Individually',
     description:
-      'An AI model writes a unique, individual email for every single prospect — referencing their specific business or personal context, not a mail-merge template with swapped-in variables. Whether you target companies or individuals, every message reads like it was written by a thoughtful human who did their homework.',
+      'An AI model writes a unique email or text for every single contact — referencing the product they looked at, the offer they entered, or the interest they showed. Not a mail-merge blast with a swapped-in first name. Every message reads like a thoughtful 1-to-1 note, not a broadcast.',
   },
   {
     icon: Send,
-    title: 'Send & Manage Delivery',
+    title: 'Reach Out Over Email & SMS',
     description:
-      'Messages go out through a managed pool of sending inboxes, with built-in daily limits per inbox and full email authentication (SPF, DKIM, DMARC) configured. Deliverability is treated as infrastructure, not an afterthought.',
+      'Messages go out on the channel each person actually answers, through fully authenticated sending (SPF, DKIM, DMARC) with healthy per-inbox limits and one-click opt-out. Deliverability and compliance are treated as infrastructure, not an afterthought.',
   },
   {
     icon: MessagesSquare,
     title: 'Handle Every Reply',
     description:
-      "When a prospect responds, the AI reads the reply, understands their intent — interest, a question, an objection, or a 'not right now' — and responds appropriately. It also catches replies that arrive off-thread or as auto-responders, which most tools miss entirely.",
+      "When someone responds, the AI reads the reply and understands the intent — a product question, an objection, a 'send me the link,' or a 'not right now.' It answers in real time, around the clock, so no interested customer is left waiting on a human.",
   },
   {
-    icon: CalendarCheck,
-    title: 'Follow Up & Book',
+    icon: ShoppingBag,
+    title: 'Guide Back to the Sale',
     description:
-      'Non-responders receive a short, spaced follow-up sequence before being gracefully closed out. When genuine interest is detected, Outpilot offers a meeting, handles the scheduling exchange, and places a confirmed appointment on your calendar.',
+      'Once intent is clear, Outpilot points each person to exactly the right next step — the specific product, collection, booking page, or offer — and follows up on a smart, spaced cadence until they convert or gracefully opt out.',
   },
   {
     icon: FileSpreadsheet,
     title: 'Report & Track',
     description:
-      "Throughout the cycle, Outpilot maintains a live sheet your team has full access to — every lead, their complete contact and company detail, and a plain-language summary of exactly where each conversation stands. It updates continuously as each lead progresses, so you always have a real-time view of the entire pipeline.",
+      'Throughout, Outpilot keeps a live view your team has full access to — every contact, every conversation, and a plain-language summary of exactly where each one stands. You see the revenue being recovered in real time, message by message.',
   },
 ];
 
 const comparisons = [
   {
-    title: 'vs. a Sending Tool',
+    title: 'vs. a Batch Email Blast',
     description:
-      'Most outreach tools are sending platforms — they help you fire emails faster, but you still write the copy, manage the lists, handle every reply by hand, and hope someone follows up before the lead goes cold. Outpilot is the entire workflow in one system: it researches, writes, sends, converses, follows up, and books.',
+      'Campaigns and flows send the same message to a whole segment and stop the moment someone replies. Outpilot writes a unique message for each person and actually holds the conversation — answering questions, handling objections, and guiding them to buy. One is a broadcast. Outpilot is a dialogue.',
   },
   {
-    title: 'vs. Hiring a Sales Rep',
+    title: 'vs. More Ad Spend',
     description:
-      'A sales rep personalizes in batches, works 40 hours a week, needs ramp time, and eventually churns. Outpilot personalizes every single message, works 24/7, starts immediately, and costs a fraction of a salary.',
+      'Ads pay to find brand-new strangers and hope they convert. Outpilot recovers revenue from people who already raised their hand — old leads, abandoned carts, past interest — at no new acquisition cost. You already paid to earn these leads; Outpilot cashes them in.',
   },
   {
-    title: 'vs. Paid Advertising',
+    title: 'vs. Your Existing Flows',
     description:
-      'Ad spend drives traffic and clicks that you still have to convert. Outpilot reaches the named people you actually want — decision-makers or individuals — directly, and produces booked meetings, not impressions, at a fixed, predictable cost per campaign.',
+      'Abandoned-cart and win-back automations fire a fixed sequence, then go quiet. Outpilot picks up where they stop — reading replies, adapting to each person, and reopening conversations your flows already gave up on. It layers on top of your stack, it does not replace it.',
   },
   {
-    title: 'vs. Doing It Manually',
+    title: 'vs. Hiring a Retention Rep',
     description:
-      'Manual outreach degrades fast: copy gets recycled, follow-ups fall through, and volume always loses to other priorities. Outpilot sustains genuine personalization at a volume no individual can match, consistently, without falling behind.',
+      'A rep personalizes in batches, works 40 hours a week, needs ramp time, and eventually churns. Outpilot personalizes every single message across email and SMS, works 24/7, starts immediately, and costs a fraction of a salary.',
   },
 ];
 
 const audiences = [
   {
-    icon: Building2,
-    title: 'B2B Service Firms',
+    icon: ShoppingBag,
+    title: 'E-Commerce & DTC',
     description:
-      'Agencies, consultants, managed services — anyone whose growth depends on conversations.',
-  },
-  {
-    icon: Cpu,
-    title: 'SaaS & Tech',
-    description:
-      'Outbound prospecting for demos and discovery calls, at scale and without the headcount.',
+      'Shopify and online brands recovering abandoned checkouts, past customers, and browsers who never bought.',
   },
   {
     icon: Users,
-    title: 'Recruiters',
+    title: 'Consumer Brands',
     description:
-      'Reach hiring managers and candidates with individually crafted outreach, not spam blasts.',
+      'Turn giveaway entries, waitlists, and interested-but-unconverted fans into paying customers.',
   },
   {
-    icon: Landmark,
-    title: 'Financial Services',
+    icon: Database,
+    title: 'Big Lead Lists',
     description:
-      'Compliant, personalized prospecting for advisors, brokers, and fintech products.',
+      'Anyone sitting on old, dormant lists — form fills, trade-show leads, signups — that were never fully worked.',
+  },
+  {
+    icon: CalendarCheck,
+    title: 'Service & Appointment',
+    description:
+      'Clinics, studios, and local businesses re-engaging inquiries and guiding them to the booking page.',
   },
 ];
 
 const capabilities = [
   {
     icon: Workflow,
-    title: 'End-to-End Automation',
+    title: 'Works With Your Stack',
     description:
-      'The full outbound cycle runs without human involvement — from sourcing a lead to placing a confirmed meeting on your calendar.',
+      'Plugs in alongside Klaviyo, HubSpot, Shopify, and the tools you already run. Outpilot adds a reactivation layer — it never asks you to rip anything out.',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Email + SMS in One System',
+    description:
+      'Reach each person on the channel they actually answer, in one coordinated conversation — no juggling separate tools for text and email.',
   },
   {
     icon: Sparkles,
     title: 'True 1-to-1 Personalization',
     description:
-      'Every email is individually written by AI for the specific recipient. No templates, no variable-merge fields. Each message is unique.',
+      'Every message is individually written by AI for the specific person and what they were interested in. No templates, no merge fields, no blasts.',
   },
   {
-    icon: MessageSquare,
+    icon: MessagesSquare,
     title: 'Conversational AI Replies',
     description:
-      "Outpilot doesn't just send and hope. It reads every reply, understands the intent, and carries the conversation forward appropriately.",
+      "Outpilot doesn't just send and hope. It reads every reply, answers product questions, handles objections, and keeps the conversation moving toward a sale.",
+  },
+  {
+    icon: ShoppingBag,
+    title: 'Guided Path to Purchase',
+    description:
+      'Every interested contact is routed to the exact right next step — the product, collection, booking page, or offer most likely to convert them.',
   },
   {
     icon: Repeat,
-    title: 'Smart Follow-Up Sequences',
+    title: 'Smart Follow-Up',
     description:
-      'Non-responders receive a short, spaced follow-up sequence before being gracefully closed out — no awkward double-sends or silence.',
-  },
-  {
-    icon: Inbox,
-    title: 'Multi-Inbox Delivery',
-    description:
-      'Volume is spread across a managed pool of inboxes, with per-inbox sending limits to maintain healthy deliverability at scale.',
+      'Quiet contacts get a short, spaced follow-up across email and SMS before being gracefully closed out — persistent, never pushy.',
   },
   {
     icon: ShieldCheck,
-    title: 'Deliverability Safeguards',
+    title: 'Deliverability & Compliance',
     description:
-      'Email addresses are verified before sending. SPF, DKIM, and DMARC are properly configured. Bounces are minimized by design.',
-  },
-  {
-    icon: Scale,
-    title: 'Compliance Built In',
-    description:
-      'Every message includes a physical address and one-click opt-out. Opt-outs are honored automatically. CAN-SPAM compliant by default.',
+      'Verified sends, SPF/DKIM/DMARC, and automatic one-click opt-out. Healthy inboxes and CAN-SPAM / TCPA-friendly by default.',
   },
   {
     icon: BarChart3,
-    title: 'Live Tracking & Reporting',
+    title: 'Full Conversation Reporting',
     description:
-      'A continuously updated sheet shows every prospect, their current status, and a plain-language summary of where each conversation stands.',
+      'Live visibility into every conversation and a plain-language summary of where each one stands — so you can watch recovered revenue add up.',
   },
 ];
 
@@ -226,13 +222,13 @@ export default function Outpilot() {
                   </span>
                 </div>
                 <p className="uppercase tracking-[0.3em] text-xs text-white/60 mb-6">
-                  AI-Powered Outbound Sales Automation
+                  AI Email &amp; SMS Revenue Recovery
                 </p>
               </AnimatedContent>
 
               <h1 className="font-display text-[2.75rem] sm:text-7xl md:text-8xl font-semibold leading-[0.95] tracking-tight">
                 <BlurText
-                  text="Meetings. Booked. Automatically."
+                  text="Lost Revenue. Recovered. Automatically."
                   delay={120}
                   animateBy="words"
                   direction="top"
@@ -242,9 +238,10 @@ export default function Outpilot() {
 
               <AnimatedContent distance={30} direction="vertical" delay={0.6} duration={0.8}>
                 <p className="mt-6 sm:mt-8 max-w-2xl mx-auto text-white/70 text-sm sm:text-lg leading-relaxed">
-                  Outpilot finds your ideal prospects, writes a personalized email for each one,
-                  handles their replies in real time, and books qualified meetings on your calendar —
-                  with zero manual work from your team.
+                  Outpilot reactivates the leads you already have — old lists, abandoned checkouts,
+                  giveaway entries, waitlists, and browsers who never bought — with personalized 1-to-1
+                  email and SMS that answers questions, follows up, and guides each person back to the
+                  right product or offer.
                 </p>
               </AnimatedContent>
 
@@ -304,10 +301,12 @@ export default function Outpilot() {
                   ?
                 </h2>
                 <p className="text-white/70 text-base sm:text-xl leading-relaxed">
-                  Outpilot is an end-to-end automated outreach system. It does the work of a full
-                  outbound sales rep — finding leads, reaching out individually, managing the
-                  back-and-forth, and setting appointments — without the cost, ramp-up, or management
-                  that a human rep requires. It runs continuously, around the clock, without supervision.
+                  Outpilot is an AI-powered email and SMS marketing system that recovers the revenue
+                  hiding in leads you already have. It re-engages old and dormant lists, abandoned
+                  checkouts, and everyone who showed interest but never bought — holding personalized
+                  1-to-1 conversations that answer questions, follow up, and guide people back to the
+                  sale. It works alongside Klaviyo, HubSpot, and Shopify, adding a reactivation layer
+                  on top of your marketing rather than replacing any of it.
                 </p>
               </AnimatedContent>
             </div>
@@ -323,7 +322,7 @@ export default function Outpilot() {
                   002 · How it works
                 </p>
                 <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4">
-                  A complete outbound cycle —{' '}
+                  A complete recovery cycle —{' '}
                   <GradientText
                     colors={['#ff6a3d', '#7c5cff', '#22d3ee', '#ff6a3d']}
                     animationSpeed={5}
@@ -333,8 +332,8 @@ export default function Outpilot() {
                   </GradientText>
                 </h2>
                 <p className="text-white/70 text-base sm:text-lg max-w-2xl">
-                  Seven stages run continuously, handing each prospect from discovery all the way to a
-                  confirmed meeting — and a live report your team can watch in real time.
+                  Seven stages run continuously, taking every lead you already have from dormant to
+                  recovered revenue — with a live report your team can watch in real time.
                 </p>
               </AnimatedContent>
 
@@ -372,7 +371,7 @@ export default function Outpilot() {
               <AnimatedContent distance={30} direction="vertical" delay={0.2} duration={0.7}>
                 <p className="mt-10 sm:mt-14 text-white/60 text-sm sm:text-base max-w-3xl">
                   <span className="text-accent font-medium">The result:</span> a steady, autonomous
-                  pipeline that finds prospects, starts conversations, and fills your calendar — without
+                  engine that turns dormant leads into recovered revenue — without new ad spend or
                   manual work from your team.
                 </p>
               </AnimatedContent>
@@ -389,18 +388,18 @@ export default function Outpilot() {
                   003 · What makes it different
                 </p>
                 <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4">
-                  Not a sending tool.{' '}
+                  Not another blast.{' '}
                   <GradientText
                     colors={['#ff6a3d', '#7c5cff', '#22d3ee', '#ff6a3d']}
                     animationSpeed={5}
                     className="inline-block"
                   >
-                    The entire workflow.
+                    A real conversation.
                   </GradientText>
                 </h2>
                 <p className="text-white/70 text-base sm:text-lg max-w-2xl">
-                  Outpilot researches, writes, sends, converses, follows up, and books — replacing a
-                  stack of tools and the manual labor between them.
+                  Outpilot writes, sends, converses, follows up, and closes — a personalized
+                  reactivation layer that works with your marketing stack instead of competing with it.
                 </p>
               </AnimatedContent>
 
@@ -429,20 +428,20 @@ export default function Outpilot() {
                   004 · Who it's for
                 </p>
                 <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4">
-                  Built for businesses that grow through{' '}
+                  Built for brands sitting on{' '}
                   <GradientText
                     colors={['#ff6a3d', '#7c5cff', '#22d3ee', '#ff6a3d']}
                     animationSpeed={5}
                     className="inline-block"
                   >
-                    direct outreach.
+                    untapped revenue.
                   </GradientText>
                 </h2>
                 <p className="text-white/70 text-base sm:text-lg max-w-2xl">
-                  Well suited to anyone who grows through direct, one-to-one outreach — whether you are
-                  reaching other businesses or individual consumers, and whether the right conversation
-                  is with a company decision-maker or a person directly. It works equally well on fresh
-                  prospect lists or on older, dormant lists that were never fully worked.
+                  If you have a list of people who once showed interest, Outpilot turns it back into
+                  revenue. It works best for e-commerce and consumer brands — abandoned checkouts,
+                  giveaway entries, waitlists, past customers — and for any business holding old,
+                  dormant lists that were never fully worked.
                 </p>
               </AnimatedContent>
 
@@ -477,10 +476,11 @@ export default function Outpilot() {
                   005 · Key capabilities
                 </p>
                 <h2 className="font-display text-3xl sm:text-5xl md:text-6xl font-semibold leading-tight tracking-tight mb-4">
-                  Everything you need.
+                  Everything you need to win them back.
                 </h2>
                 <p className="text-white/70 text-base sm:text-lg max-w-2xl">
-                  Outpilot is a complete system, not a collection of disconnected point solutions.
+                  Outpilot is a complete revenue recovery system — not a collection of disconnected
+                  point solutions bolted onto your stack.
                 </p>
               </AnimatedContent>
 
@@ -522,19 +522,19 @@ export default function Outpilot() {
             <div className="relative z-10 max-w-3xl mx-auto text-center">
               <AnimatedContent distance={40} duration={0.7}>
                 <h2 className="font-display text-3xl sm:text-6xl font-semibold leading-tight tracking-tight mb-5 sm:mb-6">
-                  Ready to put your outbound on{' '}
+                  Recover the revenue you already{' '}
                   <GradientText
                     colors={['#ff6a3d', '#7c5cff', '#ff6a3d']}
                     animationSpeed={5}
                     className="inline-block"
                   >
-                    autopilot
+                    earned
                   </GradientText>
-                  ?
+                  .
                 </h2>
                 <p className="text-white/70 text-base sm:text-lg max-w-xl mx-auto mb-8 sm:mb-12">
-                  Start with a short pilot against your real target market. Measured on the only metric
-                  that matters: meetings booked.
+                  Start with a short pilot on your real lead list — old contacts, abandoned carts, past
+                  interest. Measured on the only metric that matters: revenue recovered.
                 </p>
               </AnimatedContent>
 
@@ -563,7 +563,7 @@ export default function Outpilot() {
 
         <footer className="relative z-10 border-t border-white/10 py-6 sm:py-8 px-5 sm:px-6">
           <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] sm:text-xs text-white/40 text-center">
-            <p>Outpilot — AI-Powered Outbound Sales Automation</p>
+            <p>Outpilot — AI Email &amp; SMS Revenue Recovery</p>
             <p>© {new Date().getFullYear()} · MMXXVI</p>
           </div>
         </footer>
