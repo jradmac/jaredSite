@@ -555,7 +555,7 @@ function App() {
                 <AnimatedContent distance={30} direction="horizontal" reverse duration={0.8}>
                   <div className="relative max-w-[260px] mx-auto md:max-w-none md:mx-0">
                     <div className="aspect-[3/4] rounded-3xl overflow-hidden border border-white/10">
-                      <img src="/headshot.JPG" alt="Jared Mackay" className="w-full h-full object-cover" />
+                      <img src="/headshot.png" alt="Jared Mackay" className="w-full h-full object-cover" />
                     </div>
                     <div className="absolute -inset-3 rounded-3xl bg-accent/20 blur-2xl -z-10" />
                   </div>
