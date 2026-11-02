@@ -209,7 +209,7 @@ export default function Resume() {
               />
               <Role
                 title="4 Tomorrow"
-                role="Founder · Nonprofit"
+                role="Builder · Nonprofit"
                 meta="4tommorrow.org"
                 bullets={[
                   'Built an AI-powered supplemental learning tool that deploys on existing community computers — no new infrastructure required.',

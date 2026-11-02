@@ -513,6 +513,9 @@ function App() {
 
         {/* ═════════ THINKING / AI ═════════ */}
         <section id="ai" className="section think">
+          <p className="section-label" data-rise>
+            How I use AI
+          </p>
           <h2 className="think-big">
             <span className="think-line" data-chars>
               <Chars text="I'm the thinker." />

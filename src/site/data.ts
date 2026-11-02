@@ -69,7 +69,7 @@ export const projects: Project[] = [
   },
   {
     title: '4 Tomorrow',
-    role: 'Founder, nonprofit',
+    role: 'Builder, nonprofit',
     description:
       'An AI-powered supplemental learning tool for underserved communities. Deploys on existing computers and teaches reading, writing, English, and entrepreneurship, adapting to each child in real time.',
     tags: ['Nonprofit', 'AI'],
