@@ -37,8 +37,15 @@ export default function Resume() {
 
       const imgData = canvas.toDataURL('image/jpeg', 0.95);
 
-      if (imgH <= pageH) {
-        pdf.addImage(imgData, 'JPEG', 0, 0, imgW, imgH);
+      if (imgH <= pageH * 1.12) {
+        // Up to ~12% over one page: scale down to fit, so the resume stays a
+        // single page instead of spilling a few lines (or a blank page) onto page 2.
+        const fit = Math.min(1, pageH / imgH);
+        const w = imgW * fit;
+        const h = imgH * fit;
+        pdf.setFillColor(250, 248, 242);
+        pdf.rect(0, 0, pageW, pageH, 'F');
+        pdf.addImage(imgData, 'JPEG', (pageW - w) / 2, 0, w, h);
       } else {
         let remaining = imgH;
         let offsetY = 0;
@@ -216,6 +223,18 @@ export default function Resume() {
                 meta="theforgedev.com"
                 bullets={[
                   'Web design and management agency rebuilding outdated sites for professional service businesses at no upfront cost — design, SEO, hosting, and ongoing updates handled end-to-end.',
+                ]}
+              />
+            </Section>
+
+            {/* Investment Experience */}
+            <Section title="Investment Experience">
+              <Role
+                title="Ollin Ventures"
+                role="Private Equity Analyst"
+                meta="Private Equity · AI"
+                bullets={[
+                  'Analyst at a private equity firm that invests in AI startups.',
                 ]}
               />
             </Section>

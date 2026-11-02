@@ -46,6 +46,17 @@ export const projects: Project[] = [
     cta: 'bejunzi.com',
   },
   {
+    title: 'Metaphysical Field Survey',
+    role: 'Author & builder',
+    description:
+      'An interactive 3D map of 63 philosophers, schools, and religions, plotted by whether mind or matter is fundamental, where the ultimate lies, and whether truth is found or made. A 22-question test places your own beliefs on the same map.',
+    tags: ['Philosophy', '3D', 'Interactive'],
+    flood: '#b9a7ff',
+    ink: '#050507',
+    href: 'https://metaphysics-map-production.up.railway.app/',
+    cta: 'Explore the map',
+  },
+  {
     title: 'The Forge Dev',
     role: 'Founder & builder',
     description:
@@ -109,6 +120,13 @@ export const salesJobs = [
 ];
 
 export const otherWork = [
+  {
+    title: 'Ollin Ventures',
+    role: 'Private equity analyst',
+    when: 'Private equity',
+    where: 'AI startups',
+    description: 'Analyst at a private equity firm that invests in AI startups.',
+  },
   {
     title: 'Active Event Technology',
     role: 'Technical support',
