@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import '../site/site.css';
 
 interface NavbarProps {
@@ -110,6 +110,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
             <span className="nav-mark-short">JM</span>
           </button>
 
+          <div className="nav-right">
           <ul className="nav-links">
             {links.map((l) => (
               <li key={l.id}>
@@ -145,6 +146,13 @@ export default function Navbar({ onNavigate }: NavbarProps) {
             </li>
           </ul>
 
+          <Link to="/resume" className="nav-resume" onClick={() => setMenuOpen(false)}>
+            Resume
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 2.5v8M4.5 7 8 10.5 11.5 7M3 13.5h10" fill="none" stroke="currentColor" strokeWidth="1.8" />
+            </svg>
+          </Link>
+
           <button
             className="nav-menu-btn"
             onClick={() => setMenuOpen((o) => !o)}
@@ -153,6 +161,7 @@ export default function Navbar({ onNavigate }: NavbarProps) {
           >
             {menuOpen ? 'Close' : 'Menu'}
           </button>
+          </div>
         </nav>
       </header>
 

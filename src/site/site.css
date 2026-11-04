@@ -481,6 +481,40 @@ html.has-cursor .site * {
   margin-top: 0.15rem;
 }
 
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.8rem, 2vw, 2rem);
+}
+
+/* Resume: the one solid button in the header. Doubled class beats `.site a`. */
+.nav .nav-resume {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: var(--paper);
+  color: var(--void);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition:
+    background-color 0.3s,
+    transform 0.4s var(--ease-out);
+}
+
+.nav .nav-resume:hover,
+.nav .nav-resume:focus-visible {
+  background: var(--ember);
+  transform: translateY(-2px);
+}
+
+.nav-resume svg {
+  width: 0.9rem;
+  height: 0.9rem;
+}
+
 .nav-menu-btn {
   font-weight: 700;
   font-size: 0.95rem;
