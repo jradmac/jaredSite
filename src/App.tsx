@@ -11,6 +11,7 @@ import Preloader from './site/Preloader';
 import Cursor from './site/Cursor';
 import Marquee from './site/Marquee';
 import LocalTime from './site/LocalTime';
+import SideProjects from './site/SideProjects';
 import {
   projects,
   metrics,
@@ -204,6 +205,19 @@ function App() {
           ease: 'expo.out',
           stagger: 0.08,
           scrollTrigger: { trigger: '.work-list', start: 'top 80%' },
+        });
+
+        /* ── Side projects: recordings open like a shutter ──────── */
+        gsap.utils.toArray<HTMLElement>('.side-media').forEach((el) => {
+          gsap.fromTo(
+            el,
+            { clipPath: 'inset(12% 8% 12% 8% round 18px)' },
+            {
+              clipPath: 'inset(0% 0% 0% 0% round 14px)',
+              ease: 'none',
+              scrollTrigger: { trigger: el, start: 'top 90%', end: 'top 35%', scrub: 0.6 },
+            },
+          );
         });
 
         /* ── Quote: words light up as you read ─────────────────── */
@@ -444,6 +458,36 @@ function App() {
               );
             })}
           </ul>
+        </section>
+
+        {/* ═════════ SIDE PROJECTS ═════════ */}
+        <section id="side" className="section side">
+          <p className="section-label" data-rise>
+            Side projects
+          </p>
+          <div className="section-head">
+            <h2 className="display display-md" data-chars>
+              <Chars text="Built for fun." />
+            </h2>
+            <p className="lede" data-lines>
+              Things I build for myself: a game, an AI agent, and the app I track my goals in.
+            </p>
+          </div>
+
+          <SideProjects />
+
+          <a
+            href="https://github.com/jradmac"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="side-github"
+            data-cursor="GitHub"
+          >
+            <span>See more on GitHub</span>
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" strokeWidth="1.6" />
+            </svg>
+          </a>
         </section>
 
         {/* ═════════ EXPERIENCE ═════════ */}

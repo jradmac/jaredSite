@@ -1027,6 +1027,171 @@ html.has-cursor .site * {
   }
 }
 
+/* ═══════════════ SIDE PROJECTS ═══════════════ */
+
+.side-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(5rem, 14vh, 10rem);
+}
+
+.side-item {
+  display: grid;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .side-item {
+    grid-template-columns: 7fr 5fr;
+    gap: clamp(2.5rem, 5vw, 6rem);
+  }
+  .side-item-flip {
+    grid-template-columns: 5fr 7fr;
+  }
+  .side-item-flip .side-media {
+    order: 2;
+  }
+}
+
+.side-media {
+  position: relative;
+  overflow: hidden;
+  border-radius: 14px;
+  background: #0d0c12;
+  max-width: 100%;
+}
+
+.side-media-wide {
+  aspect-ratio: 16 / 10;
+}
+
+/* iPhone recordings sit at phone proportions, centred in their column. */
+.side-media-phone {
+  aspect-ratio: 9 / 19.5;
+  width: min(100%, 19rem);
+  justify-self: center;
+  border-radius: 34px;
+}
+
+.side-media video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.side-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.4rem;
+  padding: 1.5rem;
+  background:
+    radial-gradient(70% 80% at 30% 20%, color-mix(in srgb, var(--tint) 55%, transparent), transparent 70%),
+    radial-gradient(60% 70% at 80% 90%, rgba(124, 92, 255, 0.35), transparent 70%),
+    #0d0c12;
+}
+
+.side-placeholder span:first-child {
+  font-weight: 900;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  font-size: clamp(1.6rem, 3.5vw, 3rem);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1.2px rgba(245, 243, 238, 0.7);
+}
+
+.side-placeholder-note {
+  font-size: 0.85rem;
+  color: rgba(245, 243, 238, 0.7);
+}
+
+.side-copy {
+  min-width: 0;
+}
+
+.side-kind {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0 0 1rem;
+  color: var(--smoke);
+}
+
+.side-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--paper);
+}
+
+.side-status::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ember);
+}
+
+.side-title {
+  margin: 0;
+  font-weight: 900;
+  font-stretch: 125%;
+  text-transform: uppercase;
+  letter-spacing: -0.025em;
+  font-size: clamp(2.6rem, 5.4vw, 6rem);
+  line-height: 0.88;
+}
+
+.side-desc {
+  margin: 1.4rem 0 1.2rem;
+  max-width: 46ch;
+  color: rgba(245, 243, 238, 0.75);
+  font-size: clamp(1.02rem, 1.3vw, 1.2rem);
+  line-height: 1.6;
+}
+
+.side-stack {
+  margin: 0;
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--smoke);
+}
+
+.site .side-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: clamp(4rem, 10vh, 7rem);
+  padding-bottom: 0.3rem;
+  border-bottom: 2px solid var(--rule);
+  font-weight: 800;
+  font-stretch: 112%;
+  font-size: clamp(1.3rem, 2.6vw, 2.2rem);
+  text-decoration: none;
+  transition:
+    border-color 0.4s,
+    color 0.3s;
+}
+
+.site .side-github:hover,
+.site .side-github:focus-visible {
+  border-color: var(--ember);
+  color: var(--ember);
+}
+
+.side-github svg {
+  width: 0.8em;
+  height: 0.8em;
+}
+
 /* ═══════════════ EXPERIENCE ═══════════════ */
 
 .xp-list {

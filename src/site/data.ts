@@ -89,6 +89,52 @@ export const projects: Project[] = [
   },
 ];
 
+export type SideProject = {
+  title: string;
+  kind: string;
+  status: string;
+  description: string;
+  stack: string[];
+  /** Path under /public, e.g. '/videos/the-red.mp4'. Leave out until the recording exists. */
+  video?: string;
+  /** 'wide' for game and desktop captures, 'phone' for iPhone screen recordings. */
+  frame: 'wide' | 'phone';
+  tint: string; // placeholder colour until the video arrives
+};
+
+export const sideProjects: SideProject[] = [
+  {
+    title: 'The Red',
+    kind: 'Game',
+    status: 'In development',
+    description:
+      'A dark, retro-style labyrinth crawler built in Godot. You explore a top-down maze while the Wolf Man, a tall, gaunt figure, climbs walls and objects to reach you. It now has a 3D view, and the art is moving toward a cel-shaded toon look.',
+    stack: ['Godot', '3D', 'Game design'],
+    frame: 'wide',
+    tint: '#b3261e',
+  },
+  {
+    title: 'Jacob',
+    kind: 'AI agent',
+    status: 'Personal tool',
+    description:
+      'My personal AI agent: a Mac app with an iMessage-style chat that can also operate my computer and browser for me. It runs an open-source model locally through Ollama, so nothing leaves my machine.',
+    stack: ['Ollama', 'Local LLM', 'macOS', 'Automation'],
+    frame: 'wide',
+    tint: '#7cc4f2',
+  },
+  {
+    title: 'Focus',
+    kind: 'iPhone + Mac app',
+    status: 'In development',
+    description:
+      'The goal tracker I use every day, on iPhone and Mac with iCloud sync. It tracks count goals and timed focus sessions, plus tasks with checkable subtasks and a calendar. Days run from wake-up to wake-up instead of midnight.',
+    stack: ['iOS', 'macOS', 'iCloud sync'],
+    frame: 'phone',
+    tint: '#22d3ee',
+  },
+];
+
 export const metrics = [
   { value: 6, prefix: '', suffix: '+', text: 'years carrying a quota.' },
   { value: 40, prefix: '$', suffix: 'M', text: 'in revenue influenced.' },
