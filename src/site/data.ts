@@ -238,12 +238,55 @@ export const sideProjects: SideProject[] = [
   },
   {
     title: 'Jacob',
-    kind: 'AI agent',
-    status: 'Personal tool',
+    kind: 'Local AI agent for macOS',
+    stats: [
+      { value: '3', label: 'Local models' },
+      { value: '16 GB', label: 'Laptop it runs on' },
+      { value: '120+', label: 'Automated tests' },
+    ],
     description:
-      'My personal AI agent: a Mac app with an iMessage-style chat that can also operate my computer and browser for me. It runs an open-source model locally through Ollama, so nothing leaves my machine.',
-    stack: ['Ollama', 'Local LLM', 'macOS', 'Automation'],
+      "A personal AI assistant that chats, researches and operates my Mac, running entirely on my own laptop. Cloud assistants are powerful, but every message, file and screenshot leaves your computer, and they can't do much on your machine. Jacob runs on open-source models, works with my files and apps, and treats safety and user control as core features. No subscriptions, no data leaving the device by default, and no internet required for chat.",
+    highlights: [
+      {
+        name: 'Chat',
+        text: 'Fast and Think (step-by-step reasoning) modes, projects that share context across conversations, file uploads (PDF, Word, images), voice input and AI-generated chat titles.',
+      },
+      {
+        name: 'Computer actions from chat',
+        text: 'Organizing and renaming files, reading documents, web search, and adding Calendar events, Reminders and Mail drafts. Every change is journaled, so a single click undoes it.',
+      },
+      {
+        name: 'Tasks',
+        text: 'A vision agent that operates apps and the browser by looking at the screen: it takes a screenshot, maps clickable elements through the macOS Accessibility API, picks one action, and checks that the screen actually changed.',
+      },
+      {
+        name: 'Multi-model routing',
+        text: 'A fast model handles routine clicks, escalates to a careful reasoning model after a mistake, and hands hard thinking like code and analysis to the larger text model. Step times dropped from about a minute to seconds.',
+      },
+      {
+        name: 'Safety and control',
+        text: 'An emergency-stop hotkey, a visible "in control" banner, auto-pause when I move the mouse, and confirmation before anything is submitted, sent, purchased or deleted. Web and file text is treated as data, never instructions, and file access stays inside approved folders.',
+      },
+      {
+        name: 'Tested',
+        text: '120+ automated tests with a scripted fake model and environment, so the agent loop can be tested without a Mac or a GPU.',
+      },
+    ],
+    notes: [
+      {
+        label: 'How it\'s built',
+        text: 'Qwen3 14B (text) and Qwen3-VL 8B (vision) served locally through Ollama, plus a local Whisper model for speech-to-text. Python and FastAPI with streaming responses, a native macOS window via pywebview, and a single-page HTML/JS front end. The macOS Accessibility API, pyautogui and AppleScript handle desktop control.',
+      },
+      {
+        label: 'What I learned',
+        text: 'The hardest problems weren\'t the AI. They were the gaps between the model and the real world: screenshot filenames with invisible special spaces, web forms whose buttons have no labels, a model planning before it had looked at the screen, and two large models competing for 16 GB of memory. Each fix came from reading logs, finding the real cause, and solving it in the system rather than rewording the prompt. I also learned where small local models hit their ceiling, and designed around it by splitting "seeing" from "thinking" across models.',
+      },
+    ],
+    stack: ['Python', 'FastAPI', 'Ollama', 'Qwen3', 'Whisper', 'pywebview'],
+    video: '/videos/jacob.mp4',
+    poster: '/videos/jacob-poster.jpg',
     frame: 'wide',
+    aspect: '1600 / 1072',
   },
   {
     title: 'Focus',
