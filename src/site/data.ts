@@ -46,17 +46,6 @@ export const projects: Project[] = [
     cta: 'bejunzi.com',
   },
   {
-    title: 'Metaphysical Field Survey',
-    role: 'Author & builder',
-    description:
-      'An interactive 3D map of 63 philosophers, schools, and religions, plotted by whether mind or matter is fundamental, where the ultimate lies, and whether truth is found or made. A 22-question test places your own beliefs on the same map.',
-    tags: ['Philosophy', '3D', 'Interactive'],
-    flood: '#b9a7ff',
-    ink: '#050507',
-    href: 'https://metaphysics-map-production.up.railway.app/',
-    cta: 'Explore the map',
-  },
-  {
     title: 'The Forge Dev',
     role: 'Founder & builder',
     description:
@@ -111,6 +100,8 @@ export type SideProject = {
   aspect?: string;
   /** A scrolling strip of stills shown under the project. */
   gallery?: { images: string[]; caption: string };
+  /** Link to the live project. */
+  link?: { href: string; label: string };
 };
 
 export const sideProjects: SideProject[] = [
@@ -204,6 +195,51 @@ export const sideProjects: SideProject[] = [
       images: Array.from({ length: 28 }, (_, i) => `/the-red/land-${String(i + 1).padStart(2, '0')}.jpg`),
       caption: 'Every land in The Red, each shown in full light and then by lantern light.',
     },
+  },
+  {
+    title: 'Metaphysical Field Survey',
+    kind: 'Interactive research site',
+    stats: [
+      { value: '60+', label: 'Thinkers and religions' },
+      { value: '22', label: 'Test questions' },
+      { value: '2,500 yrs', label: 'Of the highest good' },
+    ],
+    description:
+      'What you believe about reality shapes how you live. This project maps that connection. An interactive map places more than 60 philosophers and religions, from Plato and the Buddha to Nietzsche and the Latter-day Saints, by what they believe about mind, the universe and truth. Each is colored by its "highest good." A 22-question test then shows visitors where their own beliefs, and their actual decision-making, land among them.',
+    highlights: [
+      {
+        name: 'A 3D map',
+        text: '60+ thinkers, filterable by era and tradition.',
+      },
+      {
+        name: 'A validated test',
+        text: 'Answered as each thinker would, it places 50 of 61 in their correct region and recovers the right highest good for all 56 that name one.',
+      },
+      {
+        name: 'A live research backend',
+        text: 'Node.js and PostgreSQL on Railway, with a public map of all responses. Privacy is built in: no IP addresses stored, and groups under 5 people are hidden.',
+      },
+      {
+        name: 'Shareable results',
+        text: 'Custom link previews, like "Jared is an Eternal-Law Materialist."',
+      },
+      {
+        name: 'Summum Bonum',
+        text: 'A 2,500-year timeline of how humanity\'s answer to "what is the highest good?" has shifted.',
+      },
+    ],
+    notes: [
+      {
+        label: 'Where it led',
+        text: 'An academic study with a BYU professor on whether modern culture weakens our judgment of what is good. I designed and built its mobile survey, with randomized question order to measure priming and a private results dashboard.',
+      },
+    ],
+    stack: ['Node.js', 'PostgreSQL', 'Railway', '3D'],
+    video: '/videos/metaphysical-field-survey.mp4',
+    poster: '/videos/metaphysical-field-survey-poster.jpg',
+    frame: 'wide',
+    aspect: '1600 / 942',
+    link: { href: 'https://metaphysics-map-production.up.railway.app/', label: 'Explore the map' },
   },
   {
     title: 'Jacob',

@@ -57,7 +57,12 @@ export default function SideProjects() {
                 {p.kind}
                 {p.status && <span className="side-status">{p.status}</span>}
               </p>
-              <h3 className={`side-title ${p.keepCase ? 'side-title-keep' : ''}`} data-chars>
+              <h3
+                className={`side-title ${p.keepCase ? 'side-title-keep' : ''} ${
+                  Math.max(...p.title.split(' ').map((w) => w.length)) > 8 ? 'side-title-long' : ''
+                }`}
+                data-chars
+              >
                 {p.title.split(' ').map((word, wi, words) => (
                   <span key={wi}>
                     <span className="word-keep">
@@ -99,6 +104,20 @@ export default function SideProjects() {
                 </p>
               ))}
               <p className="side-stack">{p.stack.join(' / ')}</p>
+              {p.link && (
+                <a
+                  href={p.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="side-link"
+                  data-cursor="Open"
+                >
+                  {p.link.label}
+                  <svg viewBox="0 0 16 16" aria-hidden="true">
+                    <path d="M4 12 12 4M6 4h6v6" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                  </svg>
+                </a>
+              )}
             </div>
           </div>
 
