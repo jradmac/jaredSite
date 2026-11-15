@@ -135,27 +135,52 @@ function App() {
         });
 
         /* ── Paragraph reveals: masked lines ───────────────────── */
-        // autoSplit re-measures the lines whenever the paragraph's width changes
-        // (window resize, late layout), so line breaks can never get stuck.
+        // Each paragraph is split into lines only once it has a real width, and
+        // re-split whenever that width changes. Splitting while a page is hidden
+        // or still laying out (width 0) would otherwise leave one word per line.
+        const lineCleanups: (() => void)[] = [];
         gsap.utils.toArray<HTMLElement>('[data-lines]').forEach((el) => {
+          let split: SplitText | null = null;
+          let tween: gsap.core.Tween | null = null;
           let played = false;
-          SplitText.create(el, {
-            type: 'lines',
-            mask: 'lines',
-            autoSplit: true,
-            onSplit(self) {
-              if (played) return;
-              return gsap.from(self.lines, {
-                yPercent: 105,
-                duration: 1,
-                ease: 'expo.out',
-                stagger: 0.08,
-                onStart: () => {
-                  played = true;
-                },
-                scrollTrigger: { trigger: el, start: 'top 90%', once: true },
-              });
-            },
+          let lastWidth = -1;
+
+          const build = () => {
+            const width = el.getBoundingClientRect().width;
+            if (width < 1 || Math.abs(width - lastWidth) < 1) return;
+            lastWidth = width;
+            tween?.scrollTrigger?.kill();
+            tween?.kill();
+            tween = null;
+            split?.revert();
+            split = SplitText.create(el, { type: 'lines', mask: 'lines' });
+            if (played) return;
+            tween = gsap.from(split.lines, {
+              yPercent: 105,
+              duration: 1,
+              ease: 'expo.out',
+              stagger: 0.08,
+              onStart: () => {
+                played = true;
+              },
+              scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+            });
+          };
+
+          let frame = 0;
+          const ro = new ResizeObserver(() => {
+            cancelAnimationFrame(frame);
+            frame = requestAnimationFrame(build);
+          });
+          ro.observe(el);
+          build();
+
+          lineCleanups.push(() => {
+            ro.disconnect();
+            cancelAnimationFrame(frame);
+            tween?.scrollTrigger?.kill();
+            tween?.kill();
+            split?.revert();
           });
         });
 
@@ -313,6 +338,7 @@ function App() {
         );
 
         return () => {
+          lineCleanups.forEach((fn) => fn());
           document.documentElement.classList.remove('is-motion');
           introRef.current = null;
         };
