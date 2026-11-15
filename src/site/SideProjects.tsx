@@ -1,9 +1,8 @@
-import { useEffect, useRef, type CSSProperties } from 'react';
+import { useEffect, useRef } from 'react';
 import { sideProjects, type SideProject } from './data';
 
 /**
  * A muted, looping screen recording that only plays while it is on screen.
- * Until a recording exists it shows a tinted placeholder frame instead.
  */
 function ProjectVideo({ project }: { project: SideProject }) {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -23,19 +22,11 @@ function ProjectVideo({ project }: { project: SideProject }) {
     return () => io.disconnect();
   }, []);
 
-  if (!project.video) {
-    return (
-      <div className="side-placeholder" style={{ '--tint': project.tint } as CSSProperties}>
-        <span>{project.title}</span>
-        <span className="side-placeholder-note">Recording coming soon</span>
-      </div>
-    );
-  }
-
   return (
     <video
       ref={videoRef}
       src={project.video}
+      poster={project.poster}
       muted
       loop
       playsInline
@@ -45,10 +36,13 @@ function ProjectVideo({ project }: { project: SideProject }) {
   );
 }
 
+// Projects appear on the site once their recording is added.
+const shown = sideProjects.filter((p) => p.video);
+
 export default function SideProjects() {
   return (
     <ol className="side-list">
-      {sideProjects.map((p, i) => (
+      {shown.map((p, i) => (
         <li key={p.title} className={`side-item ${i % 2 ? 'side-item-flip' : ''}`}>
           <div className={`side-media side-media-${p.frame}`}>
             <ProjectVideo project={p} />
@@ -56,9 +50,9 @@ export default function SideProjects() {
           <div className="side-copy">
             <p className="side-kind mono">
               {p.kind}
-              <span className="side-status">{p.status}</span>
+              {p.status && <span className="side-status">{p.status}</span>}
             </p>
-            <h3 className="side-title" data-chars>
+            <h3 className={`side-title ${p.keepCase ? 'side-title-keep' : ''}`} data-chars>
               {p.title.split(' ').map((word, wi, words) => (
                 <span key={wi}>
                   <span className="word-keep">
@@ -75,6 +69,20 @@ export default function SideProjects() {
             <p className="side-desc" data-lines>
               {p.description}
             </p>
+            {p.highlights && (
+              <ul className="side-highlights">
+                {p.highlights.map((h) => (
+                  <li key={h.name}>
+                    <strong>{h.name}.</strong> {h.text}
+                  </li>
+                ))}
+              </ul>
+            )}
+            {p.learned && (
+              <p className="side-learned">
+                <strong>What I learned.</strong> {p.learned}
+              </p>
+            )}
             <p className="side-stack">{p.stack.join(' / ')}</p>
           </div>
         </li>

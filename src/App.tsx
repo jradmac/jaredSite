@@ -470,7 +470,7 @@ function App() {
               <Chars text="Built for fun." />
             </h2>
             <p className="lede" data-lines>
-              Things I build for myself: a game, an AI agent, and the app I track my goals in.
+              Things I build for myself, outside of work.
             </p>
           </div>
 

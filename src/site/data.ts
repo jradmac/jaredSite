@@ -91,18 +91,53 @@ export const projects: Project[] = [
 
 export type SideProject = {
   title: string;
+  /** Keep the title's own capitalisation instead of the usual all-caps (e.g. iTV). */
+  keepCase?: boolean;
   kind: string;
-  status: string;
+  status?: string;
   description: string;
+  highlights?: { name: string; text: string }[];
+  learned?: string;
   stack: string[];
-  /** Path under /public, e.g. '/videos/the-red.mp4'. Leave out until the recording exists. */
+  /** Path under /public, e.g. '/videos/the-red.mp4'. A project only shows on the site once it has one. */
   video?: string;
-  /** 'wide' for game and desktop captures, 'phone' for iPhone screen recordings. */
-  frame: 'wide' | 'phone';
-  tint: string; // placeholder colour until the video arrives
+  poster?: string;
+  /** 'wide' for game and desktop captures, 'tv' for 16:9 demos, 'phone' for iPhone screen recordings. */
+  frame: 'wide' | 'tv' | 'phone';
 };
 
 export const sideProjects: SideProject[] = [
+  {
+    title: 'iTV',
+    keepCase: true,
+    kind: 'TV interface + iPhone app',
+    description:
+      'A calm, voice-driven home screen for the living room, controlled from your phone. Streaming TVs bury what you want under ads and menus, so I turned an old HP Chromebox into a dedicated TV computer and built my own interface for it. It runs fully on the box, with no cloud dependency.',
+    highlights: [
+      {
+        name: 'Phone as the remote',
+        text: 'A native SwiftUI iPhone app and a web remote with a touchpad, Play/Pause, and Quick Adds for pinning any site as an app.',
+      },
+      {
+        name: 'Voice and AI search',
+        text: 'Say "play the new episode of…" and an AI agent finds it and drives the TV, showing each step on screen as it works.',
+      },
+      {
+        name: 'Living themes',
+        text: 'Animated Rain, Snow, Beach and Aurora backgrounds, each with its own ambient sound.',
+      },
+      {
+        name: 'Games',
+        text: 'Nintendo DS games split across the screens: the top screen on the TV, the touch screen on the phone.',
+      },
+    ],
+    learned:
+      'Designing for ten feet away, making two devices feel like one product in real time, and pointing AI agents at real hardware in a way that stays safe and visible to the user.',
+    stack: ['Node.js', 'WebSockets', 'SwiftUI', 'AI agents', 'Kiosk UI'],
+    video: '/videos/itv.mp4',
+    poster: '/videos/itv-poster.jpg',
+    frame: 'tv',
+  },
   {
     title: 'The Red',
     kind: 'Game',
@@ -111,7 +146,6 @@ export const sideProjects: SideProject[] = [
       'A dark, retro-style labyrinth crawler built in Godot. You explore a top-down maze while the Wolf Man, a tall, gaunt figure, climbs walls and objects to reach you. It now has a 3D view, and the art is moving toward a cel-shaded toon look.',
     stack: ['Godot', '3D', 'Game design'],
     frame: 'wide',
-    tint: '#b3261e',
   },
   {
     title: 'Jacob',
@@ -121,7 +155,6 @@ export const sideProjects: SideProject[] = [
       'My personal AI agent: a Mac app with an iMessage-style chat that can also operate my computer and browser for me. It runs an open-source model locally through Ollama, so nothing leaves my machine.',
     stack: ['Ollama', 'Local LLM', 'macOS', 'Automation'],
     frame: 'wide',
-    tint: '#7cc4f2',
   },
   {
     title: 'Focus',
@@ -131,7 +164,6 @@ export const sideProjects: SideProject[] = [
       'The goal tracker I use every day, on iPhone and Mac with iCloud sync. It tracks count goals and timed focus sessions, plus tasks with checkable subtasks and a calendar. Days run from wake-up to wake-up instead of midnight.',
     stack: ['iOS', 'macOS', 'iCloud sync'],
     frame: 'phone',
-    tint: '#22d3ee',
   },
 ];
 
