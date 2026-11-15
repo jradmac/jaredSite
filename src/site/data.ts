@@ -190,7 +190,7 @@ export const sideProjects: SideProject[] = [
     video: '/videos/the-red.mp4',
     poster: '/videos/the-red-poster.jpg',
     frame: 'wide',
-    aspect: '1600 / 1046',
+    aspect: '1600 / 1042',
     gallery: {
       images: Array.from({ length: 28 }, (_, i) => `/the-red/land-${String(i + 1).padStart(2, '0')}.jpg`),
       caption: 'Every land in The Red, each shown in full light and then by lantern light.',
@@ -238,7 +238,7 @@ export const sideProjects: SideProject[] = [
     video: '/videos/metaphysical-field-survey.mp4',
     poster: '/videos/metaphysical-field-survey-poster.jpg',
     frame: 'wide',
-    aspect: '1600 / 942',
+    aspect: '1600 / 938',
     link: { href: 'https://metaphysics-map-production.up.railway.app/', label: 'Explore the map' },
   },
   {
