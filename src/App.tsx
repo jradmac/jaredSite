@@ -135,14 +135,27 @@ function App() {
         });
 
         /* ── Paragraph reveals: masked lines ───────────────────── */
+        // autoSplit re-measures the lines whenever the paragraph's width changes
+        // (window resize, late layout), so line breaks can never get stuck.
         gsap.utils.toArray<HTMLElement>('[data-lines]').forEach((el) => {
-          const split = SplitText.create(el, { type: 'lines', mask: 'lines' });
-          gsap.from(split.lines, {
-            yPercent: 105,
-            duration: 1,
-            ease: 'expo.out',
-            stagger: 0.08,
-            scrollTrigger: { trigger: el, start: 'top 90%' },
+          let played = false;
+          SplitText.create(el, {
+            type: 'lines',
+            mask: 'lines',
+            autoSplit: true,
+            onSplit(self) {
+              if (played) return;
+              return gsap.from(self.lines, {
+                yPercent: 105,
+                duration: 1,
+                ease: 'expo.out',
+                stagger: 0.08,
+                onStart: () => {
+                  played = true;
+                },
+                scrollTrigger: { trigger: el, start: 'top 90%', once: true },
+              });
+            },
           });
         });
 

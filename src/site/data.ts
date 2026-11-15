@@ -199,11 +199,6 @@ export const sideProjects: SideProject[] = [
   {
     title: 'Metaphysical Field Survey',
     kind: 'Interactive research site',
-    stats: [
-      { value: '60+', label: 'Thinkers and religions' },
-      { value: '22', label: 'Test questions' },
-      { value: '2,500 yrs', label: 'Of the highest good' },
-    ],
     description:
       'What you believe about reality shapes how you live. This project maps that connection. An interactive map places more than 60 philosophers and religions, from Plato and the Buddha to Nietzsche and the Latter-day Saints, by what they believe about mind, the universe and truth. Each is colored by its "highest good." A 22-question test then shows visitors where their own beliefs, and their actual decision-making, land among them.',
     highlights: [
