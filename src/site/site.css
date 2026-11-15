@@ -1034,17 +1034,23 @@ html.has-cursor .site * {
   margin: 0;
   padding: 0;
   display: grid;
+  /* minmax(0, …) keeps the long scene strip from stretching the column. */
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(5rem, 14vh, 10rem);
 }
 
 .side-item {
+  min-width: 0;
+}
+
+.side-row {
   display: grid;
   gap: 2rem;
   align-items: center;
 }
 
 @media (min-width: 900px) {
-  .side-item {
+  .side-row {
     grid-template-columns: 7fr 5fr;
     gap: clamp(2.5rem, 5vw, 6rem);
     align-items: start;
@@ -1054,7 +1060,7 @@ html.has-cursor .site * {
     position: sticky;
     top: 18vh;
   }
-  .side-item-flip {
+  .side-item-flip .side-row {
     grid-template-columns: 5fr 7fr;
   }
   .side-item-flip .side-media {
@@ -1153,7 +1159,7 @@ html.has-cursor .site * {
 }
 
 .side-highlights li,
-.side-learned {
+.side-note {
   color: rgba(245, 243, 238, 0.72);
   font-size: 0.98rem;
   line-height: 1.55;
@@ -1165,14 +1171,75 @@ html.has-cursor .site * {
 }
 
 .side-highlights strong,
-.side-learned strong {
+.side-note strong {
   color: var(--paper);
   font-weight: 700;
 }
 
-.side-learned {
+.side-note {
   margin: 0 0 1.2rem;
   max-width: 46ch;
+}
+
+.side-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem clamp(1.5rem, 3vw, 2.5rem);
+  margin: 1.4rem 0 0;
+}
+
+.side-stats div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.side-stats dd {
+  margin: 0;
+  font-weight: 900;
+  font-stretch: 125%;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: transparent;
+  background: linear-gradient(120deg, var(--ember), var(--violet) 70%);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+.side-stats dt {
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--smoke);
+}
+
+/* Full-bleed strip of stills under a project. */
+.side-gallery {
+  margin: clamp(3rem, 7vh, 5rem) calc(-1 * var(--pad)) 0;
+}
+
+.side-gallery-strip {
+  height: clamp(9rem, 16vw, 14rem);
+}
+
+.side-gallery-strip .marquee-group {
+  gap: 0.6rem;
+  padding-right: 0.6rem;
+}
+
+.side-gallery-strip img {
+  height: clamp(9rem, 16vw, 14rem);
+  width: auto;
+  aspect-ratio: 3 / 2;
+  max-width: none;
+  border-radius: 8px;
+  display: block;
+}
+
+.side-gallery figcaption {
+  margin-top: 1rem;
+  padding: 0 var(--pad);
+  font-size: 0.85rem;
+  color: var(--smoke);
 }
 
 .side-stack {

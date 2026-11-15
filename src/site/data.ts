@@ -96,14 +96,21 @@ export type SideProject = {
   kind: string;
   status?: string;
   description: string;
+  /** Big figures shown under the title, e.g. lines of code. */
+  stats?: { value: string; label: string }[];
   highlights?: { name: string; text: string }[];
-  learned?: string;
+  /** Short labelled paragraphs after the highlights, e.g. "What I learned". */
+  notes?: { label: string; text: string }[];
   stack: string[];
   /** Path under /public, e.g. '/videos/the-red.mp4'. A project only shows on the site once it has one. */
   video?: string;
   poster?: string;
   /** 'wide' for game and desktop captures, 'tv' for 16:9 demos, 'phone' for iPhone screen recordings. */
   frame: 'wide' | 'tv' | 'phone';
+  /** Exact aspect ratio of the recording when it differs from the frame's default, e.g. '1600 / 1046'. */
+  aspect?: string;
+  /** A scrolling strip of stills shown under the project. */
+  gallery?: { images: string[]; caption: string };
 };
 
 export const sideProjects: SideProject[] = [
@@ -131,8 +138,12 @@ export const sideProjects: SideProject[] = [
         text: 'Nintendo DS games split across the screens: the top screen on the TV, the touch screen on the phone.',
       },
     ],
-    learned:
-      'Designing for ten feet away, making two devices feel like one product in real time, and pointing AI agents at real hardware in a way that stays safe and visible to the user.',
+    notes: [
+      {
+        label: 'What I learned',
+        text: 'Designing for ten feet away, making two devices feel like one product in real time, and pointing AI agents at real hardware in a way that stays safe and visible to the user.',
+      },
+    ],
     stack: ['Node.js', 'WebSockets', 'SwiftUI', 'AI agents', 'Kiosk UI'],
     video: '/videos/itv.mp4',
     poster: '/videos/itv-poster.jpg',
@@ -140,12 +151,59 @@ export const sideProjects: SideProject[] = [
   },
   {
     title: 'The Red',
-    kind: 'Game',
-    status: 'In development',
+    kind: 'Horror game',
+    stats: [
+      { value: '30K', label: 'Lines of code' },
+      { value: '10 hrs', label: 'Of gameplay' },
+      { value: '40+', label: 'Creatures' },
+    ],
     description:
-      'A dark, retro-style labyrinth crawler built in Godot. You explore a top-down maze while the Wolf Man, a tall, gaunt figure, climbs walls and objects to reach you. It now has a 3D view, and the art is moving toward a cel-shaded toon look.',
-    stack: ['Godot', '3D', 'Game design'],
+      "A horror game about being lost in the dark with only a small, failing light. You play Red, a girl in a red hood who wakes in a labyrinth with a dying lantern and a flame spirit called Lume. Your light is your life, and in the dark something is hunting you. Find the purple key, open the gate at the labyrinth's heart, and discover what lies beyond.",
+    highlights: [
+      {
+        name: 'A new labyrinth every run',
+        text: 'Generated from a seed across six lands (crypts, forest, mire, mountains, river, sunken court), plus rare lands like volcanic lava rivers, snowfields and a gold vault found in about 1 in 25 runs.',
+      },
+      {
+        name: 'Light as the core mechanic',
+        text: 'The lantern burns down and wind threatens it, while matches, flares and glowing mushrooms push back the dark.',
+      },
+      {
+        name: 'The Wolf Man',
+        text: 'A stalker that speeds up the longer you stay unlit, until it outruns your sprint. Light drives it back, and escape is tuned to feel possible but never certain.',
+      },
+      {
+        name: 'Turn-based battles',
+        text: 'Secret, simultaneous choices of attack, defend or dodge against 40+ creatures, each with its own behaviour.',
+      },
+      {
+        name: 'A full world',
+        text: 'Doors and keys, chests, timed riddles, villages you can walk into, gear, a discovery journal and an outfit market.',
+      },
+      {
+        name: 'Two-player co-op',
+        text: "A fallen player's spirit lingers until their partner revives them.",
+      },
+      {
+        name: 'An endgame',
+        text: 'A portal beyond the purple gate opens onto a sunlit alpine meadow where the Demon King waits.',
+      },
+    ],
+    notes: [
+      {
+        label: 'Art and tech',
+        text: 'All the art is generated with custom Python scripts that render pixel art from lit 3D shapes. The labyrinth is rebuilt as a 3D scene with custom shaders for banded lantern light, ink outlines, swaying grass and visible wind, while keeping sprites pixel-perfect. I profiled and optimized performance on real hardware, and prototyped a cel-shaded toon 3D art direction for the next phase.',
+      },
+    ],
+    stack: ['Godot 4', 'GDScript', 'Python art pipeline', 'Custom shaders'],
+    video: '/videos/the-red.mp4',
+    poster: '/videos/the-red-poster.jpg',
     frame: 'wide',
+    aspect: '1600 / 1046',
+    gallery: {
+      images: Array.from({ length: 28 }, (_, i) => `/the-red/land-${String(i + 1).padStart(2, '0')}.jpg`),
+      caption: 'Every land in The Red, each shown in full light and then by lantern light.',
+    },
   },
   {
     title: 'Jacob',
